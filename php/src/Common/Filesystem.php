@@ -9,5 +9,5 @@ interface Filesystem
     /**
      * @return \Iterator<string>
      */
-    public function readLineByLine(string $filePath) : \Iterator;
+    public function readLineByLine(string $filePath): \Iterator;
 }

@@ -13,19 +13,19 @@ final class DigitLexer extends AbstractLexer
         $this->setInput($input);
     }
 
-    protected function getCatchablePatterns() : array
+    protected function getCatchablePatterns(): array
     {
         return [
             '(?=(\d|one|two|three|four|five|six|seven|eight|nine))',
         ];
     }
 
-    protected function getNonCatchablePatterns() : array
+    protected function getNonCatchablePatterns(): array
     {
         return [];
     }
 
-    protected function getType(string &$value) : TokenType
+    protected function getType(string &$value): TokenType
     {
         if (\is_numeric($value) || \in_array($value, ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'], true)) {
             return TokenType::SINGLE_DIGIT;

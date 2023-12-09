@@ -8,9 +8,11 @@ use AoC\Common\Filesystem;
 
 final readonly class DocumentCalibrator
 {
-    public function __construct(private Filesystem $filesystem, private LineCalibrator $lineCalibrator) { }
+    public function __construct(private Filesystem $filesystem, private LineCalibrator $lineCalibrator)
+    {
+    }
 
-    public function calibrate(string $documentPath) : int
+    public function calibrate(string $documentPath): int
     {
         $calibrationNumber = 0;
 

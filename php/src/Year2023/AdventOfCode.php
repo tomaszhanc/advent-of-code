@@ -15,7 +15,7 @@ final readonly class AdventOfCode
     ) {
     }
 
-    public static function create() : self
+    public static function create(): self
     {
         return new self(
             new DocumentCalibrator(
@@ -28,7 +28,7 @@ final readonly class AdventOfCode
     /**
      * @see https://adventofcode.com/2023/day/1
      */
-    public function calibrateDocument(string $documentPath) : int
+    public function calibrateDocument(string $documentPath): int
     {
         return $this->dayOne->calibrate($documentPath);
     }

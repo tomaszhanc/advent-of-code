@@ -10,7 +10,7 @@ use AoC\Year2023\Day1\Digit;
 
 final readonly class SimpleLineCalibrator implements LineCalibrator
 {
-    public function calibrationNumber(string $line) : CalibrationNumber
+    public function calibrationNumber(string $line): CalibrationNumber
     {
         $matches = [];
         \preg_match_all('/(?=(\d|zero|one|two|three|four|five|six|seven|eight|nine))/', $line, $matches);

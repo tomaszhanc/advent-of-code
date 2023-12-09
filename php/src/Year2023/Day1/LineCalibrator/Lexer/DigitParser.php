@@ -11,7 +11,7 @@ final class DigitParser
     /**
      * @return Digit[]
      */
-    public function parse(string $input) : array
+    public function parse(string $input): array
     {
         $lexer = new DigitLexer($input);
         $digits = [];

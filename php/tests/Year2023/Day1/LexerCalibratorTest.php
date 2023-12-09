@@ -19,7 +19,7 @@ final class LexerCalibratorTest extends TestCase
         $this->assertSame($expectedCalibrationNumber, $lineCalibrator->calibrationNumber($line)->asInteger());
     }
 
-    public static function lines() : \Generator
+    public static function lines(): \Generator
     {
         yield 'integers are as first and last char' => ['1abc2', 12];
         yield 'integers are in the middle of a line' => ['pqr3stu8vwx', 38];

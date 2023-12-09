@@ -21,7 +21,7 @@ final class DocumentCalibratorTest extends TestCase
         $this->assertSame(54504, $documentCalibrator->calibrate(__DIR__ . '/../Resources/day1.txt'));
     }
 
-    public static function line_calibrators() : \Iterator
+    public static function line_calibrators(): \Iterator
     {
         yield 'simple line calibrator' => [new SimpleLineCalibrator()];
         yield 'lexer line calibrator' => [new LexerLineCalibration()];

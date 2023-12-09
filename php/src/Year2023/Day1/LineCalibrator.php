@@ -6,5 +6,5 @@ namespace AoC\Year2023\Day1;
 
 interface LineCalibrator
 {
-    public function calibrationNumber(string $line) : CalibrationNumber;
+    public function calibrationNumber(string $line): CalibrationNumber;
 }

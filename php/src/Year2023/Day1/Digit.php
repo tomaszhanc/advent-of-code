@@ -28,7 +28,7 @@ final readonly class Digit
         }
     }
 
-    public static function fromString(string $digit) : self
+    public static function fromString(string $digit): self
     {
         if (\is_numeric($digit)) {
             return new self((int) $digit);
@@ -41,7 +41,7 @@ final readonly class Digit
         return new self(self::DIGITS[$digit]);
     }
 
-    public function asInteger() : int
+    public function asInteger(): int
     {
         return $this->digit;
     }
