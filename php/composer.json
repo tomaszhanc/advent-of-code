@@ -10,11 +10,43 @@
             "AoC\\": "tests/"
         }
     },
-    "require-dev": {
-        "php": "^8.3",
-        "phpunit/phpunit": "^10.5"
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": false
     },
     "require": {
+        "php": "^8.3",
         "doctrine/lexer": "^3.0"
+    },
+    "scripts": {
+        "build": [
+            "@static:analyze",
+            "@test",
+            "@test:mutation"
+        ],
+        "static:analyze": [
+            "tools/vendor/bin/psalm.phar",
+            "tools/vendor/bin/phpstan analyze --configuration=phpstan.neon --memory-limit=-1",
+            "tools/vendor/bin/php-cs-fixer fix --dry-run"
+        ],
+        "test": [
+            "tools/vendor/bin/phpunit"
+        ],
+        "test:mutation": [
+            "tools/vendor/bin/infection -j2"
+        ],
+        "cs:php:fix": [
+            "tools/vendor/bin/php-cs-fixer fix"
+        ],
+        "post-install-cmd": [
+            "@tools:install"
+        ],
+        "post-update-cmd": [
+            "@tools:install"
+        ],
+        "tools:install": [
+            "composer install --working-dir=./tools"
+        ]
     }
 }

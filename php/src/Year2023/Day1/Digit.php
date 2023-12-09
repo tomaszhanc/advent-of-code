@@ -8,6 +8,9 @@ use AoC\Common\InvalidArgumentException;
 
 final readonly class Digit
 {
+    /**
+     * @var array<string, int>
+     */
     private const array DIGITS = [
         'zero' => 0,
         'one' => 1,
@@ -28,7 +31,7 @@ final readonly class Digit
         }
     }
 
-    public static function fromString(string $digit): self
+    public static function fromString(string|int $digit): self
     {
         if (\is_numeric($digit)) {
             return new self((int) $digit);

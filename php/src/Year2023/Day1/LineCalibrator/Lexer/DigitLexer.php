@@ -6,6 +6,9 @@ namespace AoC\Year2023\Day1\LineCalibrator\Lexer;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 
+/**
+ * @template-extends AbstractLexer<TokenType, string>
+ */
 final class DigitLexer extends AbstractLexer
 {
     public function __construct(string $input)

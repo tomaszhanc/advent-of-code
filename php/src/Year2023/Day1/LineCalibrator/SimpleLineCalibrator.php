@@ -17,8 +17,8 @@ final readonly class SimpleLineCalibrator implements LineCalibrator
         $digits = $matches[1];
 
         return new CalibrationNumber(
-            Digit::fromString($digits[\array_key_first($digits)]),
-            Digit::fromString($digits[\array_key_last($digits)])
+            Digit::fromString($digits[\array_key_first($digits) ?? 0]),
+            Digit::fromString($digits[\array_key_last($digits) ?? 0])
         );
     }
 }

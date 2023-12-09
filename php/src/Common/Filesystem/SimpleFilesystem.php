@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AoC\Common\Filesystem;
 
 use AoC\Common\Filesystem;
+use AoC\Common\RuntimeException;
 
 final readonly class SimpleFilesystem implements Filesystem
 {
@@ -12,8 +13,18 @@ final readonly class SimpleFilesystem implements Filesystem
     {
         $file = fopen($filePath, "r");
 
+        if ($file === false) {
+            throw RuntimeException::because('Could not open file %s', $filePath);
+        }
+
         while (!feof($file)) {
-            yield fgets($file);
+            $line = fgets($file);
+
+            if ($line === false) {
+                throw RuntimeException::because('Could not read line from file %s', $filePath);
+            }
+
+            yield $line;
         }
 
         fclose($file);
