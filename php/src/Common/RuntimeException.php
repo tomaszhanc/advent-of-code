@@ -13,8 +13,13 @@ final class RuntimeException extends \RuntimeException
         return new self(\sprintf($pattern, ...$parameters));
     }
 
-    public static function invalidToken(string $message, Token $invalidToken): self
+    public static function invalidToken(string $message, ?Token $invalidToken): self
     {
-        return new self($message . " Given: " . $invalidToken->value);
+        return new self($message . " Given: " . $invalidToken->value ?? "<NULL>");
+    }
+
+    public static function unexpected(string $message) : self
+    {
+        return new self("Unexpected behavior! " . $message);
     }
 }

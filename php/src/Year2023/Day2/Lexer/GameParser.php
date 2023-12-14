@@ -74,7 +74,7 @@ final class GameParser
             }
 
             $revealedCubes[] = new Cubes(
-                (int) $this->lexer->token->value,
+                (int) $this->lexer->token->value ?? throw RuntimeException::unexpected('Lexer token should not be null'),
                 Color::from($this->lexer->lookahead->value)
             );
 
@@ -84,6 +84,9 @@ final class GameParser
         return CubesSet::of(...$revealedCubes);
     }
 
+    /**
+     * @psalm-assert !null $this->lexer->lookahead
+     */
     private function lookaheadIsNotA(Type $type): bool
     {
         return $this->lexer->lookahead !== null && !$this->lexer->lookahead->isA($type);
