@@ -7,7 +7,7 @@ namespace AoC\Year2023\Day1\LineCalibrator\Lexer;
 use Doctrine\Common\Lexer\AbstractLexer;
 
 /**
- * @template-extends AbstractLexer<TokenType, string>
+ * @template-extends AbstractLexer<Type, string>
  */
 final class DigitLexer extends AbstractLexer
 {
@@ -28,12 +28,12 @@ final class DigitLexer extends AbstractLexer
         return [];
     }
 
-    protected function getType(string &$value): TokenType
+    protected function getType(string &$value): Type
     {
         if (\is_numeric($value) || \in_array($value, ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'], true)) {
-            return TokenType::SINGLE_DIGIT;
+            return Type::T_SINGLE_DIGIT;
         }
 
-        return TokenType::NONE;
+        return Type::T_NONE;
     }
 }

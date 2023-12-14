@@ -18,7 +18,7 @@ final class DigitParser
 
         while (true) {
             $lexer->moveNext();
-            $lexer->skipUntil(TokenType::SINGLE_DIGIT);
+            $lexer->skipUntil(Type::T_SINGLE_DIGIT);
 
             if ($lexer->lookahead === null) {
                 break;
