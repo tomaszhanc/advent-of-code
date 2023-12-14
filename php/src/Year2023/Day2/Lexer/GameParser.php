@@ -81,7 +81,7 @@ final class GameParser
             $this->lexer->moveNext();
         }
 
-        return new CubesSet(...$revealedCubes);
+        return CubesSet::of(...$revealedCubes);
     }
 
     private function lookaheadIsNotA(Type $type): bool

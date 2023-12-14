@@ -28,4 +28,17 @@ final readonly class GameListCheckSum
 
         return $sumOfGameIds;
     }
+
+    public function sumOfPowersOfMinimumCubesSetsToPlayAGame(string $gameListFilePath) : int
+    {
+        $sumOfPowers = 0;
+
+        foreach ($this->filesystem->readLineByLine($gameListFilePath) as $line) {
+            $game = $this->gameParser->parse($line);
+
+            $sumOfPowers += $game->theSmallestCubeSet()->power();
+        }
+
+        return $sumOfPowers;
+    }
 }

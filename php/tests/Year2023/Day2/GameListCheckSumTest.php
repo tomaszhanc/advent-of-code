@@ -20,12 +20,22 @@ final class GameListCheckSumTest extends TestCase
             2551        ,
             $validator->checkSumOf(
                 __DIR__ . '/../Resources/day2.txt',
-                new CubesSet(
+                CubesSet::of(
                     Cubes::red(12),
                     Cubes::green(13),
                     Cubes::blue(14)
                 )
             )
+        );
+    }
+
+    public function test_returns_the_sum_of_power_of_minimum_set_of_cubes_for_each_game(): void
+    {
+        $validator = new GameListCheckSum(new SimpleFilesystem(), new GameParser());
+
+        $this->assertEquals(
+            62811,
+            $validator->sumOfPowersOfMinimumCubesSetsToPlayAGame(__DIR__ . '/../Resources/day2.txt')
         );
     }
 }

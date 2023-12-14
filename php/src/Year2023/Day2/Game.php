@@ -11,9 +11,9 @@ final readonly class Game
     /** * @var CubesSet[] */
     private array $cubesSets;
 
-    public function __construct(public int $gameId, CubesSet ...$gameSets)
+    public function __construct(public int $gameId, CubesSet ...$cubeSets)
     {
-        $this->cubesSets = $gameSets;
+        $this->cubesSets = $cubeSets;
     }
 
     public function couldHaveBeenPlayedWith(CubesSet $cubeSet) : bool
@@ -25,5 +25,18 @@ final readonly class Game
         }
 
         return true;
+    }
+
+    public function theSmallestCubeSet() : CubesSet
+    {
+        $theSmallestCubeSet = CubesSet::empty();
+
+        foreach ($this->cubesSets as $cubesSet) {
+            foreach ($cubesSet->cubes as $cube) {
+                $theSmallestCubeSet = $theSmallestCubeSet->withGreaterQuantity($cube);
+            }
+        }
+
+        return $theSmallestCubeSet;
     }
 }

@@ -29,15 +29,26 @@ final readonly class AdventOfCode
         );
     }
 
-    /** @see https://adventofcode.com/2023/day/1 */
+    /** Day 1 Part 1 @see https://adventofcode.com/2023/day/1 */
+
+
+    /** Day 1 Part 2 */
     public function calibrateDocument(string $documentPath): int
     {
         return $this->dayOne->calibrate($documentPath);
     }
 
-    /** @see https://adventofcode.com/2023/day/2 */
+    /** Day 2 Part 1 @see https://adventofcode.com/2023/day/2 */
     public function checkSumOfGameList(string $gameListPath, CubesSet $cubesSet) : int
     {
         return $this->dayTwo->checkSumOf($gameListPath, $cubesSet);
     }
+
+    /** Day 2 part 2 */
+    public function bla(string $gameListPath, CubesSet $cubesSet) : int
+    {
+        return $this->dayTwo->sumOfPowersOfMinimumCubesSetsToPlayAGame($gameListPath)->bla();
+    }
+
+    // new GameListCheckSum($fileSystem, new GameParser())
 }

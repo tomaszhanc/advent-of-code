@@ -6,12 +6,34 @@ namespace AoC\Year2023\Day2\Game;
 
 final readonly class CubesSet
 {
-    /** * @var Cubes[] */
-    private array $cubes;
-
-    public function __construct(Cubes ...$revealedCubes)
+    /**
+     * @param Cubes[] $cubes
+     */
+    private function __construct(public array $cubes)
     {
-        $this->cubes = $revealedCubes;
+    }
+
+    public static function of(Cubes ...$cubes) : self
+    {
+        return new self($cubes);
+    }
+
+    public static function empty() : self
+    {
+        return new self([]);
+    }
+
+    public function withGreaterQuantity(Cubes $cubes) : self
+    {
+        $result = \array_values(\array_filter(
+            $this->cubes,
+            fn (Cubes $theCubes) => $theCubes->color !== $cubes->color
+        ));
+
+        $theCubes = $this->cubesOf($cubes->color);
+        $result[] = $theCubes->quantity > $cubes->quantity ? $theCubes : $cubes;
+
+        return new self($result);
     }
 
     /**
@@ -28,6 +50,13 @@ final readonly class CubesSet
         }
 
         return true;
+    }
+
+    public function power() : int
+    {
+        return (int) \array_product(
+            \array_map(fn (Cubes $cubes) => $cubes->quantity, $this->cubes)
+        );
     }
 
     private function cubesOf(Color $color) : Cubes

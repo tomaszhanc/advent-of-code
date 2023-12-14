@@ -31,7 +31,7 @@ final class AdventOfCodeTest extends TestCase
             2551,
             $this->adventOfCode->checkSumOfGameList(
                 __DIR__ . '/Resources/day2.txt',
-                new CubesSet(Cubes::red(12), Cubes::green(13), Cubes::blue(14))
+                CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14))
             )
         );
     }
