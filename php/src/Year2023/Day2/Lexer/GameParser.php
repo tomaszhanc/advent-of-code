@@ -47,7 +47,7 @@ final class GameParser
     /**
      * @return CubesSet[]
      */
-    private function parseGameSets() : array
+    private function parseGameSets(): array
     {
         $gameSets = [];
         while($this->lexer->lookahead !== null) {
@@ -57,7 +57,7 @@ final class GameParser
         return $gameSets;
     }
 
-    private function parseGameSet() : CubesSet
+    private function parseGameSet(): CubesSet
     {
         $this->lexer->moveNext();
 

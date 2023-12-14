@@ -16,7 +16,7 @@ final class GameLexer extends AbstractLexer
         return [
             'Game|blue|red|green',
             '\d+',
-            ';'
+            ';',
         ];
     }
 

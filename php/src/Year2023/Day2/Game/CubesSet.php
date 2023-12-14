@@ -13,17 +13,17 @@ final readonly class CubesSet
     {
     }
 
-    public static function of(Cubes ...$cubes) : self
+    public static function of(Cubes ...$cubes): self
     {
         return new self($cubes);
     }
 
-    public static function empty() : self
+    public static function empty(): self
     {
         return new self([]);
     }
 
-    public function withGreaterQuantity(Cubes $cubes) : self
+    public function withGreaterQuantity(Cubes $cubes): self
     {
         $result = \array_values(\array_filter(
             $this->cubes,
@@ -39,7 +39,7 @@ final readonly class CubesSet
     /**
      * Does $this CubeSet contain all the cubes from the given $cubeSet?
      */
-    public function isSubsetOf(CubesSet $cubeSet) : bool
+    public function isSubsetOf(CubesSet $cubeSet): bool
     {
         foreach ($cubeSet->cubes as $cube) {
             $thisCubes = $this->cubesOf($cube->color);
@@ -52,14 +52,14 @@ final readonly class CubesSet
         return true;
     }
 
-    public function power() : int
+    public function power(): int
     {
         return (int) \array_product(
             \array_map(fn (Cubes $cubes) => $cubes->quantity, $this->cubes)
         );
     }
 
-    private function cubesOf(Color $color) : Cubes
+    private function cubesOf(Color $color): Cubes
     {
         foreach ($this->cubes as $cube) {
             if ($cube->color === $color) {

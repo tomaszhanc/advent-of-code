@@ -18,30 +18,30 @@ final class CubeSetTest extends TestCase
         $this->assertEquals($expectedCubesSet, $currentCubesSet->withGreaterQuantity($cubes));
     }
 
-    public static function cube_set_with_greater_quantity() : \Iterator
+    public static function cube_set_with_greater_quantity(): \Iterator
     {
         yield 'empty' => [
             CubesSet::of(),
             Cubes::blue(3),
-            CubesSet::of(Cubes::blue(3))
+            CubesSet::of(Cubes::blue(3)),
         ];
 
         yield 'without given color' => [
             CubesSet::of(Cubes::blue(3)),
             Cubes::red(7),
-            CubesSet::of(Cubes::blue(3), Cubes::red(7))
+            CubesSet::of(Cubes::blue(3), Cubes::red(7)),
         ];
 
         yield 'new is smaller than the current' => [
             CubesSet::of(Cubes::blue(3), Cubes::red(7)),
             Cubes::red(4),
-            CubesSet::of(Cubes::blue(3), Cubes::red(7))
+            CubesSet::of(Cubes::blue(3), Cubes::red(7)),
         ];
 
         yield 'new is grater than the current' => [
             CubesSet::of(Cubes::blue(3), Cubes::red(7)),
             Cubes::red(9),
-            CubesSet::of(Cubes::blue(3), Cubes::red(9))
+            CubesSet::of(Cubes::blue(3), Cubes::red(9)),
         ];
     }
 
@@ -53,31 +53,31 @@ final class CubeSetTest extends TestCase
         $this->assertEquals($expectedPower, $cubesSet->power());
     }
 
-    public static function power_of_cubes_set() : \Iterator
+    public static function power_of_cubes_set(): \Iterator
     {
         yield [
             CubesSet::of(Cubes::red(4), Cubes::green(2), Cubes::blue(6)),
-            48
+            48,
         ];
 
         yield [
             CubesSet::of(Cubes::red(1), Cubes::green(3), Cubes::blue(4)),
-            12
+            12,
         ];
 
         yield [
             CubesSet::of(Cubes::red(20), Cubes::green(13), Cubes::blue(6)),
-            1560
+            1560,
         ];
 
         yield [
             CubesSet::of(Cubes::red(14), Cubes::green(3), Cubes::blue(15)),
-            630
+            630,
         ];
 
         yield [
             CubesSet::of(Cubes::red(6), Cubes::green(3), Cubes::blue(2)),
-            36
+            36,
         ];
     }
 }

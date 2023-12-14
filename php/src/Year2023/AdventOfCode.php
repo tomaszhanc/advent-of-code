@@ -39,13 +39,13 @@ final readonly class AdventOfCode
     }
 
     /** Day 2 Part 1 @see https://adventofcode.com/2023/day/2 */
-    public function checkSumOfGameList(string $gameListPath, CubesSet $cubesSet) : int
+    public function checkSumOfGameList(string $gameListPath, CubesSet $cubesSet): int
     {
         return $this->dayTwo->checkSumOf($gameListPath, $cubesSet);
     }
 
     /** Day 2 part 2 */
-    public function bla(string $gameListPath, CubesSet $cubesSet) : int
+    public function bla(string $gameListPath, CubesSet $cubesSet): int
     {
         return $this->dayTwo->sumOfPowersOfMinimumCubesSetsToPlayAGame($gameListPath)->bla();
     }

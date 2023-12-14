@@ -17,7 +17,7 @@ final class GameListCheckSumTest extends TestCase
         $validator = new GameListCheckSum(new SimpleFilesystem(), new GameParser());
 
         $this->assertEquals(
-            2551        ,
+            2551,
             $validator->checkSumOf(
                 __DIR__ . '/../Resources/day2.txt',
                 CubesSet::of(

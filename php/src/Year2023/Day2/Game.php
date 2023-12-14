@@ -16,7 +16,7 @@ final readonly class Game
         $this->cubesSets = $cubeSets;
     }
 
-    public function couldHaveBeenPlayedWith(CubesSet $cubeSet) : bool
+    public function couldHaveBeenPlayedWith(CubesSet $cubeSet): bool
     {
         foreach ($this->cubesSets as $theCubeSet) {
             if (!$cubeSet->isSubsetOf($theCubeSet)) {
@@ -27,7 +27,7 @@ final readonly class Game
         return true;
     }
 
-    public function theSmallestCubeSet() : CubesSet
+    public function theSmallestCubeSet(): CubesSet
     {
         $theSmallestCubeSet = CubesSet::empty();
 

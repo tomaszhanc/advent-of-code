@@ -19,7 +19,7 @@ final class GameTest extends TestCase
         $this->assertTrue($game->couldHaveBeenPlayedWith($game->theSmallestCubeSet()));
     }
 
-    public static function games() : \Iterator
+    public static function games(): \Iterator
     {
         yield [
             new Game(

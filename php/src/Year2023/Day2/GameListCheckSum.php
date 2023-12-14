@@ -14,7 +14,7 @@ final readonly class GameListCheckSum
     {
     }
 
-    public function checkSumOf(string $gameListFilePath, CubesSet $cubeSet) : int
+    public function checkSumOf(string $gameListFilePath, CubesSet $cubeSet): int
     {
         $sumOfGameIds = 0;
 
@@ -29,7 +29,7 @@ final readonly class GameListCheckSum
         return $sumOfGameIds;
     }
 
-    public function sumOfPowersOfMinimumCubesSetsToPlayAGame(string $gameListFilePath) : int
+    public function sumOfPowersOfMinimumCubesSetsToPlayAGame(string $gameListFilePath): int
     {
         $sumOfPowers = 0;
 

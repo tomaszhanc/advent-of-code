@@ -80,7 +80,7 @@ final class GameParserTest extends TestCase
                     Cubes::green(5),
                     Cubes::red(1),
                 )
-            )
+            ),
         ];
 
         yield 'Game 4' => [
@@ -101,7 +101,7 @@ final class GameParserTest extends TestCase
                     Cubes::blue(15),
                     Cubes::red(14),
                 )
-            )
+            ),
         ];
 
         yield 'Game 5' => [
@@ -118,7 +118,7 @@ final class GameParserTest extends TestCase
                     Cubes::red(1),
                     Cubes::green(2),
                 ),
-            )
+            ),
         ];
     }
 }
