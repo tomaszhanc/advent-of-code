@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Tests\Day2;
+namespace AoC\Year2023\Tests\Day2\GamesRecord;
 
-use AoC\Year2023\Day2\Game\Cubes;
-use AoC\Year2023\Day2\Game\CubesSet;
+use AoC\Year2023\Day2\GamesRecord\Cubes;
+use AoC\Year2023\Day2\GamesRecord\CubesSet;
 use PHPUnit\Framework\TestCase;
 
-final class CubeSetTest extends TestCase
+final class CubesSetTest extends TestCase
 {
     /**
-     * @dataProvider cube_set_with_greater_quantity
+     * @dataProvider cubes_set_greater_quantity
      */
     public function test_creates_new_cube_set_with_the_cube_of_greater_quantity(CubesSet $currentCubesSet, Cubes $cubes, CubesSet $expectedCubesSet): void
     {
         $this->assertEquals($expectedCubesSet, $currentCubesSet->withGreaterQuantity($cubes));
     }
 
-    public static function cube_set_with_greater_quantity(): \Iterator
+    public static function cubes_set_greater_quantity(): iterable
     {
         yield 'empty' => [
             CubesSet::of(),
@@ -46,14 +46,14 @@ final class CubeSetTest extends TestCase
     }
 
     /**
-     * @dataProvider power_of_cubes_set
+     * @dataProvider cubes_set_power
      */
-    public function test_power_of_cubes_set(CubesSet $cubesSet, int $expectedPower): void
+    public function test_calculates_power_of_cubes_set(CubesSet $cubesSet, int $expectedPower): void
     {
         $this->assertEquals($expectedPower, $cubesSet->power());
     }
 
-    public static function power_of_cubes_set(): \Iterator
+    public static function cubes_set_power(): iterable
     {
         yield [
             CubesSet::of(Cubes::red(4), Cubes::green(2), Cubes::blue(6)),

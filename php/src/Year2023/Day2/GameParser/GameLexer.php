@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2\Lexer;
+namespace AoC\Year2023\Day2\GameParser;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 

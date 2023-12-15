@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Tests\Day2\Lexer;
+namespace AoC\Year2023\Tests\Day2;
 
-use AoC\Year2023\Day2\Game;
-use AoC\Year2023\Day2\Game\Cubes;
-use AoC\Year2023\Day2\Game\CubesSet;
-use AoC\Year2023\Day2\Lexer\GameParser;
+use AoC\Year2023\Day2\GameParser;
+use AoC\Year2023\Day2\GamesRecord\Cubes;
+use AoC\Year2023\Day2\GamesRecord\CubesSet;
+use AoC\Year2023\Day2\GamesRecord\Game;
 use PHPUnit\Framework\TestCase;
 
 final class GameParserTest extends TestCase
@@ -22,7 +22,7 @@ final class GameParserTest extends TestCase
         $this->assertEquals($expectedGame, $parser->parse($input));
     }
 
-    public static function games(): \Iterator
+    public static function games(): iterable
     {
         yield 'Game 1' => [
             'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',

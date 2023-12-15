@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2\Game;
+namespace AoC\Year2023\Day2\GamesRecord;
 
 final readonly class Cubes
 {

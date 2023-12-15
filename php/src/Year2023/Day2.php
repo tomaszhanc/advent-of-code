@@ -6,39 +6,58 @@ namespace AoC\Year2023;
 
 use AoC\Common\Filesystem;
 use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Year2023\Day2\Game\CubesSet;
-use AoC\Year2023\Day2\GameListCheckSum;
-use AoC\Year2023\Day2\Lexer\GameParser;
+use AoC\Common\ParseFromFile;
+use AoC\Year2023\Day2\GameParser;
+use AoC\Year2023\Day2\GamesRecord;
+use AoC\Year2023\Day2\GamesRecord\CubesSet;
 
+/**
+ * @see https://adventofcode.com/2023/day/2
+ */
 final readonly class Day2
 {
     public function __construct(
-        private Filesystem       $filesystem,
-        private GameListCheckSum $dayTwo,
+        private Filesystem $filesystem,
     ) {
     }
 
     public static function create(): self
     {
-        $fileSystem = new SimpleFilesystem();
-
         return new self(
-            $fileSystem,
-            new GameListCheckSum($fileSystem, new GameParser())
+            new SimpleFilesystem()
         );
     }
 
-
-
-    /** Day 2 Part 1 @see https://adventofcode.com/2023/day/2 */
-    public function checkSumOfGameList(string $gameListPath, CubesSet $cubesSet): int
+    public function sumOfAllPossibleToBePlayedOutGameIdsFor(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
-        return $this->dayTwo->checkSumOf($gameListPath, $cubesSet);
+        return GamesRecord::withGames(
+            new ParseFromFile(
+                new GameParser(),
+                $this->filesystem,
+                $gameRecordFilePath
+            )
+        )->possibleGamesFor($cubesSet)->sumOfAllGameIds();
     }
 
-    /** Day 2 part 2 */
-    public function bla(string $gameListPath, CubesSet $cubesSet): int
+    public function sumOfAllPossibleToBePlayedOutGameIdsFor_MemorySafe(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
-        return $this->dayTwo->sumOfPowersOfMinimumCubesSetsToPlayAGame($gameListPath)->bla();
+        return GamesRecord::withGames(
+            new ParseFromFile(
+                new GameParser(),
+                $this->filesystem,
+                $gameRecordFilePath
+            )
+        )->sumOfPossibleGameIdsFor($cubesSet);
+    }
+
+    public function sumOfAllMinimumCubesSetsPowers(string $gameRecordFilePath): int
+    {
+        return GamesRecord::withGames(
+            new ParseFromFile(
+                new GameParser(),
+                $this->filesystem,
+                $gameRecordFilePath
+            )
+        )->minimumCubesSetsToPlay()->sumOfAllPowers();
     }
 }

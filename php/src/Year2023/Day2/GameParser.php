@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2\Lexer;
+namespace AoC\Year2023\Day2;
 
+use AoC\Common\Parser;
 use AoC\Common\RuntimeException;
-use AoC\Year2023\Day2\Game;
-use AoC\Year2023\Day2\Game\Color;
-use AoC\Year2023\Day2\Game\Cubes;
-use AoC\Year2023\Day2\Game\CubesSet;
+use AoC\Year2023\Day2\GamesRecord\Color;
+use AoC\Year2023\Day2\GamesRecord\Cubes;
+use AoC\Year2023\Day2\GamesRecord\CubesSet;
+use AoC\Year2023\Day2\GamesRecord\Game;
+use AoC\Year2023\Day2\GameParser\GameLexer;
+use AoC\Year2023\Day2\GameParser\Type;
 
-final readonly class GameParser
+/**
+ * @template-implements Parser<Game>
+ */
+final readonly class GameParser implements Parser
 {
     private GameLexer $lexer;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2\Game;
+namespace AoC\Year2023\Day2\GamesRecord;
 
 final readonly class CubesSet
 {
@@ -25,26 +25,23 @@ final readonly class CubesSet
 
     public function withGreaterQuantity(Cubes $cubes): self
     {
-        $result = \array_values(\array_filter(
+        $theCubes = $this->cubesOf($cubes->color);
+        $otherCubes = \array_values(\array_filter(
             $this->cubes,
             fn (Cubes $theCubes) => $theCubes->color !== $cubes->color
         ));
 
-        $theCubes = $this->cubesOf($cubes->color);
-        $result[] = $theCubes->quantity > $cubes->quantity ? $theCubes : $cubes;
+        $allCubes = [...$otherCubes, $theCubes->quantity > $cubes->quantity ? $theCubes : $cubes];
 
-        return new self($result);
+        return new self($allCubes);
     }
 
-    /**
-     * Does $this CubeSet contain all the cubes from the given $cubeSet?
-     */
-    public function isSubsetOf(CubesSet $cubeSet): bool
+    public function hasAllFrom(CubesSet $cubesSet): bool
     {
-        foreach ($cubeSet->cubes as $cube) {
-            $thisCubes = $this->cubesOf($cube->color);
+        foreach ($cubesSet->cubes as $cube) {
+            $theCubes = $this->cubesOf($cube->color);
 
-            if ($thisCubes->quantity < $cube->quantity) {
+            if ($theCubes->quantity < $cube->quantity) {
                 return false;
             }
         }

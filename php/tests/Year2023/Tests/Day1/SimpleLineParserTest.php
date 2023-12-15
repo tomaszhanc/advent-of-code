@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Tests\Day1\LineParser;
+namespace AoC\Year2023\Tests\Day1;
 
 use AoC\Year2023\Day1\CalibrationDocument\Line;
-use AoC\Year2023\Day1\LineParser\SimpleLineParser;
+use AoC\Year2023\Day1\SimpleLineParser;
 use PHPUnit\Framework\TestCase;
 
 final class SimpleLineParserTest extends TestCase
@@ -20,7 +20,7 @@ final class SimpleLineParserTest extends TestCase
         $this->assertEquals($expectedLine, $parser->parse($line));
     }
 
-    public static function lines(): \Generator
+    public static function lines(): iterable
     {
         // integers only
         yield ['1abc2', Line::of(1, 2)];

@@ -1,6 +1,6 @@
 <?php
 
-namespace AoC\Year2023\Day2\Game;
+namespace AoC\Year2023\Day2\GamesRecord;
 
 enum Color: string
 {

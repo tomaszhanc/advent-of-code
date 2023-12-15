@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Tests\Day1\LineParser;
+namespace AoC\Year2023\Tests\Day1;
 
 use AoC\Year2023\Day1\CalibrationDocument\Line;
-use AoC\Year2023\Day1\LineParser\LexerLinerParser;
+use AoC\Year2023\Day1\LexerLineParser;
 use PHPUnit\Framework\TestCase;
 
 final class LexerLinerParserTest extends TestCase
@@ -15,12 +15,12 @@ final class LexerLinerParserTest extends TestCase
      */
     public function test_parses_lines_of_integers_only(string $line, Line $expectedLine): void
     {
-        $parser = LexerLinerParser::recognizeIntegers();
+        $parser = LexerLineParser::recognizeIntegers();
 
         $this->assertEquals($expectedLine, $parser->parse($line));
     }
 
-    public static function lines_integers_only(): \Generator
+    public static function lines_integers_only(): iterable
     {
         yield ['1abc2', Line::of(1, 2)];
         yield ['pqr3stu8vwx', Line::of(3, 8)];
@@ -39,12 +39,12 @@ final class LexerLinerParserTest extends TestCase
      */
     public function test_parses_lines_of_integers_and_spelled_out_digits(string $line, Line $expectedLine): void
     {
-        $parser = LexerLinerParser::recognizeIntegersAndSpelledOutDigits();
+        $parser = LexerLineParser::recognizeIntegersAndSpelledOutDigits();
 
         $this->assertEquals($expectedLine, $parser->parse($line));
     }
 
-    public static function lines_integers_and_spelled_out_digits(): \Generator
+    public static function lines_integers_and_spelled_out_digits(): iterable
     {
         // integers only
         yield ['1abc2', Line::of(1, 2)];

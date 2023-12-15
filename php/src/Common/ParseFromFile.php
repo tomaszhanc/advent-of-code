@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1;
-
-use AoC\Common\Filesystem;
-use AoC\Year2023\Day1\CalibrationDocument\Line;
+namespace AoC\Common;
 
 /**
- * @template-implements \IteratorAggregate<Line>
+ * @template-covariant TValue
+ * @template-implements \IteratorAggregate<TValue>
  */
-final readonly class LinesFromFile implements \IteratorAggregate
+final readonly class ParseFromFile implements \IteratorAggregate
 {
+    /**
+     * @param Parser<TValue> $parser
+     */
     public function __construct(
-        private LineParser $lineParser,
+        private Parser $parser,
         private Filesystem $filesystem,
         private string $filePath
     ) {
@@ -22,7 +23,7 @@ final readonly class LinesFromFile implements \IteratorAggregate
     public function getIterator(): \Traversable
     {
         foreach ($this->filesystem->readLineByLine($this->filePath) as $line) {
-            yield $this->lineParser->parse($line);
+            yield $this->parser->parse($line);
         }
     }
 }

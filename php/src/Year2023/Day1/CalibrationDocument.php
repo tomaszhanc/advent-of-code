@@ -19,7 +19,7 @@ final readonly class CalibrationDocument
     /**
      * @param Line[] $lines
      */
-    public static function with(iterable $lines): self
+    public static function withLines(iterable $lines): self
     {
         return new self($lines);
     }
