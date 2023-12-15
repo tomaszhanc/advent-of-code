@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace AoC\Year2023;
 
+use AoC\Common\Filesystem;
 use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Year2023\Day1\DocumentCalibrator;
-use AoC\Year2023\Day1\LineCalibrator\LexerLineCalibration;
 use AoC\Year2023\Day2\Game\CubesSet;
 use AoC\Year2023\Day2\GameListCheckSum;
 use AoC\Year2023\Day2\Lexer\GameParser;
 
-final readonly class AdventOfCode
+final readonly class Day2
 {
     public function __construct(
-        private DocumentCalibrator $dayOne,
-        private GameListCheckSum   $dayTwo,
+        private Filesystem       $filesystem,
+        private GameListCheckSum $dayTwo,
     ) {
     }
 
@@ -24,19 +23,12 @@ final readonly class AdventOfCode
         $fileSystem = new SimpleFilesystem();
 
         return new self(
-            new DocumentCalibrator($fileSystem, new LexerLineCalibration()),
+            $fileSystem,
             new GameListCheckSum($fileSystem, new GameParser())
         );
     }
 
-    /** Day 1 Part 1 @see https://adventofcode.com/2023/day/1 */
 
-
-    /** Day 1 Part 2 */
-    public function calibrateDocument(string $documentPath): int
-    {
-        return $this->dayOne->calibrate($documentPath);
-    }
 
     /** Day 2 Part 1 @see https://adventofcode.com/2023/day/2 */
     public function checkSumOfGameList(string $gameListPath, CubesSet $cubesSet): int
@@ -49,6 +41,4 @@ final readonly class AdventOfCode
     {
         return $this->dayTwo->sumOfPowersOfMinimumCubesSetsToPlayAGame($gameListPath)->bla();
     }
-
-    // new GameListCheckSum($fileSystem, new GameParser())
 }

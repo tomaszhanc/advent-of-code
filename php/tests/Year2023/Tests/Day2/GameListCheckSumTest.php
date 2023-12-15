@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2;
+namespace AoC\Year2023\Tests\Day2;
 
 use AoC\Common\Filesystem\SimpleFilesystem;
 use AoC\Year2023\Day2\Game\Cubes;
 use AoC\Year2023\Day2\Game\CubesSet;
+use AoC\Year2023\Day2\GameListCheckSum;
 use AoC\Year2023\Day2\Lexer\GameParser;
 use PHPUnit\Framework\TestCase;
 

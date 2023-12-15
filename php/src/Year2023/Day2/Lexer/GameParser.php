@@ -10,7 +10,7 @@ use AoC\Year2023\Day2\Game\Color;
 use AoC\Year2023\Day2\Game\Cubes;
 use AoC\Year2023\Day2\Game\CubesSet;
 
-final class GameParser
+final readonly class GameParser
 {
     private GameLexer $lexer;
 
@@ -18,7 +18,6 @@ final class GameParser
     {
         $this->lexer = new GameLexer();
     }
-
 
     public function parse(string $input): Game
     {

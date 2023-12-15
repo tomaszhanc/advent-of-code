@@ -18,7 +18,7 @@ final class RuntimeException extends \RuntimeException
         return new self($message . " Given: " . $invalidToken->value ?? "<NULL>");
     }
 
-    public static function unexpected(string $message) : self
+    public static function unexpected(string $message): self
     {
         return new self("Unexpected behavior! " . $message);
     }
