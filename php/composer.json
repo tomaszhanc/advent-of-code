@@ -8,7 +8,8 @@
     "autoload-dev": {
         "psr-4": {
             "AoC\\Common\\Tests\\": "tests/Common/Tests/",
-            "AoC\\Year2023\\Tests\\": "tests/Year2023/Tests/"
+            "AoC\\Year2023\\Tests\\": "tests/Year2023/Tests/",
+            "AoC\\Year2023\\Tests\\Mother\\": "tests/Year2023/Mother/"
         }
     },
     "config": {

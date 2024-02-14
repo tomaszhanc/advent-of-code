@@ -2,7 +2,7 @@
 <phpunit
   bootstrap="vendor/autoload.php"
   colors="true"
-  executionOrder="random"
+  executionOrder="default"
   cacheDirectory="var/phpunit/"
 >
 <!--  <coverage>-->

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AoC\Year2023\Day2;
 
-use AoC\Common\Parser;
+use AoC\Common\LineParser;
 use AoC\Common\RuntimeException;
 use AoC\Year2023\Day2\GamesRecord\Color;
 use AoC\Year2023\Day2\GamesRecord\Cubes;
@@ -14,9 +14,9 @@ use AoC\Year2023\Day2\GameParser\GameLexer;
 use AoC\Year2023\Day2\GameParser\Type;
 
 /**
- * @template-implements Parser<Game>
+ * @template-implements LineParser<Game>
  */
-final readonly class GameParser implements Parser
+final readonly class GameParser implements LineParser
 {
     private GameLexer $lexer;
 
@@ -25,9 +25,9 @@ final readonly class GameParser implements Parser
         $this->lexer = new GameLexer();
     }
 
-    public function parse(string $input): Game
+    public function parse(string $line): Game
     {
-        $this->lexer->setInput($input);
+        $this->lexer->setInput($line);
 
         return new Game($this->parseGameIdentifier(), ...$this->parseGameSets());
     }

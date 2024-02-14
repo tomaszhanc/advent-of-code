@@ -7,10 +7,10 @@ namespace AoC\Common;
 /**
  * @template-covariant TType
  */
-interface Parser
+interface LineParser
 {
     /**
      * @return TType
      */
-    public function parse(string $input) : object;
+    public function parse(string $line) : object;
 }

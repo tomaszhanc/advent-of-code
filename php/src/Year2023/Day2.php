@@ -6,7 +6,7 @@ namespace AoC\Year2023;
 
 use AoC\Common\Filesystem;
 use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Common\ParseFromFile;
+use AoC\Common\ParsedLineByLine;
 use AoC\Year2023\Day2\GameParser;
 use AoC\Year2023\Day2\GamesRecord;
 use AoC\Year2023\Day2\GamesRecord\CubesSet;
@@ -31,7 +31,7 @@ final readonly class Day2
     public function sumOfAllPossibleToBePlayedOutGameIdsFor(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
         return GamesRecord::withGames(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 new GameParser(),
                 $this->filesystem,
                 $gameRecordFilePath
@@ -42,7 +42,7 @@ final readonly class Day2
     public function sumOfAllPossibleToBePlayedOutGameIdsFor_MemorySafe(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
         return GamesRecord::withGames(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 new GameParser(),
                 $this->filesystem,
                 $gameRecordFilePath
@@ -53,7 +53,7 @@ final readonly class Day2
     public function sumOfAllMinimumCubesSetsPowers(string $gameRecordFilePath): int
     {
         return GamesRecord::withGames(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 new GameParser(),
                 $this->filesystem,
                 $gameRecordFilePath

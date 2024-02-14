@@ -6,7 +6,7 @@ namespace AoC\Year2023;
 
 use AoC\Common\Filesystem;
 use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Common\ParseFromFile;
+use AoC\Common\ParsedLineByLine;
 use AoC\Year2023\Day1\CalibrationDocument;
 use AoC\Year2023\Day1\LexerLineParser;
 use AoC\Year2023\Day1\SimpleLineParser;
@@ -31,7 +31,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersOnly(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 LexerLineParser::recognizeIntegers(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -42,7 +42,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 LexerLineParser::recognizeIntegersAndSpelledOutDigits(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -53,7 +53,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_MemorySafe(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 LexerLineParser::recognizeIntegersAndSpelledOutDigits(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -64,7 +64,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_SimpleParser(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParseFromFile(
+            new ParsedLineByLine(
                 new SimpleLineParser(),
                 $this->filesystem,
                 $calibrationDocumentPath

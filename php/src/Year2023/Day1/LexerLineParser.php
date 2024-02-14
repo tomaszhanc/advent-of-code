@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace AoC\Year2023\Day1;
 
-use AoC\Common\Parser;
+use AoC\Common\LineParser;
 use AoC\Year2023\Day1\CalibrationDocument\Digit;
 use AoC\Year2023\Day1\CalibrationDocument\Line;
 use AoC\Year2023\Day1\LineParser\DigitsLexer;
 use AoC\Year2023\Day1\LineParser\Type;
 
 /**
- * @template-implements Parser<Line>
+ * @template-implements LineParser<Line>
  */
-final readonly class LexerLineParser implements Parser
+final readonly class LexerLineParser implements LineParser
 {
     private function __construct(
         private DigitsLexer $lexer
@@ -30,9 +30,9 @@ final readonly class LexerLineParser implements Parser
         return new self(DigitsLexer::recognizeIntegersAndSpelledOutDigits());
     }
 
-    public function parse(string $input): Line
+    public function parse(string $line): Line
     {
-        $this->lexer->setInput($input);
+        $this->lexer->setInput($line);
         $digits = [];
 
         while (true) {
