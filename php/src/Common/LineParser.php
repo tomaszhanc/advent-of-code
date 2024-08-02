@@ -12,5 +12,5 @@ interface LineParser
     /**
      * @return TType
      */
-    public function parse(string $line) : object;
+    public function parse(string $line): object;
 }

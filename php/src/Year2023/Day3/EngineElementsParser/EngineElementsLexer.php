@@ -11,22 +11,22 @@ use Doctrine\Common\Lexer\AbstractLexer;
  */
 final class EngineElementsLexer extends AbstractLexer
 {
-    protected function getCatchablePatterns() : array
+    protected function getCatchablePatterns(): array
     {
         return [
             '\d+',
-            '[^a-zA-Z0-9\.]' // all symbols that are not letters, numbers or dots
+            '[^a-zA-Z0-9\.]', // all symbols that are not letters, numbers or dots
         ];
     }
 
-    protected function getNonCatchablePatterns() : array
+    protected function getNonCatchablePatterns(): array
     {
         return [
-            '[ \.]' // skip spaces, dots
+            '[ \.]', // skip spaces, dots
         ];
     }
 
-    protected function getType(string &$value) : Type
+    protected function getType(string &$value): Type
     {
         if (\is_numeric($value)) {
             return Type::T_NUMBER;

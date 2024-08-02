@@ -16,7 +16,7 @@ final readonly class Bla
     {
     }
 
-    public static function create(Elements ...$elements) : self
+    public static function create(Elements ...$elements): self
     {
         return new self($elements);
     }

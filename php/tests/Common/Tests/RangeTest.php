@@ -38,15 +38,15 @@ final class RangeTest extends TestCase
         $this->assertSame($isAdjacent, $range->isAdjacentTo($point));
     }
 
-    public static function scenarios() : iterable
+    public static function scenarios(): iterable
     {
         return [
             ...self::scenarios_for_horizontal_line(),
-            ...self::scenarios_for_vertical_line()
+            ...self::scenarios_for_vertical_line(),
         ];
     }
 
-    public static function scenarios_for_horizontal_line() : iterable
+    public static function scenarios_for_horizontal_line(): iterable
     {
         $range = new Range(
             new Cell(2, 3),
@@ -114,7 +114,7 @@ final class RangeTest extends TestCase
         yield 'horizontal - column:9, row:5' => [$range, new Cell(9, 5), false];
     }
 
-    public static function scenarios_for_vertical_line() : iterable
+    public static function scenarios_for_vertical_line(): iterable
     {
         $range = new Range(
             new Cell(4, 2),

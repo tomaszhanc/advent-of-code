@@ -18,7 +18,7 @@ final readonly class GamesRecord
     {
     }
 
-    public static function withGames(iterable $games) : self
+    public static function withGames(iterable $games): self
     {
         return new self($games);
     }
@@ -29,7 +29,7 @@ final readonly class GamesRecord
      *
      * @see sumOfPossibleGameIdsFor for memory-safe apporach
      */
-    public function possibleGamesFor(CubesSet $cubesSet) : Games
+    public function possibleGamesFor(CubesSet $cubesSet): Games
     {
         $possibleGames = [];
 
@@ -46,7 +46,7 @@ final readonly class GamesRecord
      * This method keeps track only of the sum of possible games to be played out.
      * After a game is processed, it no longer uses any memory for it.
      */
-    public function sumOfPossibleGameIdsFor(CubesSet $cubesSet) : int
+    public function sumOfPossibleGameIdsFor(CubesSet $cubesSet): int
     {
         $sum = 0;
 
@@ -62,7 +62,7 @@ final readonly class GamesRecord
     /**
      * This method is not memory-safe on purpose.
      */
-    public function minimumCubesSetsToPlay() : CubesSets
+    public function minimumCubesSetsToPlay(): CubesSets
     {
         $cubesSets = [];
 

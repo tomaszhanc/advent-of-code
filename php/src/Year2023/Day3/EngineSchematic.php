@@ -6,6 +6,4 @@ namespace AoC\Year2023\Day3;
 
 final readonly class EngineSchematic
 {
-
-
 }

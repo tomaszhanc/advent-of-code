@@ -19,7 +19,7 @@ final class ElementsTest extends TestCase
         $this->assertTrue($elements->isSymbolElementAdjacentTo($element));
     }
 
-    public static function adjacent_elements() : iterable
+    public static function adjacent_elements(): iterable
     {
         $onlyNumberElements = Elements::create(
             ElementMother::symbol(x: 0, y: 2, symbol: '+'),
@@ -68,7 +68,7 @@ final class ElementsTest extends TestCase
         $this->assertFalse($elements->isSymbolElementAdjacentTo($element));
     }
 
-    public static function not_adjacent_elements() : iterable
+    public static function not_adjacent_elements(): iterable
     {
         $onlyNumberElements = Elements::create(
             ElementMother::number(x: 0, y: 2, number: 467),

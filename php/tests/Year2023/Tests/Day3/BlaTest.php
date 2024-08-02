@@ -16,16 +16,16 @@ final class BlaTest extends TestCase
     // fixme rename
     public function test_bla(): void
     {
-//            467..114..
-//            ...*......
-//            ..35..633.
-//            ......#...
-//            617*......
-//            .....+.58.
-//            ..592.....
-//            ......755.
-//            ...$.*....
-//            .664.598..
+        //            467..114..
+        //            ...*......
+        //            ..35..633.
+        //            ......#...
+        //            617*......
+        //            .....+.58.
+        //            ..592.....
+        //            ......755.
+        //            ...$.*....
+        //            .664.598..
 
         // a może jednak przeparsuj stringa parserem by trdt był czytelniejszy?
 
@@ -83,7 +83,7 @@ final class BlaTest extends TestCase
                 $partNumber592,
                 $partNumber755,
                 $partNumber664,
-                $partNumber598
+                $partNumber598,
             ],
             $bla->foo()
         );

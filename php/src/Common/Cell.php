@@ -19,7 +19,7 @@ final readonly class Cell
         }
     }
 
-    public function isAdjacentTo(Cell $cell) : bool
+    public function isAdjacentTo(Cell $cell): bool
     {
         // the same cells are not adjacent, they overlap
         if ($this->equals($cell)) {
@@ -32,7 +32,7 @@ final readonly class Cell
         return $columnDistance <= 1 && $rowDistance <= 1;
     }
 
-    public function equals(Cell $cell) : bool
+    public function equals(Cell $cell): bool
     {
         return $this->column === $cell->column && $this->row === $cell->row;
     }

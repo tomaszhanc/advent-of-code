@@ -12,5 +12,5 @@ interface NumberedLineParser
     /**
      * @return TType
      */
-    public function parse(int $lineNumber, string $line) : object;
+    public function parse(int $lineNumber, string $line): object;
 }

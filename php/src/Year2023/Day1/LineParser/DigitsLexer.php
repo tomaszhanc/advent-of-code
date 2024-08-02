@@ -26,7 +26,7 @@ final class DigitsLexer extends AbstractLexer
     public static function recognizeIntegers(): self
     {
         return new self([
-            '\d'
+            '\d',
         ]);
     }
 

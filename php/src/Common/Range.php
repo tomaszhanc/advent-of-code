@@ -21,7 +21,7 @@ final readonly class Range
         }
     }
 
-    public function isAdjacentTo(Cell $cell) : bool
+    public function isAdjacentTo(Cell $cell): bool
     {
         if ($this->start->row === $this->end->row) {
             return CallAdjacencyChecker::forHorizontalRange($this, $cell)->isAdjacent();

@@ -22,7 +22,7 @@ final class EngineElementsParserTests extends TestCase
         $this->assertEquals(Elements::create(...$expectedElements), $parser->parse($lineNumber, $line));
     }
 
-    public static function engine_schematic_lines() : iterable
+    public static function engine_schematic_lines(): iterable
     {
         yield [
             $lineNumber = 0,

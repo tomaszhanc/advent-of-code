@@ -20,7 +20,7 @@ final class GameTest extends TestCase
         $this->assertSame($canBePlayedOut, $game->canBePlayedOutWith($cubesSet));
     }
 
-    public static function games_can_be_played_out() : iterable
+    public static function games_can_be_played_out(): iterable
     {
         $gameParser = new GameParser();
         $cubeSet = CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14));
@@ -28,31 +28,31 @@ final class GameTest extends TestCase
         yield [
             $gameParser->parse('Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green'),
             $cubeSet,
-            true
+            true,
         ];
 
         yield [
             $gameParser->parse('Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue'),
             $cubeSet,
-            true
+            true,
         ];
 
         yield [
             $gameParser->parse('Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red'),
             $cubeSet,
-            false
+            false,
         ];
 
         yield [
             $gameParser->parse('Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red'),
             $cubeSet,
-            false
+            false,
         ];
 
         yield [
             $gameParser->parse('Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green'),
             $cubeSet,
-            true
+            true,
         ];
     }
 

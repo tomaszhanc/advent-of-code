@@ -13,12 +13,12 @@ final readonly class Elements
     {
     }
 
-    public static function create(Element ...$elements) : self
+    public static function create(Element ...$elements): self
     {
         return new self($elements);
     }
 
-    public function isSymbolElementAdjacentTo(Element $element) : bool
+    public function isSymbolElementAdjacentTo(Element $element): bool
     {
         foreach ($this->allSymbolElements() as $symbolElement) {
             if ($symbolElement->cell->isAdjacentTo($element->cell)) {
@@ -32,16 +32,16 @@ final readonly class Elements
     /**
      * @return Element[]
      */
-    public function allNumberElements() :array
+    public function allNumberElements(): array
     {
-        return \array_filter($this->elements, fn (Element $element) : bool => $element->isNumber());
+        return \array_filter($this->elements, fn (Element $element): bool => $element->isNumber());
     }
 
     /**
      * @return Element[]
      */
-    public function allSymbolElements() :array
+    public function allSymbolElements(): array
     {
-        return \array_filter($this->elements, fn (Element $element) : bool => !$element->isNumber());
+        return \array_filter($this->elements, fn (Element $element): bool => !$element->isNumber());
     }
 }

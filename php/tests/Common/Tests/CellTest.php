@@ -18,7 +18,7 @@ final class CellTest extends TestCase
         $this->assertSame($isAdjacent, $cellB->isAdjacentTo($cellA));
     }
 
-    public static function scenarios() : iterable
+    public static function scenarios(): iterable
     {
         return [
             ...self::scenarios_for_cell_in_the_top_left_corner(),
@@ -28,7 +28,7 @@ final class CellTest extends TestCase
         ];
     }
 
-    public static function scenarios_for_cell_in_the_top_left_corner() : iterable
+    public static function scenarios_for_cell_in_the_top_left_corner(): iterable
     {
         $cellA = new Cell(0, 0);
 
@@ -54,7 +54,7 @@ final class CellTest extends TestCase
         yield 'top left corner - column:4, row:2' => [$cellA, new Cell(4, 2), false];
     }
 
-    public static function scenarios_for_cell_at_the_top() : iterable
+    public static function scenarios_for_cell_at_the_top(): iterable
     {
         $cellA = new Cell(5, 0);
 
@@ -95,7 +95,7 @@ final class CellTest extends TestCase
         yield 'top - column:9, row:2' => [$cellA, new Cell(9, 2), false];
     }
 
-    public static function scenarios_for_cell_below_the_top() : iterable
+    public static function scenarios_for_cell_below_the_top(): iterable
     {
         $cellA = new Cell(0, 5);
 
@@ -160,7 +160,7 @@ final class CellTest extends TestCase
         yield 'below the top - column:9, row:7' => [$cellA, new Cell(9, 7), false];
     }
 
-    public static function scenarios_for_cell_in_the_center() : iterable
+    public static function scenarios_for_cell_in_the_center(): iterable
     {
         $cellA = new Cell(5, 5);
 

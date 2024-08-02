@@ -18,7 +18,7 @@ final readonly class CallAdjacencyChecker
     ) {
     }
 
-    public static function forHorizontalRange(Range $range, Cell $cell) : self
+    public static function forHorizontalRange(Range $range, Cell $cell): self
     {
         if ($range->start->row !== $range->end->row) {
             throw InvalidArgumentException::because('Given range must be horizontal');
@@ -32,7 +32,7 @@ final readonly class CallAdjacencyChecker
         );
     }
 
-    public static function forVerticalRange(Range $range, Cell $cell) : self
+    public static function forVerticalRange(Range $range, Cell $cell): self
     {
         if ($range->start->column !== $range->end->column) {
             throw InvalidArgumentException::because('Given range must be vertical');
@@ -46,7 +46,7 @@ final readonly class CallAdjacencyChecker
         );
     }
 
-    public function isAdjacent() : bool
+    public function isAdjacent(): bool
     {
         if ($this->distanceFromRange > 1) {
             return false;
