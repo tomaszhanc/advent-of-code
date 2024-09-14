@@ -37,6 +37,18 @@ final readonly class VerticalLine implements Line
 
     public function isAdjacentTo(Cell $cell): bool
     {
-        return AdjacencyChecker::forVerticalLine($this, $cell)->isAdjacent();  // todo przenieśc logike z adjency checkera
+        $startCell = $this->startCell->positionTo($cell);
+        $endCell = $this->endCell->positionTo($cell);
+
+        if ($startCell->isDirectlyBelow() || $endCell->isDirectlyAbove()) {
+            return true;
+        }
+
+        if ($startCell->isColumnAdjacent()) {
+            return $this->startCell->rowIndex - 1 <= $cell->rowIndex
+                && $this->endCell->rowIndex + 1 >= $cell->rowIndex;
+        }
+
+        return false;
     }
 }

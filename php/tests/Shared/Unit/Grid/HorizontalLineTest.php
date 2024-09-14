@@ -45,7 +45,7 @@ final class HorizontalLineTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_horizontal_line_of_a_given_length() : void
+    public function it_creates_horizontal_line_of_a_given_length(): void
     {
         $this->assertEquals(
             HorizontalLine::ofLength(
@@ -62,7 +62,7 @@ final class HorizontalLineTest extends TestCase
     #[Test] #[DataProvider('scenarios')]
     public function it_is_adjacent(HorizontalLine $line, Cell $point, bool $isAdjacent): void
     {
-        $this->assertSame($isAdjacent, $line->isAdjacentTo($point));
+        $this->assertSame($isAdjacent, $line->isAdjacentTo($point), $isAdjacent ? 'Cell should be adjacent, but is not' : 'Cell should not be adjacent, but it is');
     }
 
     public static function scenarios(): iterable

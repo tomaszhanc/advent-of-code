@@ -37,6 +37,18 @@ final readonly class HorizontalLine implements Line
 
     public function isAdjacentTo(Cell $cell): bool
     {
-        return AdjacencyChecker::forHorizontalLine($this, $cell)->isAdjacent(); // todo przenieśc logike z adjency checkera
+        $startCell = $this->startCell->positionTo($cell);
+        $endCell = $this->endCell->positionTo($cell);
+
+        if ($startCell->isDirectlyRight() || $endCell->isDirectlyLeft()) {
+            return true;
+        }
+
+        if ($startCell->isRowAdjacent()) {
+            return $this->startCell->columnIndex - 1 <= $cell->columnIndex
+                && $this->endCell->columnIndex + 1 >= $cell->columnIndex;
+        }
+
+        return false;
     }
 }

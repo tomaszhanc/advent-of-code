@@ -45,7 +45,7 @@ final class VerticalLineTest extends TestCase
     }
 
     #[Test]
-    public function it_creates_vertical_line_of_a_given_length() : void
+    public function it_creates_vertical_line_of_a_given_length(): void
     {
         $this->assertEquals(
             VerticalLine::ofLength(
