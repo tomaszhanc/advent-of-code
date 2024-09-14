@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1\CalibrationDocument;
+namespace Advent\Year2023\Day1\CalibrationDocument;
 
-use AoC\Common\InvalidArgumentException;
+use Advent\Shared\Parser\InvalidArgumentException;
 
 final readonly class Digit
 {

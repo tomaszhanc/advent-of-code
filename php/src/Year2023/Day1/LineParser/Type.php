@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1\LineParser;
+namespace Advent\Year2023\Day1\LineParser;
 
 enum Type
 {

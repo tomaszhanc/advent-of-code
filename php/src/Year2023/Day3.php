@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023;
+namespace Advent\Year2023;
 
-use AoC\Common\Filesystem;
-use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Common\ParsedLineByLine;
-use AoC\Year2023\Day3\EngineSchematic;
+use Advent\Shared\Filesystem\Filesystem;
+use Advent\Shared\Filesystem\SimpleFilesystem;
+use Advent\Shared\Parser\ParsedLineByLine;
+use Advent\Year2023\Day3\EngineSchematic;
 
 /**
  * @see https://adventofcode.com/2023/day/3

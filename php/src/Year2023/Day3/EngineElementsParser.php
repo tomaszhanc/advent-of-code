@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day3;
+namespace Advent\Year2023\Day3;
 
-use AoC\Common\LineParser;
-use AoC\Common\Cell;
-use AoC\Common\NumberedLineParser;
-use AoC\Year2023\Day3\EngineSchematic\Element;
-use AoC\Year2023\Day3\EngineSchematic\Elements;
-use AoC\Year2023\Day3\EngineElementsParser\EngineElementsLexer;
-use AoC\Year2023\Day3\EngineElementsParser\Type;
+use Advent\Shared\Grid\Cell;
+use Advent\Shared\Parser\LineParser;
+use Advent\Shared\Parser\NumberedLineParser;
+use Advent\Year2023\Day3\EngineElementsParser\EngineElementsLexer;
+use Advent\Year2023\Day3\EngineElementsParser\Type;
+use Advent\Year2023\Day3\EngineSchematic\Element;
+use Advent\Year2023\Day3\EngineSchematic\Elements;
 
 /**
  * @template-implements LineParser<Elements>
@@ -31,7 +31,7 @@ final readonly class EngineElementsParser implements NumberedLineParser
         $this->lexer->moveNext();
 
         while ($this->lexer->lookahead !== null) {
-            $location = new Cell(column: $this->lexer->lookahead->position, row: $lineNumber);
+            $location = new Cell(columnIndex: $this->lexer->lookahead->position, rowIndex: $lineNumber);
 
             if ($this->lexer->isNextToken(Type::T_SYMBOL)) {
                 $elements[] = Element::symbol($location, $this->lexer->lookahead->value);

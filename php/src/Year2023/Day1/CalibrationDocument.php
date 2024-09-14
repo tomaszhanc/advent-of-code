@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1;
+namespace Advent\Year2023\Day1;
 
-use AoC\Year2023\Day1\CalibrationDocument\CalibrationValues;
-use AoC\Year2023\Day1\CalibrationDocument\Line;
+use Advent\Year2023\Day1\CalibrationDocument\CalibrationValues;
+use Advent\Year2023\Day1\CalibrationDocument\Line;
 
 final readonly class CalibrationDocument
 {

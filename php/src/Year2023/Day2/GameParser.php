@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2;
+namespace Advent\Year2023\Day2;
 
-use AoC\Common\LineParser;
-use AoC\Common\RuntimeException;
-use AoC\Year2023\Day2\GamesRecord\Color;
-use AoC\Year2023\Day2\GamesRecord\Cubes;
-use AoC\Year2023\Day2\GamesRecord\CubesSet;
-use AoC\Year2023\Day2\GamesRecord\Game;
-use AoC\Year2023\Day2\GameParser\GameLexer;
-use AoC\Year2023\Day2\GameParser\Type;
+use Advent\Shared\Parser\LineParser;
+use Advent\Shared\Parser\RuntimeException;
+use Advent\Year2023\Day2\GameParser\GameLexer;
+use Advent\Year2023\Day2\GameParser\Type;
+use Advent\Year2023\Day2\GamesRecord\Color;
+use Advent\Year2023\Day2\GamesRecord\Cubes;
+use Advent\Year2023\Day2\GamesRecord\CubesSet;
+use Advent\Year2023\Day2\GamesRecord\Game;
 
 /**
  * @template-implements LineParser<Game>

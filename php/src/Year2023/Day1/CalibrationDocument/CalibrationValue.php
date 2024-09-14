@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1\CalibrationDocument;
+namespace Advent\Year2023\Day1\CalibrationDocument;
 
 final readonly class CalibrationValue
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day3;
+namespace Advent\Year2023\Day3;
 
-use AoC\Year2023\Day3\EngineSchematic\Elements;
-use AoC\Year2023\Day3\EngineSchematic\PartNumber;
+use Advent\Year2023\Day3\EngineSchematic\Elements;
+use Advent\Year2023\Day3\EngineSchematic\PartNumber;
 
 final readonly class Bla
 {
@@ -16,7 +16,7 @@ final readonly class Bla
     {
     }
 
-    public static function create(Elements ...$elements) : self
+    public static function create(Elements ...$elements): self
     {
         return new self($elements);
     }

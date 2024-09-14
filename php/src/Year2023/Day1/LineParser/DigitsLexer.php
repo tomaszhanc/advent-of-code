@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1\LineParser;
+namespace Advent\Year2023\Day1\LineParser;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 
@@ -26,7 +26,7 @@ final class DigitsLexer extends AbstractLexer
     public static function recognizeIntegers(): self
     {
         return new self([
-            '\d'
+            '\d',
         ]);
     }
 

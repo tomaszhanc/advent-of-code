@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023;
+namespace Advent\Year2023;
 
-use AoC\Common\Filesystem;
-use AoC\Common\Filesystem\SimpleFilesystem;
-use AoC\Common\ParsedLineByLine;
-use AoC\Year2023\Day2\GameParser;
-use AoC\Year2023\Day2\GamesRecord;
-use AoC\Year2023\Day2\GamesRecord\CubesSet;
+use Advent\Shared\Filesystem\Filesystem;
+use Advent\Shared\Filesystem\SimpleFilesystem;
+use Advent\Shared\Parser\ParsedLineByLine;
+use Advent\Year2023\Day2\GameParser;
+use Advent\Year2023\Day2\GamesRecord;
+use Advent\Year2023\Day2\GamesRecord\CubesSet;
 
 /**
  * @see https://adventofcode.com/2023/day/2

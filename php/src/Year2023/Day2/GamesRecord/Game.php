@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day2\GamesRecord;
+namespace Advent\Year2023\Day2\GamesRecord;
 
 final readonly class Game
 {

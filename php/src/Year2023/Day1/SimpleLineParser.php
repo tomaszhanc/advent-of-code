@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day1;
+namespace Advent\Year2023\Day1;
 
-use AoC\Common\LineParser;
-use AoC\Year2023\Day1\CalibrationDocument\Digit;
-use AoC\Year2023\Day1\CalibrationDocument\Line;
+use Advent\Shared\Parser\LineParser;
+use Advent\Year2023\Day1\CalibrationDocument\Digit;
+use Advent\Year2023\Day1\CalibrationDocument\Line;
 
 /**
  * @template-implements LineParser<Line>

@@ -1,6 +1,6 @@
 <?php
 
-namespace AoC\Year2023\Day3\EngineElementsParser;
+namespace Advent\Year2023\Day3\EngineElementsParser;
 
 enum Type
 {

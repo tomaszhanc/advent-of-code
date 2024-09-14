@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day3\EngineSchematic;
+namespace Advent\Year2023\Day3\EngineSchematic;
 
-use AoC\Common\InvalidArgumentException;
+use Advent\Shared\Parser\InvalidArgumentException;
 
 final readonly class PartNumber
 {

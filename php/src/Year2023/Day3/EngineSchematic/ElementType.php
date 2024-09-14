@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AoC\Year2023\Day3\EngineSchematic;
+namespace Advent\Year2023\Day3\EngineSchematic;
 
 enum ElementType
 {
