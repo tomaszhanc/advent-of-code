@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-  bootstrap="vendor/autoload.php"
+  bootstrap="./tools/vendor/autoload.php"
   colors="true"
   executionOrder="default"
-  cacheDirectory="var/phpunit/"
+  cacheDirectory="./var/phpunit/"
 >
-<!--  <coverage>-->
-<!--    <report>-->
-<!--      <html outputDirectory="./var/phpunit/coverage/html" lowUpperBound="95" highLowerBound="100"/>-->
-<!--    </report>-->
-<!--  </coverage>-->
+  <coverage>
+    <report>
+      <html outputDirectory="./var/phpunit/coverage/html" lowUpperBound="95" highLowerBound="100"/>
+    </report>
+  </coverage>
 
   <testsuites>
     <testsuite name="all">

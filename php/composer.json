@@ -20,6 +20,7 @@
         "doctrine/lexer": "^3.0"
     },
     "require-dev": {
+        "infection/infection": "^0.29.6",
         "phpunit/phpunit": "^11.3"
     },
     "scripts": {
@@ -33,10 +34,10 @@
             "tools/vendor/bin/php-cs-fixer fix --dry-run"
         ],
         "test": [
-            "tools/vendor/bin/phpunit"
+            "vendor/bin/phpunit"
         ],
         "test:mutation": [
-            "tools/vendor/bin/infection -j2"
+            "vendor/bin/infection -j2"
         ],
         "cs:php:fix": [
             "tools/vendor/bin/php-cs-fixer fix"
@@ -45,10 +46,13 @@
             "@tools:install"
         ],
         "post-update-cmd": [
-            "@tools:install"
+            "@tools:update"
         ],
         "tools:install": [
             "composer install --working-dir=./tools"
+        ],
+        "tools:update": [
+            "composer update --working-dir=./tools"
         ]
     }
 }

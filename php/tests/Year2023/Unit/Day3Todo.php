@@ -8,7 +8,7 @@ use Advent\Year2023\Day3;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class Day3Test extends TestCase
+final class Day3Todo extends TestCase
 {
     private Day3 $day3;
 
@@ -20,13 +20,11 @@ final class Day3Test extends TestCase
         $this->engineSchematicFilePath = __DIR__ . '/../Resources/day3.txt';
     }
 
-    #[Test]
     public function part_one_(): void
     {
 
     }
 
-    #[Test]
     public function part_two_(): void
     {
 

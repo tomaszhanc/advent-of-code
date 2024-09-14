@@ -34,7 +34,7 @@ final readonly class CalibrationDocument
     {
         $calibrationValues = [];
 
-        foreach($this->lines as $line) {
+        foreach ($this->lines as $line) {
             $calibrationValues[] = $line->calibrationValue();
         }
 
@@ -49,7 +49,7 @@ final readonly class CalibrationDocument
     {
         $sum = 0;
 
-        foreach($this->lines as $line) {
+        foreach ($this->lines as $line) {
             $sum += $line->calibrationValue()->asInteger();
         }
 

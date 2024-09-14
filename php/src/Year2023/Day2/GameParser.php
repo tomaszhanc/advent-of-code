@@ -55,7 +55,7 @@ final readonly class GameParser implements LineParser
     private function parseGameSets(): array
     {
         $gameSets = [];
-        while($this->lexer->lookahead !== null) {
+        while ($this->lexer->lookahead !== null) {
             $gameSets[] = $this->parseGameSet();
         }
 

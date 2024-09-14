@@ -18,7 +18,7 @@
     "testFramework": "phpunit",
     "testFrameworkOptions": "--testsuite=all --no-coverage",
     "phpUnit": {
-        "customPath": "tools/vendor/bin/phpunit"
+        "customPath": "./vendor/bin/phpunit"
     },
     "minMsi": 100,
     "minCoveredMsi": 90

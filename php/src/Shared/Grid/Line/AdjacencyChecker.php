@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid;
+namespace Advent\Shared\Grid\Line;
 
-use Advent\Shared\Parser\InvalidArgumentException;
+use Advent\Shared\Grid\Cell;
 
+/** @internal */
 final readonly class AdjacencyChecker
 {
     private function __construct(
@@ -16,12 +17,8 @@ final readonly class AdjacencyChecker
     ) {
     }
 
-    public static function forHorizontalLine(Line $line, Cell $cell): self
+    public static function forHorizontalLine(HorizontalLine $line, Cell $cell): self
     {
-        if ($line->startCell->rowIndex !== $line->endCell->rowIndex) {
-            throw InvalidArgumentException::because('Given range must be horizontal');
-        }
-
         return new self(
             abs($line->startCell->rowIndex - $cell->rowIndex),
             $line->startCell->columnIndex,
@@ -30,16 +27,12 @@ final readonly class AdjacencyChecker
         );
     }
 
-    public static function forVerticalLine(Line $range, Cell $cell): self
+    public static function forVerticalLine(VerticalLine $line, Cell $cell): self
     {
-        if ($range->startCell->columnIndex !== $range->endCell->columnIndex) {
-            throw InvalidArgumentException::because('Given range must be vertical');
-        }
-
         return new self(
-            abs($range->startCell->columnIndex - $cell->columnIndex),
-            $range->startCell->rowIndex,
-            $range->endCell->rowIndex,
+            abs($line->startCell->columnIndex - $cell->columnIndex),
+            $line->startCell->rowIndex,
+            $line->endCell->rowIndex,
             $cell->rowIndex
         );
     }

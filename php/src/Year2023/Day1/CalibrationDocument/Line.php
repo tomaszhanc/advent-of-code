@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day1\CalibrationDocument;
 
-use Advent\Shared\Parser\InvalidArgumentException;
+use Advent\Shared\Grid\InvalidArgumentException;
 
 final readonly class Line
 {

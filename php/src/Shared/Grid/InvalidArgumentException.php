@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Parser;
+namespace Advent\Shared\Grid;
 
 final class InvalidArgumentException extends \InvalidArgumentException
 {

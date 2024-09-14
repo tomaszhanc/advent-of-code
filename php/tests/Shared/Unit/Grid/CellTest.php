@@ -11,9 +11,8 @@ use PHPUnit\Framework\TestCase;
 
 final class CellTest extends TestCase
 {
-    #[Test]
-    #[DataProvider('scenarios')]
-    public function it_is_adjacent(Cell $cellA, Cell $cellB, bool $isAdjacent): void
+    #[Test] #[DataProvider('scenarios')]
+    public function it_checks_if_cells_are_adjacent(Cell $cellA, Cell $cellB, bool $isAdjacent): void
     {
         $this->assertSame($isAdjacent, $cellA->isAdjacentTo($cellB));
         $this->assertSame($isAdjacent, $cellB->isAdjacentTo($cellA));

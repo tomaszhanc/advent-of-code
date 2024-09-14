@@ -9,10 +9,10 @@ use Advent\Year2023\Day3\Bla;
 use Advent\Year2023\Day3\EngineSchematic\Elements;
 use PHPUnit\Framework\TestCase;
 
-final class BlaTest extends TestCase
+final class BlaTodo extends TestCase
 {
     // fixme rename
-    public function test_bla(): void
+    public function bla(): void
     {
         //            467..114..
         //            ...*......

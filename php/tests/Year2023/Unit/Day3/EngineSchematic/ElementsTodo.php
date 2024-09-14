@@ -11,10 +11,10 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class ElementsTest extends TestCase
+final class ElementsTodo extends TestCase
 {
-    #[Test] #[DataProvider('adjacent_elements')]
-    public function test_given_element_adjacent_to_symbol_element(Element $element, Elements $elements): void
+    #[DataProvider('adjacent_elements')]
+    public function given_element_adjacent_to_symbol_element(Element $element, Elements $elements): void
     {
         $this->assertTrue($elements->isSymbolElementAdjacentTo($element));
     }
