@@ -45,8 +45,8 @@ final readonly class VerticalLine implements Line
         }
 
         if ($startCell->isColumnAdjacent()) {
-            return $this->startCell->rowIndex - 1 <= $cell->rowIndex
-                && $this->endCell->rowIndex + 1 >= $cell->rowIndex;
+            return $cell->rowIndex >= $this->startCell->rowIndex - 1
+                && $cell->rowIndex <= $this->endCell->rowIndex + 1;
         }
 
         return false;

@@ -45,8 +45,8 @@ final readonly class HorizontalLine implements Line
         }
 
         if ($startCell->isRowAdjacent()) {
-            return $this->startCell->columnIndex - 1 <= $cell->columnIndex
-                && $this->endCell->columnIndex + 1 >= $cell->columnIndex;
+            return $cell->columnIndex >= $this->startCell->columnIndex - 1
+                && $cell->columnIndex <= $this->endCell->columnIndex + 1;
         }
 
         return false;
