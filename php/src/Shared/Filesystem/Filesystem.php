@@ -7,7 +7,7 @@ namespace Advent\Shared\Filesystem;
 interface Filesystem
 {
     /**
-     * @return \Iterator<string>
+     * @return \Iterator<int, string>
      */
     public function readLineByLine(string $filePath): \Iterator;
 }

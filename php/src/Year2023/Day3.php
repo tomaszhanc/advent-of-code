@@ -6,7 +6,7 @@ namespace Advent\Year2023;
 
 use Advent\Shared\Filesystem\Filesystem;
 use Advent\Shared\Filesystem\SimpleFilesystem;
-use Advent\Shared\Parser\ParsedLineByLine;
+use Advent\Shared\Parser\FileLines;
 use Advent\Year2023\Day3\EngineSchematic;
 
 /**
@@ -54,7 +54,7 @@ final readonly class Day3
 
 
         return EngineSchematic::create(
-            new ParsedLineByLine(
+            new FileLines(
                 new Parser(),
                 $this->filesystem,
                 $engineSchematicFilePath

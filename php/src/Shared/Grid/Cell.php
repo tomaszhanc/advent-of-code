@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid;
 
-use Advent\Shared\Grid\Position\ColumnPosition;
-use Advent\Shared\Grid\Position\RowPosition;
+use Advent\Shared\Grid\Adjacency\ColumnAdjacency;
+use Advent\Shared\Grid\Adjacency\RowAdjacency;
 
 final readonly class Cell
 {
@@ -22,36 +22,35 @@ final readonly class Cell
         }
     }
 
-    // fixme test
-    public function positionTo(Cell $cell): RelativePosition
+    public function adjacencyTo(Cell $cell): Adjacency
     {
         $columnPosition = match ($this->columnIndex - $cell->columnIndex) {
-            -1 => ColumnPosition::LEFT,
-            1 =>  ColumnPosition::RIGHT,
-            0 =>  ColumnPosition::SAME,
-            default =>  ColumnPosition::DETACHED,
+            -1 => ColumnAdjacency::LEFT,
+            1 =>  ColumnAdjacency::RIGHT,
+            0 =>  ColumnAdjacency::SAME,
+            default =>  ColumnAdjacency::DISTANT,
         };
 
         $rowPosition = match ($this->rowIndex - $cell->rowIndex) {
-            -1 => RowPosition::ABOVE,
-            1 =>  RowPosition::BELOW,
-            0 =>  RowPosition::SAME,
-            default =>  RowPosition::DETACHED,
+            -1 => RowAdjacency::ABOVE,
+            1 =>  RowAdjacency::BELOW,
+            0 =>  RowAdjacency::SAME,
+            default =>  RowAdjacency::DISTANT,
         };
 
-        return new RelativePosition($columnPosition, $rowPosition);
+        return new Adjacency($columnPosition, $rowPosition);
     }
 
     public function isAdjacentTo(Cell $cell): bool
     {
-        $cellPosition = $this->positionTo($cell);
+        $cellPosition = $this->adjacencyTo($cell);
 
         // the same cells are not adjacent, they overlap
         if ($cellPosition->isSamePosition()) {
             return false;
         }
 
-        if ($cellPosition->isDetached()) {
+        if ($cellPosition->isDistant()) {
             return false;
         }
 

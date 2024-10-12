@@ -6,7 +6,6 @@ namespace Advent\Year2023\Day3;
 
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Parser\LineParser;
-use Advent\Shared\Parser\NumberedLineParser;
 use Advent\Year2023\Day3\EngineElementsParser\EngineElementsLexer;
 use Advent\Year2023\Day3\EngineElementsParser\Type;
 use Advent\Year2023\Day3\EngineSchematic\Element;
@@ -15,7 +14,7 @@ use Advent\Year2023\Day3\EngineSchematic\Elements;
 /**
  * @template-implements LineParser<Elements>
  */
-final readonly class EngineElementsParser implements NumberedLineParser
+final readonly class EngineElementsParser implements LineParser
 {
     private EngineElementsLexer $lexer;
 
@@ -24,7 +23,7 @@ final readonly class EngineElementsParser implements NumberedLineParser
         $this->lexer = new EngineElementsLexer();
     }
 
-    public function parse(int $lineNumber, string $line): Elements
+    public function parse(string $line, int $lineNumber): Elements
     {
         $elements = [];
         $this->lexer->setInput($line);

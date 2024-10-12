@@ -6,7 +6,7 @@ namespace Advent\Year2023;
 
 use Advent\Shared\Filesystem\Filesystem;
 use Advent\Shared\Filesystem\SimpleFilesystem;
-use Advent\Shared\Parser\ParsedLineByLine;
+use Advent\Shared\Parser\FileLines;
 use Advent\Year2023\Day1\CalibrationDocument;
 use Advent\Year2023\Day1\LexerLineParser;
 use Advent\Year2023\Day1\SimpleLineParser;
@@ -31,7 +31,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersOnly(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParsedLineByLine(
+            new FileLines(
                 LexerLineParser::recognizeIntegers(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -42,7 +42,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParsedLineByLine(
+            new FileLines(
                 LexerLineParser::recognizeIntegersAndSpelledOutDigits(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -53,7 +53,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_MemorySafe(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParsedLineByLine(
+            new FileLines(
                 LexerLineParser::recognizeIntegersAndSpelledOutDigits(),
                 $this->filesystem,
                 $calibrationDocumentPath
@@ -64,7 +64,7 @@ final readonly class Day1
     public function sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_SimpleParser(string $calibrationDocumentPath): int
     {
         return CalibrationDocument::withLines(
-            new ParsedLineByLine(
+            new FileLines(
                 new SimpleLineParser(),
                 $this->filesystem,
                 $calibrationDocumentPath

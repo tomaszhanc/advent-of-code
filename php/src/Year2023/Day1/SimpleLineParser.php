@@ -13,7 +13,7 @@ use Advent\Year2023\Day1\CalibrationDocument\Line;
  */
 final readonly class SimpleLineParser implements LineParser
 {
-    public function parse(string $line): Line
+    public function parse(string $line, int $lineNumber): Line
     {
         $matches = [];
         \preg_match_all('/(?=(\d|zero|one|two|three|four|five|six|seven|eight|nine))/', $line, $matches);

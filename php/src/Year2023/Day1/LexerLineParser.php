@@ -30,7 +30,7 @@ final readonly class LexerLineParser implements LineParser
         return new self(DigitsLexer::recognizeIntegersAndSpelledOutDigits());
     }
 
-    public function parse(string $line): Line
+    public function parse(string $line, int $lineNumber): Line
     {
         $this->lexer->setInput($line);
         $digits = [];

@@ -37,8 +37,8 @@ final readonly class HorizontalLine implements Line
 
     public function isAdjacentTo(Cell $cell): bool
     {
-        $startCell = $this->startCell->positionTo($cell);
-        $endCell = $this->endCell->positionTo($cell);
+        $startCell = $this->startCell->adjacencyTo($cell);
+        $endCell = $this->endCell->adjacencyTo($cell);
 
         if ($startCell->isDirectlyRight() || $endCell->isDirectlyLeft()) {
             return true;

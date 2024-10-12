@@ -8,7 +8,7 @@ use Advent\Shared\Parser\LineParser;
 
 final readonly class StdObjectLineParserStub implements LineParser
 {
-    public function parse(string $line): object
+    public function parse(string $line, int $lineNumber): object
     {
         $object = new \stdClass();
         $object->input = $line;

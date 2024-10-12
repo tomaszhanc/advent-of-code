@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid;
 
-use Advent\Shared\Grid\Position\ColumnPosition;
-use Advent\Shared\Grid\Position\RowPosition;
+use Advent\Shared\Grid\Adjacency\ColumnAdjacency;
+use Advent\Shared\Grid\Adjacency\RowAdjacency;
 
-final readonly class RelativePosition
+final readonly class Adjacency
 {
     public function __construct(
-        public ColumnPosition $column,
-        public RowPosition $row
+        public ColumnAdjacency $column,
+        public RowAdjacency $row
     ) {
     }
 
@@ -20,9 +20,9 @@ final readonly class RelativePosition
         return $this->row->isSame() && $this->column->isSame();
     }
 
-    public function isDetached(): bool
+    public function isDistant(): bool
     {
-        return $this->column->isDetached() || $this->row->isDetached();
+        return $this->column->isDistant() || $this->row->isDistant();
     }
 
     public function isDirectlyLeft(): bool

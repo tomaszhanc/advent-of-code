@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Filesystem;
 
-use Advent\Shared\Parser\RuntimeException;
-
 final readonly class SimpleFilesystem implements Filesystem
 {
     public function readLineByLine(string $filePath): \Iterator

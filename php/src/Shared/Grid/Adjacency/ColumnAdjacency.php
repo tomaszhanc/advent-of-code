@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Position;
+namespace Advent\Shared\Grid\Adjacency;
 
-enum ColumnPosition
+enum ColumnAdjacency
 {
     case LEFT;
     case RIGHT;
     case SAME;
-    case DETACHED;
+    case DISTANT;
 
     public function isLeft(): bool
     {
@@ -26,8 +26,8 @@ enum ColumnPosition
         return $this === self::SAME;
     }
 
-    public function isDetached(): bool
+    public function isDistant(): bool
     {
-        return $this === self::DETACHED;
+        return $this === self::DISTANT;
     }
 }

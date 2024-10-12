@@ -25,7 +25,7 @@ final readonly class GameParser implements LineParser
         $this->lexer = new GameLexer();
     }
 
-    public function parse(string $line): Game
+    public function parse(string $line, int $lineNumber): Game
     {
         $this->lexer->setInput($line);
 

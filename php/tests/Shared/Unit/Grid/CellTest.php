@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Advent\Tests\Shared\Unit\Grid;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Shared\Grid\RelativePosition;
-use Advent\Tests\Shared\Mother\Grid\PositionMother;
+use Advent\Shared\Grid\Adjacency;
+use Advent\Tests\Shared\Mother\Grid\AdjacencyMother;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -14,9 +14,9 @@ use PHPUnit\Framework\TestCase;
 final class CellTest extends TestCase
 {
     #[Test] #[DataProvider('scenarios_for_position')]
-    public function it_generates_relative_position_between_two_cells(Cell $cellA, Cell $cellB, RelativePosition $position): void
+    public function it_generates_relative_position_between_two_cells(Cell $cellA, Cell $cellB, Adjacency $position): void
     {
-        $this->assertEquals($position, $cellA->positionTo($cellB));
+        $this->assertEquals($position, $cellA->adjacencyTo($cellB));
     }
 
     public static function scenarios_for_position(): iterable
@@ -24,64 +24,64 @@ final class CellTest extends TestCase
         $cellA = new Cell(5, 5);
 
         // Row -2
-        yield 'column:0, row:3' => [new Cell(0, 3), $cellA, PositionMother::detached()];
-        yield 'column:1, row:3' => [new Cell(1, 3), $cellA, PositionMother::detached()];
-        yield 'column:2, row:3' => [new Cell(2, 3), $cellA, PositionMother::detached()];
-        yield 'column:3, row:3' => [new Cell(3, 3), $cellA, PositionMother::detached()];
-        yield 'column:4, row:3' => [new Cell(4, 3), $cellA, PositionMother::leftDetached()];
-        yield 'column:5, row:3' => [new Cell(5, 3), $cellA, PositionMother::detachedRow()];
-        yield 'column:6, row:3' => [new Cell(6, 3), $cellA, PositionMother::rightDetached()];
-        yield 'column:7, row:3' => [new Cell(7, 3), $cellA, PositionMother::detached()];
-        yield 'column:8, row:3' => [new Cell(8, 3), $cellA, PositionMother::detached()];
-        yield 'column:9, row:3' => [new Cell(9, 3), $cellA, PositionMother::detached()];
+        yield 'column:0, row:3' => [new Cell(0, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:1, row:3' => [new Cell(1, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:2, row:3' => [new Cell(2, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:3, row:3' => [new Cell(3, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:4, row:3' => [new Cell(4, 3), $cellA, AdjacencyMother::leftColumnAndDistantRow()];
+        yield 'column:5, row:3' => [new Cell(5, 3), $cellA, AdjacencyMother::sameColumnAndDistantRow()];
+        yield 'column:6, row:3' => [new Cell(6, 3), $cellA, AdjacencyMother::rightColumnAndDistantRow()];
+        yield 'column:7, row:3' => [new Cell(7, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:8, row:3' => [new Cell(8, 3), $cellA, AdjacencyMother::distant()];
+        yield 'column:9, row:3' => [new Cell(9, 3), $cellA, AdjacencyMother::distant()];
 
         // Row -1
-        yield 'column:0, row:4' => [new Cell(0, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:1, row:4' => [new Cell(1, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:2, row:4' => [new Cell(2, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:3, row:4' => [new Cell(3, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:4, row:4' => [new Cell(4, 4), $cellA, PositionMother::leftAbove()];
-        yield 'column:5, row:4' => [new Cell(5, 4), $cellA, PositionMother::above()];
-        yield 'column:6, row:4' => [new Cell(6, 4), $cellA, PositionMother::rightAbove()];
-        yield 'column:7, row:4' => [new Cell(7, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:8, row:4' => [new Cell(8, 4), $cellA, PositionMother::detachedAbove()];
-        yield 'column:9, row:4' => [new Cell(9, 4), $cellA, PositionMother::detachedAbove()];
+        yield 'column:0, row:4' => [new Cell(0, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:1, row:4' => [new Cell(1, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:2, row:4' => [new Cell(2, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:3, row:4' => [new Cell(3, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:4, row:4' => [new Cell(4, 4), $cellA, AdjacencyMother::leftColumnAndAboveRow()];
+        yield 'column:5, row:4' => [new Cell(5, 4), $cellA, AdjacencyMother::sameColumnAndAboveRow()];
+        yield 'column:6, row:4' => [new Cell(6, 4), $cellA, AdjacencyMother::rightColumnAndAboveRow()];
+        yield 'column:7, row:4' => [new Cell(7, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:8, row:4' => [new Cell(8, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
+        yield 'column:9, row:4' => [new Cell(9, 4), $cellA, AdjacencyMother::distantColumnAndAboveRow()];
 
         // The Same Row
-        yield 'column:0, row:5' => [new Cell(0, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:1, row:5' => [new Cell(1, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:2, row:5' => [new Cell(2, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:3, row:5' => [new Cell(3, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:4, row:5' => [new Cell(4, 5), $cellA, PositionMother::left()];
-        yield 'column:5, row:5' => [new Cell(5, 5), $cellA, PositionMother::same()];
-        yield 'column:6, row:5' => [new Cell(6, 5), $cellA, PositionMother::right()];
-        yield 'column:7, row:5' => [new Cell(7, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:8, row:5' => [new Cell(8, 5), $cellA, PositionMother::detachedColumn()];
-        yield 'column:9, row:5' => [new Cell(9, 5), $cellA, PositionMother::detachedColumn()];
+        yield 'column:0, row:5' => [new Cell(0, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:1, row:5' => [new Cell(1, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:2, row:5' => [new Cell(2, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:3, row:5' => [new Cell(3, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:4, row:5' => [new Cell(4, 5), $cellA, AdjacencyMother::leftColumnAndSameRow()];
+        yield 'column:5, row:5' => [new Cell(5, 5), $cellA, AdjacencyMother::same()];
+        yield 'column:6, row:5' => [new Cell(6, 5), $cellA, AdjacencyMother::rightColumnAndSameRow()];
+        yield 'column:7, row:5' => [new Cell(7, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:8, row:5' => [new Cell(8, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
+        yield 'column:9, row:5' => [new Cell(9, 5), $cellA, AdjacencyMother::distantColumnAndSameRow()];
 
         // Row +1
-        yield 'column:0, row:6' => [new Cell(0, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:1, row:6' => [new Cell(1, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:2, row:6' => [new Cell(2, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:3, row:6' => [new Cell(3, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:4, row:6' => [new Cell(4, 6), $cellA, PositionMother::leftBelow()];
-        yield 'column:5, row:6' => [new Cell(5, 6), $cellA, PositionMother::below()];
-        yield 'column:6, row:6' => [new Cell(6, 6), $cellA, PositionMother::rightBelow()];
-        yield 'column:7, row:6' => [new Cell(7, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:8, row:6' => [new Cell(8, 6), $cellA, PositionMother::detachedBelow()];
-        yield 'column:9, row:6' => [new Cell(9, 6), $cellA, PositionMother::detachedBelow()];
+        yield 'column:0, row:6' => [new Cell(0, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:1, row:6' => [new Cell(1, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:2, row:6' => [new Cell(2, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:3, row:6' => [new Cell(3, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:4, row:6' => [new Cell(4, 6), $cellA, AdjacencyMother::leftColumnAndBelowRow()];
+        yield 'column:5, row:6' => [new Cell(5, 6), $cellA, AdjacencyMother::sameColumnAndBelowRow()];
+        yield 'column:6, row:6' => [new Cell(6, 6), $cellA, AdjacencyMother::rightColumnAndBelowRow()];
+        yield 'column:7, row:6' => [new Cell(7, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:8, row:6' => [new Cell(8, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
+        yield 'column:9, row:6' => [new Cell(9, 6), $cellA, AdjacencyMother::distantColumnAndBelowRow()];
 
         // Row +2
-        yield 'column:0, row:7' => [new Cell(0, 7), $cellA, PositionMother::detached()];
-        yield 'column:1, row:7' => [new Cell(1, 7), $cellA, PositionMother::detached()];
-        yield 'column:2, row:7' => [new Cell(2, 7), $cellA, PositionMother::detached()];
-        yield 'column:3, row:7' => [new Cell(3, 7), $cellA, PositionMother::detached()];
-        yield 'column:4, row:7' => [new Cell(4, 7), $cellA, PositionMother::leftDetached()];
-        yield 'column:5, row:7' => [new Cell(5, 7), $cellA, PositionMother::detachedRow()];
-        yield 'column:6, row:7' => [new Cell(6, 7), $cellA, PositionMother::rightDetached()];
-        yield 'column:7, row:7' => [new Cell(7, 7), $cellA, PositionMother::detached()];
-        yield 'column:8, row:7' => [new Cell(8, 7), $cellA, PositionMother::detached()];
-        yield 'column:9, row:7' => [new Cell(9, 7), $cellA, PositionMother::detached()];
+        yield 'column:0, row:7' => [new Cell(0, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:1, row:7' => [new Cell(1, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:2, row:7' => [new Cell(2, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:3, row:7' => [new Cell(3, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:4, row:7' => [new Cell(4, 7), $cellA, AdjacencyMother::leftColumnAndDistantRow()];
+        yield 'column:5, row:7' => [new Cell(5, 7), $cellA, AdjacencyMother::sameColumnAndDistantRow()];
+        yield 'column:6, row:7' => [new Cell(6, 7), $cellA, AdjacencyMother::rightColumnAndDistantRow()];
+        yield 'column:7, row:7' => [new Cell(7, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:8, row:7' => [new Cell(8, 7), $cellA, AdjacencyMother::distant()];
+        yield 'column:9, row:7' => [new Cell(9, 7), $cellA, AdjacencyMother::distant()];
     }
 
 
