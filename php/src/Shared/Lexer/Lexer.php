@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Lexer;
 
-use Doctrine\Common\Lexer\AbstractLexer;
+use Advent\Shared\Lexer\Doctrine\DoctrineLexer;
 
+/**
+ * @template T of \UnitEnum
+ */
 final readonly class Lexer
 {
-    public function __construct(private AbstractLexer $lexer)
+    /** @param DoctrineLexer<T> $lexer */
+    public function __construct(private DoctrineLexer $lexer)
     {
     }
 
+    /**
+     * @return Token<T>[]
+     */
     public function tokenize(string $input): iterable
     {
         $this->lexer->setInput($input);
@@ -20,7 +27,11 @@ final readonly class Lexer
             $token = $this->lexer->lookahead;
 
             if ($token->type !== null) {
-                yield $token;
+                yield new Token(
+                    $token->value,
+                    $token->type,
+                    $token->position
+                );
             }
         }
     }

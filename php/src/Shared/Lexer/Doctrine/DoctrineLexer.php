@@ -7,7 +7,8 @@ namespace Advent\Shared\Lexer\Doctrine;
 use Doctrine\Common\Lexer\AbstractLexer;
 
 /**
- * @template-extends AbstractLexer<object, string>
+ * @template T of \UnitEnum
+ * @template-extends AbstractLexer<T, string>
  */
 final class DoctrineLexer extends AbstractLexer
 {
@@ -31,6 +32,7 @@ final class DoctrineLexer extends AbstractLexer
         return [];
     }
 
+    /** @return T|null */
     protected function getType(string &$value): ?object
     {
         foreach ($this->patterns as [$regex, $type]) {

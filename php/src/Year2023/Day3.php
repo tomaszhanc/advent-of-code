@@ -9,9 +9,7 @@ use Advent\Shared\Filesystem\SimpleFilesystem;
 use Advent\Shared\Parser\DeprecatedFileLines;
 use Advent\Year2023\Day3\EngineSchematic;
 
-/**
- * @see https://adventofcode.com/2023/day/3
- */
+/** @see https://adventofcode.com/2023/day/3 */
 final readonly class Day3
 {
     public function __construct(
