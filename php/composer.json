@@ -35,7 +35,7 @@
             "tools/vendor/bin/php-cs-fixer fix --dry-run"
         ],
         "test": [
-            "vendor/bin/phpunit"
+            "vendor/bin/phpunit --coverage-text"
         ],
         "test:mutation": [
             "vendor/bin/infection -j2"

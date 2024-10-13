@@ -5,15 +5,22 @@
   executionOrder="default"
   cacheDirectory="./var/phpunit/"
 >
-  <coverage>
+  <coverage includeUncoveredFiles="true">
     <report>
       <html outputDirectory="./var/phpunit/coverage/html" lowUpperBound="95" highLowerBound="100"/>
+      <text outputFile="./var/phpunit/coverage/coverage.txt" showOnlySummary="true" />
     </report>
   </coverage>
 
+  <logging>
+    <testdoxHtml outputFile="./var/phpunit/logging/testdox.html"/>
+    <testdoxText outputFile="./var/phpunit/logging/testdox.txt"/>
+  </logging>
+
   <testsuites>
     <testsuite name="all">
-      <directory>tests/</directory>
+      <directory>tests/Shared/</directory>
+      <directory>tests/Year2023/Unit/Day1/</directory>
     </testsuite>
   </testsuites>
 
