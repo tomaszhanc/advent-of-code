@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Unit\Day3;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Year2023\Day3\EngineElementsParser;
+use Advent\Year2023\Day3\EngineElementsParserDeprecated;
 use Advent\Year2023\Day3\EngineSchematic\Element;
 use Advent\Year2023\Day3\EngineSchematic\Elements;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -17,7 +17,7 @@ final class EngineElementsParserTests extends TestCase
     #[Test] #[DataProvider('engine_schematic_lines')]
     public function test_parses_engine_schematic_lines(int $lineNumber, string $line, Element ...$expectedElements): void
     {
-        $parser = new EngineElementsParser();
+        $parser = new EngineElementsParserDeprecated();
 
         $this->assertEquals(Elements::create(...$expectedElements), $parser->parse($lineNumber, $line));
     }

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day1\CalibrationDocument;
+namespace Advent\Tests\Year2023\Unit\Day1;
 
-use Advent\Year2023\Day1\CalibrationDocument\CalibrationValue;
+use Advent\Year2023\Day1\CalibrationValue;
+use Advent\Year2023\Day1\Digit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -20,22 +21,22 @@ final class CalibrationValueTest extends TestCase
     public static function calibration_values(): iterable
     {
         yield [
-            CalibrationValue::of(4, 8),
+            new CalibrationValue(new Digit(4), new Digit(8)),
             48,
         ];
 
         yield [
-            CalibrationValue::of(9, 0),
+            new CalibrationValue(new Digit(9), new Digit(0)),
             90,
         ];
 
         yield [
-            CalibrationValue::of(0, 7),
+            new CalibrationValue(new Digit(0), new Digit(7)),
             7,
         ];
 
         yield [
-            CalibrationValue::of(0, 0),
+            new CalibrationValue(new Digit(0), new Digit(0)),
             0,
         ];
     }

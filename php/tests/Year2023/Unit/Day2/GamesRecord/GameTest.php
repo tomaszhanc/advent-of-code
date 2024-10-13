@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Unit\Day2\GamesRecord;
 
-use Advent\Year2023\Day2\GameParser;
+use Advent\Year2023\Day2\GameParserDeprecated;
 use Advent\Year2023\Day2\GamesRecord\Cubes;
 use Advent\Year2023\Day2\GamesRecord\CubesSet;
 use Advent\Year2023\Day2\GamesRecord\Game;
@@ -22,7 +22,7 @@ final class GameTest extends TestCase
 
     public static function games_can_be_played_out(): iterable
     {
-        $gameParser = new GameParser();
+        $gameParser = new GameParserDeprecated();
         $cubeSet = CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14));
 
         yield [

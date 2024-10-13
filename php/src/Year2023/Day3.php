@@ -6,7 +6,7 @@ namespace Advent\Year2023;
 
 use Advent\Shared\Filesystem\Filesystem;
 use Advent\Shared\Filesystem\SimpleFilesystem;
-use Advent\Shared\Parser\FileLines;
+use Advent\Shared\Parser\DeprecatedFileLines;
 use Advent\Year2023\Day3\EngineSchematic;
 
 /**
@@ -54,7 +54,7 @@ final readonly class Day3
 
 
         return EngineSchematic::create(
-            new FileLines(
+            new DeprecatedFileLines(
                 new Parser(),
                 $this->filesystem,
                 $engineSchematicFilePath

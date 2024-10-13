@@ -17,20 +17,18 @@ final class Day1Test extends TestCase
     protected function setUp(): void
     {
         $this->day1 = Day1::create();
-        $this->calibrationDocumentPath = __DIR__ . '/../Resources/day1.txt';
+        $this->calibrationDocumentPath = __DIR__ . '/../../../resources/day1.txt';
     }
 
     #[Test]
     public function part_one_sum_of_all_calibration_values_built_from_integers_only(): void
     {
-        $this->assertEquals(54597, $this->day1->sumOfAllCalibrationValuesBuiltFromIntegersOnly($this->calibrationDocumentPath));
+        $this->assertEquals(54597, $this->day1->partOne_sumAllCalibrationValues($this->calibrationDocumentPath));
     }
 
     #[Test]
     public function part_two_sum_of_all_calibration_values_built_from_integers_and_spelled_out_numbers(): void
     {
-        $this->assertEquals(54504, $this->day1->sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits($this->calibrationDocumentPath));
-        $this->assertEquals(54504, $this->day1->sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_MemorySafe($this->calibrationDocumentPath));
-        $this->assertEquals(54504, $this->day1->sumOfAllCalibrationValuesBuiltFromIntegersAndSpelledOutDigits_SimpleParser($this->calibrationDocumentPath));
+        $this->assertEquals(54504, $this->day1->partTwo_sumAllCalibrationValues($this->calibrationDocumentPath));
     }
 }

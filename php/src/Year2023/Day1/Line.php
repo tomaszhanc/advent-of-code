@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day1\CalibrationDocument;
+namespace Advent\Year2023\Day1;
 
 use Advent\Shared\Grid\InvalidArgumentException;
 
@@ -21,13 +21,6 @@ final readonly class Line
     public static function create(Digit ...$digits): self
     {
         return new self($digits);
-    }
-
-    public static function of(int ...$digits): self
-    {
-        return new self(
-            \array_map(fn (int $digit) => new Digit($digit), $digits)
-        );
     }
 
     public function calibrationValue(): CalibrationValue

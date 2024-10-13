@@ -19,7 +19,7 @@ final class Day2Test extends TestCase
     protected function setUp(): void
     {
         $this->day2 = Day2::create();
-        $this->gamesRecordFilePath = __DIR__ . '/../Resources/day2.txt';
+        $this->gamesRecordFilePath = __DIR__ . '/../../../resources/day2.txt';
     }
 
     #[Test]

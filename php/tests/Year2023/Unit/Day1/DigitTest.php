@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day1\CalibrationDocument;
+namespace Advent\Tests\Year2023\Unit\Day1;
 
-use Advent\Year2023\Day1\CalibrationDocument\Digit;
+use Advent\Year2023\Day1\Digit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

@@ -6,8 +6,8 @@ namespace Advent\Year2023;
 
 use Advent\Shared\Filesystem\Filesystem;
 use Advent\Shared\Filesystem\SimpleFilesystem;
-use Advent\Shared\Parser\FileLines;
-use Advent\Year2023\Day2\GameParser;
+use Advent\Shared\Parser\DeprecatedFileLines;
+use Advent\Year2023\Day2\GameParserDeprecated;
 use Advent\Year2023\Day2\GamesRecord;
 use Advent\Year2023\Day2\GamesRecord\CubesSet;
 
@@ -31,8 +31,8 @@ final readonly class Day2
     public function sumOfAllPossibleToBePlayedOutGameIdsFor(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
         return GamesRecord::withGames(
-            new FileLines(
-                new GameParser(),
+            new DeprecatedFileLines(
+                new GameParserDeprecated(),
                 $this->filesystem,
                 $gameRecordFilePath
             )
@@ -42,8 +42,8 @@ final readonly class Day2
     public function sumOfAllPossibleToBePlayedOutGameIdsFor_MemorySafe(string $gameRecordFilePath, CubesSet $cubesSet): int
     {
         return GamesRecord::withGames(
-            new FileLines(
-                new GameParser(),
+            new DeprecatedFileLines(
+                new GameParserDeprecated(),
                 $this->filesystem,
                 $gameRecordFilePath
             )
@@ -53,8 +53,8 @@ final readonly class Day2
     public function sumOfAllMinimumCubesSetsPowers(string $gameRecordFilePath): int
     {
         return GamesRecord::withGames(
-            new FileLines(
-                new GameParser(),
+            new DeprecatedFileLines(
+                new GameParserDeprecated(),
                 $this->filesystem,
                 $gameRecordFilePath
             )

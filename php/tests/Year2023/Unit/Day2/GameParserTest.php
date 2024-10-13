@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Unit\Day2;
 
-use Advent\Year2023\Day2\GameParser;
+use Advent\Year2023\Day2\GameParserDeprecated;
 use Advent\Year2023\Day2\GamesRecord\Cubes;
 use Advent\Year2023\Day2\GamesRecord\CubesSet;
 use Advent\Year2023\Day2\GamesRecord\Game;
@@ -17,7 +17,7 @@ final class GameParserTest extends TestCase
     #[Test] #[DataProvider('games')]
     public function it_parses_a_game(string $input, Game $expectedGame): void
     {
-        $parser = new GameParser();
+        $parser = new GameParserDeprecated();
 
         $this->assertEquals($expectedGame, $parser->parse($input));
     }

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day1\CalibrationDocument;
+namespace Advent\Tests\Year2023\Unit\Day1;
 
-use Advent\Year2023\Day1\CalibrationDocument\CalibrationValue;
-use Advent\Year2023\Day1\CalibrationDocument\Line;
+use Advent\Year2023\Day1\CalibrationValue;
+use Advent\Year2023\Day1\Digit;
+use Advent\Year2023\Day1\Line;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -29,13 +30,18 @@ final class LineTest extends TestCase
     public static function lines(): iterable
     {
         yield 'single digit in a line' => [
-            Line::of(7),
-            CalibrationValue::of(7, 7),
+            Line::create($digit = new Digit(7)),
+            new CalibrationValue($digit, $digit),
         ];
 
         yield 'multiple digits in a line' => [
-            Line::of(5, 1, 9, 2),
-            CalibrationValue::of(5, 2),
+            Line::create(
+                $first = new Digit(5),
+                new Digit(1),
+                new Digit(9),
+                $last = new Digit(2)
+            ),
+            new CalibrationValue($first, $last),
         ];
     }
 }

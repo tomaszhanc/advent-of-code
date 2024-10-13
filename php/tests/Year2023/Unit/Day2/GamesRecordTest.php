@@ -2,7 +2,7 @@
 
 namespace Advent\Tests\Year2023\Unit\Day2;
 
-use Advent\Year2023\Day2\GameParser;
+use Advent\Year2023\Day2\GameParserDeprecated;
 use Advent\Year2023\Day2\GamesRecord;
 use Advent\Year2023\Day2\GamesRecord\Cubes;
 use Advent\Year2023\Day2\GamesRecord\CubesSet;
@@ -15,7 +15,7 @@ final class GamesRecordTest extends TestCase
     #[Test]
     public function it_returns_all_games_possible_to_be_played_out_with_a_given_cubes_set(): void
     {
-        $gameParser = new GameParser();
+        $gameParser = new GameParserDeprecated();
         $gamesRecord = GamesRecord::withGames([
             $game1 = $gameParser->parse('Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green'),
             $game2 = $gameParser->parse('Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue'),
@@ -34,7 +34,7 @@ final class GamesRecordTest extends TestCase
     #[Test]
     public function it_sums_all_game_ids_that_are_possible_to_be_played_out_with_a_given_cubes_set(): void
     {
-        $gameParser = new GameParser();
+        $gameParser = new GameParserDeprecated();
         $gamesRecord = GamesRecord::withGames([
             $gameParser->parse('Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green'),
             $gameParser->parse('Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue'),
