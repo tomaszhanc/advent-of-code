@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace Advent\Year2023;
 
+use Advent\Shared\Command\Attribute\Menu;
 use Advent\Shared\Filesystem\Filesystem;
 use Advent\Shared\Filesystem\LocalFile;
 use Advent\Shared\Filesystem\SimpleFilesystem;
+use Advent\Year2023\Day1\AllLinesCalibrationValues;
 use Advent\Year2023\Day1\Parser\DigitLexer;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
-use Advent\Year2023\Day1\AllLinesCalibrationValues;
 
-/**
- * @see https://adventofcode.com/2023/day/1
- */
+#[Menu(
+    name: 'Day 01: Trebuchet?!',
+    url: 'https://adventofcode.com/2023/day/1',
+    parts: [
+        'partOne_sumAllCalibrationValues',
+        'partTwo_sumAllCalibrationValues'
+    ]
+)]
 final readonly class Day1
 {
     public function __construct(

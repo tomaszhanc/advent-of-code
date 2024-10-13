@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day2;
 
-use Advent\Shared\Parser\DeprecatedLineParser;
-use Advent\Shared\Parser\RuntimeException;
 use Advent\Year2023\Day2\GameParser\GameLexer;
 use Advent\Year2023\Day2\GameParser\Type;
 use Advent\Year2023\Day2\GamesRecord\Color;
@@ -13,10 +11,7 @@ use Advent\Year2023\Day2\GamesRecord\Cubes;
 use Advent\Year2023\Day2\GamesRecord\CubesSet;
 use Advent\Year2023\Day2\GamesRecord\Game;
 
-/**
- * @template-implements DeprecatedLineParser<Game>
- */
-final readonly class GameParserDeprecated implements DeprecatedLineParser
+final readonly class GameParserDeprecated
 {
     private GameLexer $lexer;
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Unit;
 
 use Advent\Year2023\Day3;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class Day3Todo extends TestCase

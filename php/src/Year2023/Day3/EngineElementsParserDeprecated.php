@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day3;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Shared\Parser\DeprecatedLineParser;
 use Advent\Year2023\Day3\EngineElementsParser\EngineElementsLexer;
 use Advent\Year2023\Day3\EngineElementsParser\Type;
 use Advent\Year2023\Day3\EngineSchematic\Element;
 use Advent\Year2023\Day3\EngineSchematic\Elements;
 
-/**
- * @template-implements DeprecatedLineParser<Elements>
- */
-final readonly class EngineElementsParserDeprecated implements DeprecatedLineParser
+final readonly class EngineElementsParserDeprecated
 {
     private EngineElementsLexer $lexer;
 

@@ -3,6 +3,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Advent\Shared\Command\Attribute\Menu;
 use Advent\Year2023\Day1;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -13,19 +14,59 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\SingleCommandApplication;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+function getMenuActions(string $srcDir): array
+{
+    $actions = [];
+
+    $iterator = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($srcDir)
+    );
+
+    foreach ($iterator as $file) {
+        if ($file->isFile() && $file->getExtension() === 'php') {
+            require_once $file->getPathname();
+        }
+    }
+
+    // Check each declared class if it implements the specified interface
+    foreach (get_declared_classes() as $className) {
+        $reflection = new \ReflectionClass($className);
+        $attributeReflection = $reflection->getAttributes(Menu::class)[0] ?? null;
+
+        if ($attributeReflection === null) {
+            continue;
+        }
+
+        $attribute = $attributeReflection->newInstance();
+        $attributeTargetObject = $className::create();
+
+        $actions[] = [
+            'name' => $attribute->name,
+            'menu' => \str_pad($attribute->name, 50) . $attribute->url,
+            'parts' => array_map(
+                fn (string $part) => [
+                    [$attributeTargetObject, $part], __DIR__.'/../resources/day1.txt'
+                ],
+                $attribute->parts
+            )
+        ];
+    }
+
+    return $actions;
+}
+
+$actions = getMenuActions(__DIR__.'/../src/Year2023');
+
+
 (new SingleCommandApplication())
     ->addArgument('day', InputArgument::OPTIONAL, 'Day to run')
-    ->setCode(function (InputInterface $input, OutputInterface $output): int {
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($actions) : int {
         $io = new SymfonyStyle($input, $output);
         $io->title('Advent Of Code 2023');
 
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
-        $options = [
-            1 => \str_pad('Day 01: Trebuchet?!', 50) . 'https://adventofcode.com/2023/day/1',
-            2 => \str_pad('Day 02: Cube Conundrum', 50) . 'https://adventofcode.com/2023/day/2',
-            3 => \str_pad('Day 03: Gear Ratios', 50) . 'https://adventofcode.com/2023/day/3',
-        ];
+        $options = \array_map(fn (array $action) => $action['menu'], $actions);
 
         $day = $input->getArgument('day');
         $day = array_key_exists($day, $options) ? $day : null;
@@ -37,14 +78,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
         }
 
         $io->newLine();
+        $action = $actions[$day];
 
-        switch ($day) {
-            case 1:
-                $io->section('Solution for "Day 01: Trebuchet?!"');
-                $io->text('Part One: ' . Day1::create()->partOne_sumAllCalibrationValues(__DIR__.'/../resources/day1.txt'));
-                $io->text('Part Two: ' . Day1::create()->partTwo_sumAllCalibrationValues(__DIR__.'/../resources/day1.txt'));
-                $io->newLine();
+        $io->section('Solution for: ' . $action['name']);
+        foreach ($action['parts'] as $idx => $part) {
+            $result = call_user_func(...$part);
+            $io->text(sprintf('Part %d: %s', $idx+1, $result));
         }
+        $io->newLine();
 
         return Command::SUCCESS;
     })
