@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day3;
+namespace Advent\Tests\Year2023\Unit\Day3\Legacy;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Year2023\Day3\EngineElementsParserDeprecated;
-use Advent\Year2023\Day3\EngineSchematic\Element;
-use Advent\Year2023\Day3\EngineSchematic\Elements;
+use Advent\Year2023\Day3\Legacy\EngineElementsParserDeprecated;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Element;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Elements;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

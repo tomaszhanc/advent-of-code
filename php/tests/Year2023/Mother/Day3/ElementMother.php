@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Mother\Day3;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Year2023\Day3\EngineSchematic\Element;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Element;
 
 final readonly class ElementMother
 {

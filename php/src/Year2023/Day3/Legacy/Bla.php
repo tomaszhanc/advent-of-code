@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day3;
+namespace Advent\Year2023\Day3\Legacy;
 
-use Advent\Year2023\Day3\EngineSchematic\Elements;
-use Advent\Year2023\Day3\EngineSchematic\PartNumber;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Elements;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\PartNumber;
 
 final readonly class Bla
 {

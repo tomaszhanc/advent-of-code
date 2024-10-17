@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day3\EngineElementsParser;
+namespace Advent\Year2023\Day3\Legacy\EngineElementsParser;
 
 use Doctrine\Common\Lexer\AbstractLexer;
 

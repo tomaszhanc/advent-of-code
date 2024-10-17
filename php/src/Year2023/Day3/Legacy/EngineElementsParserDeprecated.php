@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day3;
+namespace Advent\Year2023\Day3\Legacy;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Year2023\Day3\EngineElementsParser\EngineElementsLexer;
-use Advent\Year2023\Day3\EngineElementsParser\Type;
-use Advent\Year2023\Day3\EngineSchematic\Element;
-use Advent\Year2023\Day3\EngineSchematic\Elements;
+use Advent\Year2023\Day3\Legacy\EngineElementsParser\EngineElementsLexer;
+use Advent\Year2023\Day3\Legacy\EngineElementsParser\Type;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Element;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Elements;
 
 final readonly class EngineElementsParserDeprecated
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day3;
+namespace Advent\Tests\Year2023\Unit\Day3\Legacy;
 
 use Advent\Tests\Year2023\Mother\Day3\ElementMother;
-use Advent\Year2023\Day3\Bla;
-use Advent\Year2023\Day3\EngineSchematic\Elements;
+use Advent\Year2023\Day3\Legacy\Bla;
+use Advent\Year2023\Day3\Legacy\EngineSchematic\Elements;
 use PHPUnit\Framework\TestCase;
 
 final class BlaTodo extends TestCase
