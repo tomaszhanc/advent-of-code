@@ -1,6 +1,6 @@
 <?php
 
-namespace Advent\Year2023\Day2\GamesRecord;
+namespace Advent\Year2023\Day2\Model;
 
 enum Color: string
 {

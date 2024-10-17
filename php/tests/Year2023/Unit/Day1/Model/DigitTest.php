@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day1;
+namespace Advent\Tests\Year2023\Unit\Day1\Model;
 
-use Advent\Year2023\Day1\Digit;
+use Advent\Year2023\Day1\Model\Digit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +27,8 @@ final class DigitTest extends TestCase
         Digit::fromString('fifteen');
     }
 
-    #[Test] #[DataProvider('digits')]
+    #[Test]
+    #[DataProvider('digits')]
     public function it_creates_a_digit(string|int $input, Digit $expectedDigit): void
     {
         $this->assertEquals($expectedDigit, Digit::fromString($input));

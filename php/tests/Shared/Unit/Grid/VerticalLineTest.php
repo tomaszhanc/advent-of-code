@@ -59,7 +59,8 @@ final class VerticalLineTest extends TestCase
         );
     }
 
-    #[Test] #[DataProvider('scenarios')]
+    #[Test]
+    #[DataProvider('scenarios')]
     public function it_is_adjacent(VerticalLine $line, Cell $point, bool $isAdjacent): void
     {
         $this->assertSame($isAdjacent, $line->isAdjacentTo($point));

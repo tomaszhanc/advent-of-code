@@ -2,27 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day2\GamesRecord;
+namespace Advent\Tests\Year2023\Unit\Day2\Model;
 
-use Advent\Year2023\Day2\GameParserDeprecated;
-use Advent\Year2023\Day2\GamesRecord\Cubes;
-use Advent\Year2023\Day2\GamesRecord\CubesSet;
-use Advent\Year2023\Day2\GamesRecord\Game;
+use Advent\Year2023\Day2\Model\Cubes;
+use Advent\Year2023\Day2\Model\CubesSet;
+use Advent\Year2023\Day2\Model\Game;
+use Advent\Year2023\Day2\Parser\GameLexer;
+use Advent\Year2023\Day2\Parser\GameParser;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class GameTest extends TestCase
 {
-    #[Test] #[DataProvider('games_can_be_played_out')]
+    #[Test]
+    #[DataProvider('games_can_be_played_out')]
     public function it_determines_if_it_can_be_played_out_with_a_given_cubes_set(Game $game, CubesSet $cubesSet, bool $canBePlayedOut): void
     {
-        $this->assertSame($canBePlayedOut, $game->canBePlayedOutWith($cubesSet));
+        $this->assertSame($canBePlayedOut, $game->canBePlayedWith($cubesSet));
     }
 
     public static function games_can_be_played_out(): iterable
     {
-        $gameParser = new GameParserDeprecated();
+        $gameParser = new GameParser(new GameLexer());
         $cubeSet = CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14));
 
         yield [
@@ -56,11 +58,12 @@ final class GameTest extends TestCase
         ];
     }
 
-    #[Test] #[DataProvider('games_smallest_cube_set')]
+    #[Test]
+    #[DataProvider('games_smallest_cube_set')]
     public function it_finds_the_smallest_cube_set_required_to_play_the_game(Game $game, CubesSet $expectedSmallestCubeSet): void
     {
-        $this->assertEqualsCanonicalizing($expectedSmallestCubeSet, $game->smallestCubesSetToPlay());
-        $this->assertTrue($game->canBePlayedOutWith($game->smallestCubesSetToPlay()));
+        $this->assertEqualsCanonicalizing($expectedSmallestCubeSet, $game->findSmallestCubesSetToPlay());
+        $this->assertTrue($game->canBePlayedWith($game->findSmallestCubesSetToPlay()));
     }
 
     public static function games_smallest_cube_set(): iterable

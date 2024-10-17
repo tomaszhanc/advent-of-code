@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day2\GamesRecord;
+namespace Advent\Year2023\Day2\Model;
 
 final readonly class Cubes
 {
@@ -23,10 +23,5 @@ final readonly class Cubes
     public static function blue(int $quantity): self
     {
         return new self($quantity, Color::BLUE);
-    }
-
-    public static function zero(Color $color): self
-    {
-        return new self(0, $color);
     }
 }

@@ -9,10 +9,10 @@ use Advent\Shared\Lexer\Attributes\Regex;
 enum DigitLexerTokenType
 {
     #[Regex("\d")]
-    case Digit;
+    case DIGIT;
 
     public function isDigit(): bool
     {
-        return $this === self::Digit;
+        return $this === self::DIGIT;
     }
 }

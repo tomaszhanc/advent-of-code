@@ -9,10 +9,10 @@ use Advent\Shared\Lexer\Attributes\Regex;
 enum WordDigitLexerTokenType
 {
     #[Regex("zero|one|two|three|four|five|six|seven|eight|nine", positiveLookahead: true)]
-    case WordDigit;
+    case WORD_DIGIT;
 
     public function isDigit(): bool
     {
-        return $this === self::WordDigit;
+        return $this === self::WORD_DIGIT;
     }
 }

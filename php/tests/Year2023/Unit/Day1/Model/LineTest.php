@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day1;
+namespace Advent\Tests\Year2023\Unit\Day1\Model;
 
-use Advent\Year2023\Day1\CalibrationValue;
-use Advent\Year2023\Day1\Digit;
-use Advent\Year2023\Day1\Line;
+use Advent\Year2023\Day1\Model\CalibrationValue;
+use Advent\Year2023\Day1\Model\Digit;
+use Advent\Year2023\Day1\Model\Line;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,8 @@ final class LineTest extends TestCase
         Line::create();
     }
 
-    #[Test] #[DataProvider('lines')]
+    #[Test]
+    #[DataProvider('lines')]
     public function it_creates_a_calibration_value_from_the_first_and_the_last_digit_in_the_line(Line $line, CalibrationValue $expectedCalibrationValue): void
     {
         $this->assertEquals($expectedCalibrationValue, $line->calibrationValue());

@@ -7,7 +7,7 @@ namespace Advent\Year2023\Day1;
 use Advent\Shared\Filesystem\File;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
 
-final readonly class AllLinesCalibrationValues
+final readonly class LinesCalibrationValues
 {
     public function __construct(
         private DigitLineParser $lineParser

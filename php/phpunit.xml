@@ -19,8 +19,7 @@
 
   <testsuites>
     <testsuite name="all">
-      <directory>tests/Shared/</directory>
-      <directory>tests/Year2023/Unit/Day1/</directory>
+      <directory>tests</directory>
     </testsuite>
   </testsuites>
 

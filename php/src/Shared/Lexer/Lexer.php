@@ -17,22 +17,13 @@ final readonly class Lexer
     }
 
     /**
-     * @return Token<T>[]
+     * @return Tokens<T>
      */
-    public function tokenize(string $input): iterable
+    public function tokenize(string $input): Tokens
     {
         $this->lexer->setInput($input);
+        $this->lexer->moveNext();
 
-        while ($this->lexer->moveNext()) {
-            $token = $this->lexer->lookahead;
-
-            if ($token->type !== null) {
-                yield new Token(
-                    $token->value,
-                    $token->type,
-                    $token->position
-                );
-            }
-        }
+        return new Tokens($this->lexer);
     }
 }

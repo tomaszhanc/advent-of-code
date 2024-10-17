@@ -59,7 +59,8 @@ final class HorizontalLineTest extends TestCase
         );
     }
 
-    #[Test] #[DataProvider('scenarios')]
+    #[Test]
+    #[DataProvider('scenarios')]
     public function it_is_adjacent(HorizontalLine $line, Cell $point, bool $isAdjacent): void
     {
         $this->assertSame($isAdjacent, $line->isAdjacentTo($point), $isAdjacent ? 'Cell should be adjacent, but is not' : 'Cell should not be adjacent, but it is');

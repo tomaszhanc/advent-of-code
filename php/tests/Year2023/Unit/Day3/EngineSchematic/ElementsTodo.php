@@ -60,7 +60,8 @@ final class ElementsTodo extends TestCase
         // one level below of elements Y-axis
     }
 
-    #[Test] #[DataProvider('not_adjacent_elements')]
+    #[Test]
+    #[DataProvider('not_adjacent_elements')]
     public function test_given_element_not_adjacent_to_symbol_element(Elements $elements, Element $element): void
     {
         $this->assertFalse($elements->isSymbolElementAdjacentTo($element));

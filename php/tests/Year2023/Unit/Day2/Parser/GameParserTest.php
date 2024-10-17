@@ -2,27 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Advent\Tests\Year2023\Unit\Day2;
+namespace Advent\Tests\Year2023\Unit\Day2\Parser;
 
-use Advent\Year2023\Day2\GameParserDeprecated;
-use Advent\Year2023\Day2\GamesRecord\Cubes;
-use Advent\Year2023\Day2\GamesRecord\CubesSet;
-use Advent\Year2023\Day2\GamesRecord\Game;
+use Advent\Year2023\Day2\Model\Cubes;
+use Advent\Year2023\Day2\Model\CubesSet;
+use Advent\Year2023\Day2\Model\Game;
+use Advent\Year2023\Day2\Parser\GameLexer;
+use Advent\Year2023\Day2\Parser\GameParser;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class GameParserTest extends TestCase
 {
-    #[Test] #[DataProvider('games')]
-    public function it_parses_a_game(string $input, Game $expectedGame): void
+    #[Test]
+    #[DataProvider('scenarios')]
+    public function it_parsers_game_record(string $gameRecord, Game $expected): void
     {
-        $parser = new GameParserDeprecated();
+        $parser = new GameParser(new GameLexer());
 
-        $this->assertEquals($expectedGame, $parser->parse($input));
+        $this->assertEquals($expected, $parser->parse($gameRecord));
     }
 
-    public static function games(): iterable
+    public static function scenarios(): iterable
     {
         yield 'Game 1' => [
             'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',

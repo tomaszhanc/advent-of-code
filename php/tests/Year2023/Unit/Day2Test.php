@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Unit;
 
 use Advent\Year2023\Day2;
-use Advent\Year2023\Day2\GamesRecord\Cubes;
-use Advent\Year2023\Day2\GamesRecord\CubesSet;
+use Advent\Year2023\Day2\Model\Cubes;
+use Advent\Year2023\Day2\Model\CubesSet;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -23,17 +23,20 @@ final class Day2Test extends TestCase
     }
 
     #[Test]
-    public function part_one_sum_of_all_game_ids_that_would_have_been_possible_for_a_given_bag_of_cubes(): void
+    public function part_one_sum_all_possible_game_ids_for_the_given_cubes_set(): void
     {
-        $cubeSet = CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14));
+        $cubeSet = CubesSet::of(
+            Cubes::red(12),
+            Cubes::green(13),
+            Cubes::blue(14)
+        );
 
-        $this->assertEquals(2551, $this->day2->sumOfAllPossibleToBePlayedOutGameIdsFor($this->gamesRecordFilePath, $cubeSet));
-        $this->assertEquals(2551, $this->day2->sumOfAllPossibleToBePlayedOutGameIdsFor_MemorySafe($this->gamesRecordFilePath, $cubeSet));
+        $this->assertEquals(2551, $this->day2->partOne_sumAllPossibleGameIds($cubeSet, $this->gamesRecordFilePath));
     }
 
     #[Test]
     public function part_two_sum_of_all_minimum_cubes_sets_powers(): void
     {
-        $this->assertEquals(62811, $this->day2->sumOfAllMinimumCubesSetsPowers($this->gamesRecordFilePath));
+        $this->assertEquals(62811, $this->day2->partTwo_sumOfAllMinimumCubesSetsPowers($this->gamesRecordFilePath));
     }
 }

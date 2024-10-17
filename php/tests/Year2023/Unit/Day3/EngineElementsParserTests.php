@@ -14,7 +14,8 @@ use PHPUnit\Framework\TestCase;
 
 final class EngineElementsParserTests extends TestCase
 {
-    #[Test] #[DataProvider('engine_schematic_lines')]
+    #[Test]
+    #[DataProvider('engine_schematic_lines')]
     public function test_parses_engine_schematic_lines(int $lineNumber, string $line, Element ...$expectedElements): void
     {
         $parser = new EngineElementsParserDeprecated();

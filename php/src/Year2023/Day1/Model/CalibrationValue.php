@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day1;
+namespace Advent\Year2023\Day1\Model;
 
 final readonly class CalibrationValue
 {

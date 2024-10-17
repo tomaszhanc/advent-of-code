@@ -18,7 +18,7 @@ final readonly class DigitLexer
     /**
      * @throws \Exception
      */
-    public static function numericDigitsOnly(): self
+    public static function numericDigits(): self
     {
         return new self(
             (new LexerBuilder())

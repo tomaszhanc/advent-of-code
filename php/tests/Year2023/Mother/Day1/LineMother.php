@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Mother\Day1;
 
-use Advent\Year2023\Day1\Digit;
-use Advent\Year2023\Day1\Line;
+use Advent\Year2023\Day1\Model\Digit;
+use Advent\Year2023\Day1\Model\Line;
 
 final readonly class LineMother
 {

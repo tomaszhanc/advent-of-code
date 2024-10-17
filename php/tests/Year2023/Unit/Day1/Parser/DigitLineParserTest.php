@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Unit\Day1\Parser;
 
 use Advent\Tests\Year2023\Mother\Day1\LineMother;
-use Advent\Year2023\Day1\Line;
+use Advent\Year2023\Day1\Model\Line;
 use Advent\Year2023\Day1\Parser\DigitLexer;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -14,10 +14,11 @@ use PHPUnit\Framework\TestCase;
 
 final class DigitLineParserTest extends TestCase
 {
-    #[Test] #[DataProvider('scenario_with_numeric_digits_only')]
+    #[Test]
+    #[DataProvider('scenario_with_numeric_digits_only')]
     public function it_parses_lines_of_numeric_digits_only(string $line, Line $expectedLine): void
     {
-        $parser = new DigitLineParser(DigitLexer::numericDigitsOnly());
+        $parser = new DigitLineParser(DigitLexer::numericDigits());
 
         $this->assertEquals($expectedLine, $parser->parse($line));
     }
@@ -36,7 +37,8 @@ final class DigitLineParserTest extends TestCase
         yield ['7pqrstsixteen', LineMother::create(7)];
     }
 
-    #[Test] #[DataProvider('scenario_with_numeric_and_word_digits')]
+    #[Test]
+    #[DataProvider('scenario_with_numeric_and_word_digits')]
     public function it_parses_lines_of_numeric_and_word_digits(string $line, Line $expectedLine): void
     {
         $parser = new DigitLineParser(DigitLexer::numericAndWordDigits());

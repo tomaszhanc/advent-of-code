@@ -16,4 +16,14 @@ final readonly class Token
         public int $position,
     ) {
     }
+
+    public function isA(\UnitEnum $type): bool
+    {
+        return $this->type === $type;
+    }
+
+    public function isNotA(\UnitEnum $type): bool
+    {
+        return !$this->isA($type);
+    }
 }

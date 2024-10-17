@@ -13,7 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 final class CellTest extends TestCase
 {
-    #[Test] #[DataProvider('scenarios_for_position')]
+    #[Test]
+    #[DataProvider('scenarios_for_position')]
     public function it_generates_relative_position_between_two_cells(Cell $cellA, Cell $cellB, Adjacency $position): void
     {
         $this->assertEquals($position, $cellA->adjacencyTo($cellB));
@@ -85,7 +86,8 @@ final class CellTest extends TestCase
     }
 
 
-    #[Test] #[DataProvider('scenarios')]
+    #[Test]
+    #[DataProvider('scenarios')]
     public function it_checks_if_cells_are_adjacent(Cell $cellA, Cell $cellB, bool $isAdjacent): void
     {
         $this->assertSame($isAdjacent, $cellA->isAdjacentTo($cellB));
