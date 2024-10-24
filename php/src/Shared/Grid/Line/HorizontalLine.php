@@ -31,7 +31,7 @@ final readonly class HorizontalLine implements Line
     {
         return new self(
             $startCell,
-            new Cell($startCell->columnIndex + $length, $startCell->rowIndex)
+            new Cell($startCell->columnIndex + $length - 1, $startCell->rowIndex)
         );
     }
 
@@ -50,5 +50,12 @@ final readonly class HorizontalLine implements Line
         }
 
         return false;
+    }
+
+    public function cells(): iterable
+    {
+        foreach (range($this->startCell->columnIndex, $this->endCell->columnIndex) as $columnIndex) {
+            yield new Cell($columnIndex, $this->startCell->rowIndex);
+        }
     }
 }

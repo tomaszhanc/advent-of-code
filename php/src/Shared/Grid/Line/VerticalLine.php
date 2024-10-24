@@ -31,7 +31,7 @@ final readonly class VerticalLine implements Line
     {
         return new self(
             $startCell,
-            new Cell($startCell->columnIndex, $startCell->rowIndex + $length)
+            new Cell($startCell->columnIndex, $startCell->rowIndex + $length - 1)
         );
     }
 
@@ -50,5 +50,12 @@ final readonly class VerticalLine implements Line
         }
 
         return false;
+    }
+
+    public function cells(): iterable
+    {
+        foreach (range($this->startCell->rowIndex, $this->endCell->rowIndex) as $rowIndex) {
+            yield new Cell($this->startCell->columnIndex, $rowIndex);
+        }
     }
 }

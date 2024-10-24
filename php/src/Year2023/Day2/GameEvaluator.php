@@ -30,7 +30,7 @@ final readonly class GameEvaluator
         return $sum;
     }
 
-    public function sumPowerOfAllSmallestCubesSetAllowingToPlayGame(File $file): int
+    public function sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(File $file): int
     {
         $sum = 0;
 

@@ -17,7 +17,7 @@ final class GameParserTest extends TestCase
 {
     #[Test]
     #[DataProvider('scenarios')]
-    public function it_parsers_game_record(string $gameRecord, Game $expected): void
+    public function it_parses_game_record(string $gameRecord, Game $expected): void
     {
         $parser = new GameParser(new GameLexer());
 

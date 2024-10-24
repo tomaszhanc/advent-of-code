@@ -54,8 +54,28 @@ final class VerticalLineTest extends TestCase
             ),
             new VerticalLine(
                 new Cell(1, 5),
-                new Cell(1, 15)
+                new Cell(1, 14)
             ),
+        );
+    }
+
+    #[Test]
+    public function it_return_all_cells_for_the_line(): void
+    {
+        $line = new VerticalLine(
+            new Cell(1, 5),
+            new Cell(1, 9)
+        );
+
+        $this->assertEquals(
+            [
+                new Cell(1, 5),
+                new Cell(1, 6),
+                new Cell(1, 7),
+                new Cell(1, 8),
+                new Cell(1, 9),
+            ],
+            iterator_to_array($line->cells())
         );
     }
 

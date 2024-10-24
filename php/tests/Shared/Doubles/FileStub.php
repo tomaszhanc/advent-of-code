@@ -15,8 +15,8 @@ final readonly class FileStub implements File
         $this->lines = $lines;
     }
 
-    public function lines(): iterable
+    public function lines(): \Iterator
     {
-        return $this->lines;
+        return new \ArrayIterator($this->lines);
     }
 }

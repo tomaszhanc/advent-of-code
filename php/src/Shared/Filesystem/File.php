@@ -6,6 +6,6 @@ namespace Advent\Shared\Filesystem;
 
 interface File
 {
-    /** @return string[] */
-    public function lines(): iterable;
+    /** @return \Iterator<string> */
+    public function lines(): \Iterator;
 }

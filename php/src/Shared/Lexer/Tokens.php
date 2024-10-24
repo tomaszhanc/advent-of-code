@@ -64,6 +64,9 @@ final readonly class Tokens implements \IteratorAggregate
         return $this->current() !== null || $this->next() !== null;
     }
 
+    /**
+     * @return Token[]
+     */
     public function getIterator(): \Traversable
     {
         while ($this->next()) {

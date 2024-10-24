@@ -41,7 +41,7 @@ final readonly class Day2
 
     public function partTwo_sumOfAllMinimumCubesSetsPowers(string $gameRecordFilePath): int
     {
-        return $this->gameEvaluator->sumPowerOfAllSmallestCubesSetAllowingToPlayGame(
+        return $this->gameEvaluator->sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(
             new LocalFile($this->filesystem, $gameRecordFilePath)
         );
     }

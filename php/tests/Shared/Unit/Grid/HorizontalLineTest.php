@@ -54,8 +54,28 @@ final class HorizontalLineTest extends TestCase
             ),
             new HorizontalLine(
                 new Cell(1, 5),
-                new Cell(11, 5)
+                new Cell(10, 5)
             ),
+        );
+    }
+
+    #[Test]
+    public function it_return_all_cells_for_the_line(): void
+    {
+        $line = new HorizontalLine(
+            new Cell(1, 5),
+            new Cell(5, 5)
+        );
+
+        $this->assertEquals(
+            [
+                new Cell(1, 5),
+                new Cell(2, 5),
+                new Cell(3, 5),
+                new Cell(4, 5),
+                new Cell(5, 5),
+            ],
+            iterator_to_array($line->cells())
         );
     }
 

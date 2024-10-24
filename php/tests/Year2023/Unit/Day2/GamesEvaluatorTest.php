@@ -58,7 +58,7 @@ final class GamesEvaluatorTest extends TestCase
 
         $this->assertEquals(
             48 + 12,
-            $this->gameEvaluator->sumPowerOfAllSmallestCubesSetAllowingToPlayGame($gamesRecord)
+            $this->gameEvaluator->sumPowerOfAllMinimumCubesSetsAllowingToPlayGame($gamesRecord)
         );
     }
 }

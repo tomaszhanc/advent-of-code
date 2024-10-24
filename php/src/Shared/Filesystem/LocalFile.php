@@ -12,7 +12,7 @@ final readonly class LocalFile implements File
     ) {
     }
 
-    public function lines(): iterable
+    public function lines(): \Iterator
     {
         return $this->filesystem->readLineByLine($this->filePath);
     }
