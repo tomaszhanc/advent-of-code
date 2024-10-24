@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Advent\Year2023\Day3\Model;
@@ -7,7 +8,7 @@ use Advent\Year2023\Day3\Model\Element\Elements;
 
 final readonly class GearsFactory
 {
-    public function createFor(Elements $elements) : Gears
+    public function createFor(Elements $elements): Gears
     {
         $gears = [];
 

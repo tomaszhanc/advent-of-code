@@ -15,11 +15,11 @@ final readonly class GameEvaluator
     ) {
     }
 
-    public function sumAllPossibleGameIdsFor(CubesSet $cubesSet, File $file): int
+    public function sumAllPossibleGameIdsFor(CubesSet $cubesSet, File $gamesRecordFilePath): int
     {
         $sum = 0;
 
-        foreach ($file->lines() as $unparsedLine) {
+        foreach ($gamesRecordFilePath->lines() as $unparsedLine) {
             $game = $this->gameParser->parse($unparsedLine);
 
             if ($game->canBePlayedWith($cubesSet)) {
@@ -30,11 +30,11 @@ final readonly class GameEvaluator
         return $sum;
     }
 
-    public function sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(File $file): int
+    public function sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(File $gamesRecordFilePath): int
     {
         $sum = 0;
 
-        foreach ($file->lines() as $unparsedLine) {
+        foreach ($gamesRecordFilePath->lines() as $unparsedLine) {
             $game = $this->gameParser->parse($unparsedLine);
 
             $sum += $game->findSmallestCubesSetToPlay()->power();
