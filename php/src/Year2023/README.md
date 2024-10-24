@@ -1,3 +1,3 @@
-# Riddle Answers
+# Puzzle Answers
 
-Riddle answers are [in tests](./../tests/Year2023/Tests/RiddleAnswersTest.php).
+Puzzle answers are [in tests](./../tests/Year2023/Tests/PuzzleAnswersTest.php).

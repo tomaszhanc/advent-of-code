@@ -7,7 +7,7 @@ namespace Advent\Tests\Year2023;
 use Advent\Shared\Filesystem\File;
 use Advent\Shared\Filesystem\LocalFile;
 
-final readonly class RiddleInputs
+final readonly class PuzzleInputs
 {
     public static function day1_calibrationDocument(): File
     {
@@ -22,5 +22,10 @@ final readonly class RiddleInputs
     public static function day3_engineSchematic(): File
     {
         return LocalFile::create(__DIR__ . '/../../resources/day3.txt');
+    }
+
+    public static function day4_scratchpadsRecord(): File
+    {
+        return LocalFile::create(__DIR__ . '/../../resources/day4.txt');
     }
 }

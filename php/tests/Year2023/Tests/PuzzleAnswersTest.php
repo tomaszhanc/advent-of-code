@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests;
 
-use Advent\Tests\Year2023\RiddleInputs;
+use Advent\Tests\Year2023\PuzzleInputs;
 use Advent\Year2023\Day1\LinesCalibrationValues;
 use Advent\Year2023\Day1\Parser\DigitLexer;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
@@ -19,20 +19,23 @@ use Advent\Year2023\Day3\Model\PartNumbersFactory;
 use Advent\Year2023\Day3\Parser\EngineSchematicLexer;
 use Advent\Year2023\Day3\Parser\EngineSchematicParser;
 use Advent\Year2023\Day3\PartNumbersEvaluator;
+use Advent\Year2023\Day4\Parser\ScratchcardLexer;
+use Advent\Year2023\Day4\Parser\ScratchcardParser;
+use Advent\Year2023\Day4\ScratchcardEvaluator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @see https://adventofcode.com/2023
  */
-final class RiddleAnswersTest extends TestCase
+final class PuzzleAnswersTest extends TestCase
 {
-      #[Test]
+    #[Test]
     public function day_1_part_1_sum_of_all_calibration_values_built_from_numeric_digits_only(): void
     {
         $calibrationValues = new LinesCalibrationValues(new DigitLineParser(DigitLexer::numericDigits()));
 
-        $this->assertEquals(54597, $calibrationValues->sumAllFrom(RiddleInputs::day1_calibrationDocument()));
+        $this->assertEquals(54597, $calibrationValues->sumAllFrom(PuzzleInputs::day1_calibrationDocument()));
     }
 
     #[Test]
@@ -40,7 +43,7 @@ final class RiddleAnswersTest extends TestCase
     {
         $calibrationValues = new LinesCalibrationValues(new DigitLineParser(DigitLexer::numericAndWordDigits()));
 
-        $this->assertEquals(54504, $calibrationValues->sumAllFrom(RiddleInputs::day1_calibrationDocument()));
+        $this->assertEquals(54504, $calibrationValues->sumAllFrom(PuzzleInputs::day1_calibrationDocument()));
     }
 
     #[Test]
@@ -53,7 +56,7 @@ final class RiddleAnswersTest extends TestCase
             Cubes::blue(14)
         );
 
-        $this->assertEquals(2551, $gameEvaluator->sumAllPossibleGameIdsFor($cubeSet, RiddleInputs::day2_gamesRecord()));
+        $this->assertEquals(2551, $gameEvaluator->sumAllPossibleGameIdsFor($cubeSet, PuzzleInputs::day2_gamesRecord()));
     }
 
     #[Test]
@@ -61,7 +64,7 @@ final class RiddleAnswersTest extends TestCase
     {
         $gameEvaluator = new GameEvaluator(new GameParser(new GameLexer()));
 
-        $this->assertEquals(62811, $gameEvaluator->sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(RiddleInputs::day2_gamesRecord()));
+        $this->assertEquals(62811, $gameEvaluator->sumPowerOfAllMinimumCubesSetsAllowingToPlayGame(PuzzleInputs::day2_gamesRecord()));
     }
 
     #[Test]
@@ -72,7 +75,7 @@ final class RiddleAnswersTest extends TestCase
             new PartNumbersFactory()
         );
 
-        $this->assertEquals(544433, $partNumbersEvaluator->sumAllPartNumbers(RiddleInputs::day3_engineSchematic()));
+        $this->assertEquals(544433, $partNumbersEvaluator->sumAllPartNumbers(PuzzleInputs::day3_engineSchematic()));
     }
 
     #[Test]
@@ -83,6 +86,14 @@ final class RiddleAnswersTest extends TestCase
             new GearsFactory()
         );
 
-        $this->assertEquals(76314915, $gearsEvaluator->sumAllGearRatios(RiddleInputs::day3_engineSchematic()));
+        $this->assertEquals(76314915, $gearsEvaluator->sumAllGearRatios(PuzzleInputs::day3_engineSchematic()));
+    }
+
+    #[Test]
+    public function day_4_part_1_sum_all_scratchpads_points(): void
+    {
+        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new ScratchcardLexer()));
+
+        $this->assertEquals(23678, $scratchcardEvaluator->sumAllPoints(PuzzleInputs::day4_scratchpadsRecord()));
     }
 }
