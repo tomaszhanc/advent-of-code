@@ -12,6 +12,11 @@ final readonly class LocalFile implements File
     ) {
     }
 
+    public static function create(string $filePath): self
+    {
+        return new self(new SimpleFilesystem(), $filePath);
+    }
+
     public function lines(): \Iterator
     {
         return $this->filesystem->readLineByLine($this->filePath);

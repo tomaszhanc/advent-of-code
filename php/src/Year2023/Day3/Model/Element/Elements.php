@@ -19,16 +19,17 @@ final readonly class Elements
     {
         return array_filter(
             $this->elements,
-            fn ($element) => $element instanceof NumberElement
+            fn (NumberElement|SymbolElement $element) => $element instanceof NumberElement
         );
     }
 
     /** @return SymbolElement[] */
-    public function symbolElements(): array
+    public function symbolElements(?string $symbol = null): array
     {
         return array_filter(
             $this->elements,
-            fn ($element) => $element instanceof SymbolElement
+            fn (NumberElement|SymbolElement $element): bool =>
+                $element instanceof SymbolElement && ($symbol === null || $element->symbol === $symbol)
         );
     }
 }
