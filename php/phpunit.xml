@@ -4,6 +4,7 @@
   colors="true"
   executionOrder="default"
   cacheDirectory="./var/phpunit/"
+  displayDetailsOnTestsThatTriggerWarnings="true"
 >
   <coverage includeUncoveredFiles="true">
     <report>

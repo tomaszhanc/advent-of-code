@@ -11,7 +11,7 @@ final readonly class Scratchcard
      * @param array<int> $scratchedNumbers
      */
     public function __construct(
-        private int $cardId,
+        public int $cardId,
         private array $winningNumbers,
         private array $scratchedNumbers
     ) {
@@ -19,12 +19,31 @@ final readonly class Scratchcard
 
     public function points(): int
     {
-        $winningNumbers = array_intersect($this->winningNumbers, $this->scratchedNumbers);
+        $winningNumbersCount = count($this->winningNumbers());
 
-        if (count($winningNumbers) === 0) {
+        if ($winningNumbersCount === 0) {
             return 0;
         }
 
-        return pow(2, count($winningNumbers) - 1);
+        return pow(2, $winningNumbersCount - 1);
+    }
+
+    /** @return int[] */
+    public function wonScratchcardIds(): array
+    {
+        $winningNumbersCount = count($this->winningNumbers());
+        $wonScratchcardIds = [];
+
+        for ($i = 1; $i <= $winningNumbersCount; $i++) {
+            $wonScratchcardIds[] = $this->cardId + $i;
+        }
+
+        return $wonScratchcardIds;
+    }
+
+    /** @return int[] */
+    private function winningNumbers(): array
+    {
+        return array_intersect($this->winningNumbers, $this->scratchedNumbers);
     }
 }

@@ -96,4 +96,12 @@ final class PuzzleAnswersTest extends TestCase
 
         $this->assertEquals(23678, $scratchcardEvaluator->sumAllPoints(PuzzleInputs::day4_scratchpadsRecord()));
     }
+
+    #[Test]
+    public function day_4_part_2_count_all_won_scratchpads(): void
+    {
+        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new ScratchcardLexer()));
+
+        $this->assertEquals(15455663, $scratchcardEvaluator->countAllWonScratchcards(PuzzleInputs::day4_scratchpadsRecord()));
+    }
 }
