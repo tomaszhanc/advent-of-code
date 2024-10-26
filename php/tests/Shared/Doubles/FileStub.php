@@ -15,8 +15,18 @@ final readonly class FileStub implements File
         $this->lines = $lines;
     }
 
+    public static function withContent(string $content): self
+    {
+        return new self(...explode("\n", $content));
+    }
+
     public function lines(): \Iterator
     {
         return new \ArrayIterator($this->lines);
+    }
+
+    public function content(): string
+    {
+        return implode("\n", $this->lines);
     }
 }

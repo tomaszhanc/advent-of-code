@@ -21,4 +21,9 @@ final readonly class LocalFile implements File
     {
         return $this->filesystem->readLineByLine($this->filePath);
     }
+
+    public function content(): string
+    {
+        return $this->filesystem->read($this->filePath);
+    }
 }

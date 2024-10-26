@@ -8,4 +8,6 @@ interface File
 {
     /** @return \Iterator<string> */
     public function lines(): \Iterator;
+
+    public function content(): string;
 }

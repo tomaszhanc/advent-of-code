@@ -22,6 +22,9 @@ use Advent\Year2023\Day3\PartNumbersEvaluator;
 use Advent\Year2023\Day4\Parser\ScratchcardLexer;
 use Advent\Year2023\Day4\Parser\ScratchcardParser;
 use Advent\Year2023\Day4\ScratchcardEvaluator;
+use Advent\Year2023\Day5\AlmanacEvaluator;
+use Advent\Year2023\Day5\Parser\AlmanacLexer;
+use Advent\Year2023\Day5\Parser\AlmanacParser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -103,5 +106,21 @@ final class PuzzleAnswersTest extends TestCase
         $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new ScratchcardLexer()));
 
         $this->assertEquals(15455663, $scratchcardEvaluator->countAllWonScratchcards(PuzzleInputs::day4_scratchpadsRecord()));
+    }
+
+    #[Test]
+    public function day_5_part_1_lowest_location_number(): void
+    {
+        $almanacEvaluator = new AlmanacEvaluator(new AlmanacParser(new AlmanacLexer()));
+
+        $this->assertEquals(107430936, $almanacEvaluator->lowestLocationNumber(PuzzleInputs::day5_almanac()));
+    }
+
+    #[Test]
+    public function day_5_part_1_lowest_location_number_with_seed_ranges(): void
+    {
+        $almanacEvaluator = new AlmanacEvaluator(new AlmanacParser(new AlmanacLexer()));
+
+        $this->assertEquals(107430936, $almanacEvaluator->lowestLocationNumberWithSeedRanges(PuzzleInputs::day5_almanac()));
     }
 }

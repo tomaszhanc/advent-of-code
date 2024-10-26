@@ -28,4 +28,9 @@ final readonly class PuzzleInputs
     {
         return LocalFile::create(__DIR__ . '/../../resources/day4.txt');
     }
+
+    public static function day5_almanac(): File
+    {
+        return LocalFile::create(__DIR__ . '/../../resources/day5.txt');
+    }
 }
