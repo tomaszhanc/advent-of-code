@@ -11,13 +11,13 @@ final readonly class Almanac
 {
     public function __construct(
         private Seeds $seeds,
-        private Map   $seedToSoil,
-        private Map   $soilToFertilizer,
-        private Map   $fertilizerToWater,
-        private Map   $waterToLight,
-        private Map   $lightToTemperature,
-        private Map   $temperatureToHumidity,
-        private Map   $humidityToLocation
+        private Map $seedToSoil,
+        private Map $soilToFertilizer,
+        private Map $fertilizerToWater,
+        private Map $waterToLight,
+        private Map $lightToTemperature,
+        private Map $temperatureToHumidity,
+        private Map $humidityToLocation
     ) {
     }
 

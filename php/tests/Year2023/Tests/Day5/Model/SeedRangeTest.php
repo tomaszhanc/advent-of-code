@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SeedRangeTest extends TestCase
 {
     #[Test]
-    public function it_returns_all_seed_for_a_range(): void
+    public function it_creates_seed_range(): void
     {
         $range = new SeedRange(start: 79, length: 14);
 
