@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day5\Model;
 
 use Advent\Year2023\Day5\Model\Almanac\Map;
-use Advent\Year2023\Day5\Model\Almanac\Range;
+use Advent\Year2023\Day5\Model\Almanac\MapRange;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -15,8 +15,8 @@ final class MapTest extends TestCase
     public function it_returns_destination_number_for_source_number(): void
     {
         $map = new Map(
-            new Range(destinationRangeStart: 50, sourceRangeStart: 98, rangeLength: 2),
-            new Range(destinationRangeStart: 52, sourceRangeStart: 50, rangeLength: 48)
+            new MapRange(destinationRangeStart: 50, sourceRangeStart: 98, rangeLength: 2),
+            new MapRange(destinationRangeStart: 52, sourceRangeStart: 50, rangeLength: 48)
         );
 
         // outside of ranges

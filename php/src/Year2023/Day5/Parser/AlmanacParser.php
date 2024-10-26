@@ -8,7 +8,7 @@ use Advent\Shared\Lexer\RuntimeException;
 use Advent\Shared\Lexer\Tokens;
 use Advent\Year2023\Day5\Model\Almanac;
 use Advent\Year2023\Day5\Model\Almanac\Map;
-use Advent\Year2023\Day5\Model\Almanac\Range;
+use Advent\Year2023\Day5\Model\Almanac\MapRange;
 use Advent\Year2023\Day5\Model\Almanac\Seeds;
 
 final readonly class AlmanacParser
@@ -59,7 +59,7 @@ final readonly class AlmanacParser
         $tokens->next();
 
         while ($tokens->hasMore() && $tokens->current()->isA(AlmanacType::NUMBER)) {
-            $ranges[] = new Range(...$this->parseNumbers($tokens));
+            $ranges[] = new MapRange(...$this->parseNumbers($tokens));
             $tokens->next();
         }
 

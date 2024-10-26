@@ -7,24 +7,26 @@ namespace Advent\Year2023\Day5\Model\Almanac;
 final readonly class Range
 {
     public function __construct(
-        private int $destinationRangeStart,
-        private int $sourceRangeStart,
-        private int $rangeLength
+        private int $start,
+        private int $length
     ) {
     }
 
-    public function isFor(int $sourceNumber): bool
-    {
-        return $sourceNumber >= $this->sourceRangeStart
-            && $sourceNumber < $this->sourceRangeStart + $this->rangeLength;
-    }
+    //    public function start() : int
+    //    {
+    //        return $this->start;
+    //    }
+    //
+    //    public function end(): int
+    //    {
+    //        return $this->start + $this->length - 1;
+    //    }
 
-    public function destinationNumber(int $sourceNumber): int
+    /** @return int[] */
+    public function seeds(): iterable
     {
-        if (!$this->isFor($sourceNumber)) {
-            throw new \RuntimeException('Source number is not in range');
+        for ($i = $this->start; $i < $this->start + $this->length; $i++) {
+            yield $i;
         }
-
-        return $sourceNumber - $this->sourceRangeStart + $this->destinationRangeStart;
     }
 }

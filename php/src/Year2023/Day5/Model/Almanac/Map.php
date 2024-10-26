@@ -6,10 +6,10 @@ namespace Advent\Year2023\Day5\Model\Almanac;
 
 final readonly class Map
 {
-    /** @var Range[] */
+    /** @var MapRange[] */
     private array $ranges;
 
-    public function __construct(Range ...$ranges)
+    public function __construct(MapRange ...$ranges)
     {
         $this->ranges = $ranges;
     }

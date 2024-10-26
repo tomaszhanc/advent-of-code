@@ -20,11 +20,11 @@ final readonly class Seeds
         return $this->seeds;
     }
 
-    /** @return SeedRange[] */
+    /** @return Range[] */
     public function asRanges(): iterable
     {
         for ($i = 0; $i < count($this->seeds); $i += 2) {
-            yield new SeedRange($this->seeds[$i], $this->seeds[$i + 1]);
+            yield new Range($this->seeds[$i], $this->seeds[$i + 1]);
         }
     }
 }

@@ -11,15 +11,13 @@ use PHPUnit\Framework\TestCase;
 final class RangeTest extends TestCase
 {
     #[Test]
-    public function it_returns_destination_number_for_source_number(): void
+    public function it_creates_seed_range(): void
     {
-        $range = new Range(destinationRangeStart: 50, sourceRangeStart: 98, rangeLength: 2);
+        $range = new Range(start: 79, length: 14);
 
-        $this->assertEquals(50, $range->destinationNumber(98));
-        $this->assertEquals(51, $range->destinationNumber(99));
-
-        $this->assertFalse($range->isFor(20));
-        $this->assertFalse($range->isFor(97));
-        $this->assertFalse($range->isFor(100));
+        $this->assertEquals(
+            [79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92],
+            iterator_to_array($range->seeds())
+        );
     }
 }
