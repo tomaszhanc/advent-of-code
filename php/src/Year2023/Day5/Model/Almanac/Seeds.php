@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day5\Model\Almanac;
 
+use Advent\Shared\Range\Range;
+use Advent\Shared\Range\Ranges;
+
 final readonly class Seeds
 {
     /** @var int[] */
@@ -20,11 +23,14 @@ final readonly class Seeds
         return $this->seeds;
     }
 
-    /** @return Range[] */
-    public function asRanges(): iterable
+    public function asRanges(): Ranges
     {
+        $ranges = [];
+
         for ($i = 0; $i < count($this->seeds); $i += 2) {
-            yield new Range($this->seeds[$i], $this->seeds[$i + 1]);
+            $ranges[] = Range::ofLength($this->seeds[$i], $this->seeds[$i + 1]);
         }
+
+        return new Ranges(...$ranges);
     }
 }

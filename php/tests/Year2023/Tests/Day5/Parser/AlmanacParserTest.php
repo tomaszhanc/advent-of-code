@@ -6,7 +6,7 @@ namespace Advent\Tests\Year2023\Tests\Day5\Parser;
 
 use Advent\Year2023\Day5\Model\Almanac;
 use Advent\Year2023\Day5\Model\Almanac\Map;
-use Advent\Year2023\Day5\Model\Almanac\MapRange;
+use Advent\Year2023\Day5\Model\Almanac\MapRule;
 use Advent\Year2023\Day5\Model\Almanac\Seeds;
 use Advent\Year2023\Day5\Parser\AlmanacLexer;
 use Advent\Year2023\Day5\Parser\AlmanacParser;
@@ -25,36 +25,36 @@ final class AlmanacParserTest extends TestCase
             new Almanac(
                 new Seeds(79, 14, 55, 13),
                 new Map(
-                    new MapRange(50, 98, 2),
-                    new MapRange(52, 50, 48),
+                    MapRule::create(50, 98, 2),
+                    MapRule::create(52, 50, 48),
                 ),
                 new Map(
-                    new MapRange(0, 15, 37),
-                    new MapRange(37, 52, 2),
-                    new MapRange(39, 0, 15),
+                    MapRule::create(0, 15, 37),
+                    MapRule::create(37, 52, 2),
+                    MapRule::create(39, 0, 15),
                 ),
                 new Map(
-                    new MapRange(49, 53, 8),
-                    new MapRange(0, 11, 42),
-                    new MapRange(42, 0, 7),
-                    new MapRange(57, 7, 4),
+                    MapRule::create(49, 53, 8),
+                    MapRule::create(0, 11, 42),
+                    MapRule::create(42, 0, 7),
+                    MapRule::create(57, 7, 4),
                 ),
                 new Map(
-                    new MapRange(88, 18, 7),
-                    new MapRange(18, 25, 70),
+                    MapRule::create(88, 18, 7),
+                    MapRule::create(18, 25, 70),
                 ),
                 new Map(
-                    new MapRange(45, 77, 23),
-                    new MapRange(81, 45, 19),
-                    new MapRange(68, 64, 13),
+                    MapRule::create(45, 77, 23),
+                    MapRule::create(81, 45, 19),
+                    MapRule::create(68, 64, 13),
                 ),
                 new Map(
-                    new MapRange(0, 69, 1),
-                    new MapRange(1, 0, 69),
+                    MapRule::create(0, 69, 1),
+                    MapRule::create(1, 0, 69),
                 ),
                 new Map(
-                    new MapRange(60, 56, 37),
-                    new MapRange(56, 93, 4),
+                    MapRule::create(60, 56, 37),
+                    MapRule::create(56, 93, 4),
                 ),
             ),
             $parser->parse($input)

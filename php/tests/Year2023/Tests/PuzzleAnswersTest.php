@@ -117,10 +117,10 @@ final class PuzzleAnswersTest extends TestCase
     }
 
     #[Test]
-    public function day_5_part_1_lowest_location_number_with_seed_ranges(): void
+    public function day_5_part_2_lowest_location_number_with_seed_ranges(): void
     {
         $almanacEvaluator = new AlmanacEvaluator(new AlmanacParser(new AlmanacLexer()));
 
-        $this->assertEquals(107430936, $almanacEvaluator->lowestLocationNumberWithSeedRanges(PuzzleInputs::day5_almanac()));
+        $this->assertEquals(23738616, $almanacEvaluator->lowestLocationNumberWithSeedRanges(PuzzleInputs::day5_almanac()));
     }
 }

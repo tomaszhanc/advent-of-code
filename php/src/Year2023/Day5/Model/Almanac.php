@@ -42,14 +42,14 @@ final readonly class Almanac
 
     public function lowestLocationNumberWithSeedRanges(): int
     {
-        $minLocation = PHP_INT_MAX;
+        $soil = $this->seedToSoil->destinationNumberRanges($this->seeds->asRanges());
+        $fertilizer = $this->soilToFertilizer->destinationNumberRanges($soil);
+        $water = $this->fertilizerToWater->destinationNumberRanges($fertilizer);
+        $light = $this->waterToLight->destinationNumberRanges($water);
+        $temperature = $this->lightToTemperature->destinationNumberRanges($light);
+        $humidity = $this->temperatureToHumidity->destinationNumberRanges($temperature);
+        $location = $this->humidityToLocation->destinationNumberRanges($humidity);
 
-        foreach ($this->seeds->asRanges() as $seedRange) {
-            foreach ($seedRange->seeds() as $seed) {
-                //$minLocation = min($minLocation, $this->locationFor($seed));
-            }
-        }
-
-        return $minLocation;
+        return $location->min();
     }
 }

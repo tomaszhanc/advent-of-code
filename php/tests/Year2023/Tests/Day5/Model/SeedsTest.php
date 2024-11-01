@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day5\Model;
 
-use Advent\Year2023\Day5\Model\Almanac\Range;
+use Advent\Shared\Range\Range;
+use Advent\Shared\Range\Ranges;
 use Advent\Year2023\Day5\Model\Almanac\Seeds;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -28,11 +29,11 @@ final class SeedsTest extends TestCase
         $seeds = new Seeds(79, 14, 55, 13);
 
         $this->assertEquals(
-            [
-                new Range(79, 14),
-                new Range(55, 13),
-            ],
-            iterator_to_array($seeds->asRanges())
+            new Ranges(
+                Range::ofLength(79, 14),
+                Range::ofLength(55, 13),
+            ),
+            $seeds->asRanges()
         );
     }
 }
