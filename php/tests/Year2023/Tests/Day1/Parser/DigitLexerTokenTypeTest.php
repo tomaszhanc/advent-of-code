@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day1\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Shared\Lexer\Token;
-use Advent\Tests\Year2023\Mother\Day1\LineMother;
-use Advent\Year2023\Day1\Parser\DigitLexer;
 use Advent\Year2023\Day1\Parser\DigitLexerTokenType;
 use Advent\Year2023\Day1\Parser\WordDigitLexerTokenType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class DigitLexerTest extends TestCase
+final class DigitLexerTokenTypeTest extends TestCase
 {
     #[Test]
     public function it_tokenizes_numeric_digits(): void
     {
-        $lexer = DigitLexer::numericDigits();
+        $lexer = new Lexer(DigitLexerTokenType::class);
 
         $this->assertEquals(
             [
@@ -30,7 +29,10 @@ final class DigitLexerTest extends TestCase
     #[Test]
     public function it_tokenizes_number_and_word_digits(): void
     {
-        $lexer = DigitLexer::numericAndWordDigits();
+        $lexer = new Lexer(
+            DigitLexerTokenType::class,
+            WordDigitLexerTokenType::class
+        );
 
         $this->assertEquals(
             [

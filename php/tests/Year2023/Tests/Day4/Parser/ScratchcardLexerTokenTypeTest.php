@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day4\Parser;
 
-use Advent\Shared\Lexer\Token;
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Assertion\Lexer\SimplifiedToken;
 use Advent\Tests\Shared\Assertion\Lexer\TokenAssertion;
-use Advent\Year2023\Day4\Parser\ScratchcardLexer;
 use Advent\Year2023\Day4\Parser\ScratchcardType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class ScratchcardLexerTest extends TestCase
+final class ScratchcardLexerTokenTypeTest extends TestCase
 {
     use TokenAssertion;
 
     #[Test]
     public function it_tokenizes_scratchcard(): void
     {
-        $lexer = new ScratchcardLexer();
+        $lexer = new Lexer(ScratchcardType::class);
 
         $line = 'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53';
 

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day4;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\FileStub;
-use Advent\Year2023\Day4\Parser\ScratchcardLexer;
 use Advent\Year2023\Day4\Parser\ScratchcardParser;
+use Advent\Year2023\Day4\Parser\ScratchcardType;
 use Advent\Year2023\Day4\ScratchcardEvaluator;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +17,7 @@ final class ScratchcardEvaluatorTest extends TestCase
     #[Test]
     public function it_sums_all_points(): void
     {
-        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new ScratchcardLexer()));
+        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new Lexer(ScratchcardType::class)));
 
         $file = new FileStub(
             'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53', // winners: 48, 83, 86, 17 => 2^3 = 8
@@ -33,7 +34,7 @@ final class ScratchcardEvaluatorTest extends TestCase
     #[Test]
     public function it_counts_all_won_scratchcards(): void
     {
-        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new ScratchcardLexer()));
+        $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new Lexer(ScratchcardType::class)));
 
         $file = new FileStub(
             'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53', // winners: 48, 83, 86, 17 => wins copy of cards: 2, 3, 4, 5

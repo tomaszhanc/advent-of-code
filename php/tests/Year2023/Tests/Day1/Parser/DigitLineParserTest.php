@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day1\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Year2023\Mother\Day1\LineMother;
 use Advent\Year2023\Day1\Model\Line;
-use Advent\Year2023\Day1\Parser\DigitLexer;
+use Advent\Year2023\Day1\Parser\DigitLexerTokenType;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
+use Advent\Year2023\Day1\Parser\WordDigitLexerTokenType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +20,7 @@ final class DigitLineParserTest extends TestCase
     #[DataProvider('scenario_with_numeric_digits_only')]
     public function it_parses_lines_of_numeric_digits_only(string $line, Line $expectedLine): void
     {
-        $parser = new DigitLineParser(DigitLexer::numericDigits());
+        $parser = new DigitLineParser(new Lexer(DigitLexerTokenType::class));
 
         $this->assertEquals($expectedLine, $parser->parse($line));
     }
@@ -41,7 +43,7 @@ final class DigitLineParserTest extends TestCase
     #[DataProvider('scenario_with_numeric_and_word_digits')]
     public function it_parses_lines_of_numeric_and_word_digits(string $line, Line $expectedLine): void
     {
-        $parser = new DigitLineParser(DigitLexer::numericAndWordDigits());
+        $parser = new DigitLineParser(new Lexer(DigitLexerTokenType::class, WordDigitLexerTokenType::class));
 
         $this->assertEquals($expectedLine, $parser->parse($line));
     }

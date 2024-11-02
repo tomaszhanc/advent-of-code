@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day3\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Shared\Lexer\Token;
-use Advent\Year2023\Day3\Parser\EngineSchematicLexer;
 use Advent\Year2023\Day3\Parser\EngineSchematicType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class EngineSchematicLexerTest extends TestCase
+final class EngineSchematicLexerTokenTypeTest extends TestCase
 {
     #[Test]
     #[DataProvider('lines')]
     public function it_tokenizes_engine_schematic(string $line, Token ...$expectedTokens): void
     {
-        $lexer = new EngineSchematicLexer();
+        $lexer = new Lexer(EngineSchematicType::class);
 
         $this->assertEquals($expectedTokens, iterator_to_array($lexer->tokenize($line)));
     }

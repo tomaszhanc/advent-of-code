@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day5\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day5\Model\Almanac;
 use Advent\Year2023\Day5\Model\Almanac\Map;
 use Advent\Year2023\Day5\Model\Almanac\MapRule;
 use Advent\Year2023\Day5\Model\Almanac\Seeds;
-use Advent\Year2023\Day5\Parser\AlmanacLexer;
 use Advent\Year2023\Day5\Parser\AlmanacParser;
+use Advent\Year2023\Day5\Parser\AlmanacType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ final class AlmanacParserTest extends TestCase
     #[Test]
     public function it_parses_almanac(): void
     {
-        $parser = new AlmanacParser(new AlmanacLexer());
+        $parser = new AlmanacParser(new Lexer(AlmanacType::class));
         $input = file_get_contents(__DIR__ . '/../../../Resources/test_day5.txt');
 
         $this->assertEquals(

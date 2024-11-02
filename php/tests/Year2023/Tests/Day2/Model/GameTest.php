@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day2\Model;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day2\Model\Cubes;
 use Advent\Year2023\Day2\Model\CubesSet;
 use Advent\Year2023\Day2\Model\Game;
-use Advent\Year2023\Day2\Parser\GameLexer;
 use Advent\Year2023\Day2\Parser\GameParser;
+use Advent\Year2023\Day2\Parser\GameTokenType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +25,7 @@ final class GameTest extends TestCase
 
     public static function games_can_be_played_out(): iterable
     {
-        $gameParser = new GameParser(new GameLexer());
+        $gameParser = new GameParser(new Lexer(GameTokenType::class));
         $cubeSet = CubesSet::of(Cubes::red(12), Cubes::green(13), Cubes::blue(14));
 
         yield [

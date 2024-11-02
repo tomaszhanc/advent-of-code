@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day6;
 
+use Advent\Shared\Lexer\Lexer;
+use Advent\Year2023\Day6\Parser\RaceLogType;
 use Advent\Year2023\Day6\RaceEvaluator;
-use Advent\Year2023\Day6\Parser\RaceLogLexer;
 use Advent\Year2023\Day6\Parser\RaceLogParser;
 use Advent\Tests\Shared\Doubles\FileStub;
 use PHPUnit\Framework\Attributes\Test;
@@ -17,7 +18,7 @@ final class RaceEvaluatorTest extends TestCase
     public function it_returns_product_of_all_number_of_ways_of_winning(): void
     {
         $blaEvaluator = new RaceEvaluator(
-            new RaceLogParser(new RaceLogLexer()),
+            new RaceLogParser(new Lexer(RaceLogType::class)),
         );
 
         $file = new FileStub(

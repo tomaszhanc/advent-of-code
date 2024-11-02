@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day2\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Shared\Lexer\RuntimeException;
 use Advent\Shared\Lexer\Tokens;
 use Advent\Year2023\Day2\Model\Color;
@@ -14,7 +15,7 @@ use Advent\Year2023\Day2\Model\Game;
 final readonly class GameParser
 {
     public function __construct(
-        private GameLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

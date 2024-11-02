@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day3\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day3\Model\Element\Elements;
 use Advent\Year2023\Day3\Model\Element\NumberElement;
 use Advent\Year2023\Day3\Model\Element\SymbolElement;
-use Advent\Year2023\Day3\Parser\EngineSchematicLexer;
 use Advent\Year2023\Day3\Parser\EngineSchematicParser;
+use Advent\Year2023\Day3\Parser\EngineSchematicType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ final class EngineSchematicParserTest extends TestCase
     #[DataProvider('lines')]
     public function it_parses_engine_schematic(int $lineNumber, string $line, NumberElement|SymbolElement ...$expectedElements): void
     {
-        $parser = new EngineSchematicParser(new EngineSchematicLexer());
+        $parser = new EngineSchematicParser(new Lexer(EngineSchematicType::class));
 
         $this->assertEquals(
             new Elements(...$expectedElements),

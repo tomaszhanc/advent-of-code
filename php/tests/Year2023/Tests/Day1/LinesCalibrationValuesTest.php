@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day1;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\FileStub;
 use Advent\Year2023\Day1\LinesCalibrationValues;
-use Advent\Year2023\Day1\Parser\DigitLexer;
+use Advent\Year2023\Day1\Parser\DigitLexerTokenType;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ final class LinesCalibrationValuesTest extends TestCase
     {
         $compiler = new LinesCalibrationValues(
             new DigitLineParser(
-                DigitLexer::numericDigits()
+                new Lexer(DigitLexerTokenType::class)
             )
         );
         $file = new FileStub('zoneight234', 'a1b2c3d4e5f');

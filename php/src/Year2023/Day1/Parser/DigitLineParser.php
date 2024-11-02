@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day1\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Year2023\Day1\Model\Digit;
 use Advent\Year2023\Day1\Model\Line;
 
 final readonly class DigitLineParser
 {
     public function __construct(
-        private DigitLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

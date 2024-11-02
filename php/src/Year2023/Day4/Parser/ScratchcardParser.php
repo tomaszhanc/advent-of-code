@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day4\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Shared\Lexer\RuntimeException;
 use Advent\Shared\Lexer\Tokens;
 use Advent\Year2023\Day4\Model\Scratchcard;
@@ -11,7 +12,7 @@ use Advent\Year2023\Day4\Model\Scratchcard;
 final readonly class ScratchcardParser
 {
     public function __construct(
-        private ScratchcardLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

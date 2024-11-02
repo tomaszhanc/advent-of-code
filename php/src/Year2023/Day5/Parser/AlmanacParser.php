@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day5\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Shared\Lexer\RuntimeException;
 use Advent\Shared\Lexer\Tokens;
 use Advent\Year2023\Day5\Model\Almanac;
@@ -14,7 +15,7 @@ use Advent\Year2023\Day5\Model\Almanac\Seeds;
 final readonly class AlmanacParser
 {
     public function __construct(
-        private AlmanacLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

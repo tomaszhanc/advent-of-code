@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day6\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Assertion\Lexer\SimplifiedToken;
 use Advent\Tests\Shared\Assertion\Lexer\TokenAssertion;
-use Advent\Year2023\Day6\Parser\RaceLogLexer;
 use Advent\Year2023\Day6\Parser\RaceLogType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class RaceLogLexerTest extends TestCase
+final class RaceLogLexerTokenTypeTest extends TestCase
 {
     use TokenAssertion;
 
     #[Test]
     public function it_tokenizes_race_log(): void
     {
-        $lexer = new RaceLogLexer();
+        $lexer = new Lexer(RaceLogType::class);
         $racesLog  = "Time:      7  15   30\n";
         $racesLog .= "Distance:  9  40  200";
 

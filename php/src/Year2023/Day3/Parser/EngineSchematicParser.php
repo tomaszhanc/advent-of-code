@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day3\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Year2023\Day3\Model\Element\Elements;
 use Advent\Year2023\Day3\Model\Element\NumberElement;
 use Advent\Year2023\Day3\Model\Element\SymbolElement;
@@ -11,7 +12,7 @@ use Advent\Year2023\Day3\Model\Element\SymbolElement;
 final readonly class EngineSchematicParser
 {
     public function __construct(
-        private EngineSchematicLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

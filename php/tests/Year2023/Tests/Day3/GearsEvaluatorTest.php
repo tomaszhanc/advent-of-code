@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day3;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\FileStub;
 use Advent\Year2023\Day3\GearsEvaluator;
 use Advent\Year2023\Day3\Model\GearsFactory;
 use Advent\Year2023\Day3\Parser\EngineSchematicParser;
-use Advent\Year2023\Day3\Parser\EngineSchematicLexer;
+use Advent\Year2023\Day3\Parser\EngineSchematicType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ final class GearsEvaluatorTest extends TestCase
     public function it_sums_all_gear_ratios(): void
     {
         $gearsEvaluator = new GearsEvaluator(
-            new EngineSchematicParser(new EngineSchematicLexer()),
+            new EngineSchematicParser(new Lexer(EngineSchematicType::class)),
             new GearsFactory()
         );
 

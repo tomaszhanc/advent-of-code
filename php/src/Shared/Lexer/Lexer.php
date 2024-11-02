@@ -4,26 +4,40 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Lexer;
 
-use Advent\Shared\Lexer\Doctrine\DoctrineLexer;
+use Advent\Shared\Lexer\Doctrine\DoctrineLexerBuilder;
 
 /**
  * @template T of \UnitEnum
  */
-final readonly class Lexer
+final readonly class Lexer implements LexerInterface
 {
-    /** @param DoctrineLexer<T> $lexer */
-    public function __construct(private DoctrineLexer $lexer)
+    /** @var class-string<T>[] */
+    private array $tokenTypeClassNames;
+
+    /**
+     * @param class-string<T>[] $tokenTypeClassNames
+     */
+    public function __construct(string ...$tokenTypeClassNames)
     {
+        $this->tokenTypeClassNames = $tokenTypeClassNames;
     }
 
     /**
-     * @return Tokens<T>
+     * @return Tokens<Token<T>>
+     * @throws \Exception
      */
     public function tokenize(string $input): Tokens
     {
-        $this->lexer->setInput($input);
-        $this->lexer->moveNext();
+        $builder = (new DoctrineLexerBuilder());
 
-        return new Tokens($this->lexer);
+        foreach ($this->tokenTypeClassNames as $tokenTypeClassName) {
+            $builder->readTokenTypesFrom($tokenTypeClassName);
+        }
+
+        $lexer = $builder->build();
+        $lexer->setInput($input);
+        $lexer->moveNext();
+
+        return new Tokens($lexer);
     }
 }

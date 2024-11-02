@@ -9,7 +9,6 @@ use Advent\Shared\Lexer\Doctrine\DoctrineLexer;
 /**
  * @template T of \UnitEnum
  * @template-implements \IteratorAggregate<int, Token<T>>
- *
  */
 final readonly class Tokens implements \IteratorAggregate
 {

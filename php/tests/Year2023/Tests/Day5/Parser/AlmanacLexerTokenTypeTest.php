@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day5\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Assertion\Lexer\SimplifiedToken;
 use Advent\Tests\Shared\Assertion\Lexer\TokenAssertion;
-use Advent\Year2023\Day5\Parser\AlmanacLexer;
 use Advent\Year2023\Day5\Parser\AlmanacType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class AlmanacLexerTest extends TestCase
+final class AlmanacLexerTokenTypeTest extends TestCase
 {
     use TokenAssertion;
 
     #[Test]
     public function it_tokenizes_almanac(): void
     {
-        $lexer = new AlmanacLexer();
+        $lexer = new Lexer(AlmanacType::class);
         $input = file_get_contents(__DIR__ . '/../../../Resources/test_day5.txt');
 
         $this->assertTokensAreEqual(

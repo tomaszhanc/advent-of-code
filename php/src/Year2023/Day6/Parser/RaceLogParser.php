@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day6\Parser;
 
+use Advent\Shared\Lexer\LexerInterface;
 use Advent\Shared\Lexer\Tokens;
 use Advent\Year2023\Day6\Model\Race;
 use Advent\Year2023\Day6\Model\RaceLog;
@@ -11,7 +12,7 @@ use Advent\Year2023\Day6\Model\RaceLog;
 final readonly class RaceLogParser
 {
     public function __construct(
-        private RaceLogLexer $lexer
+        private LexerInterface $lexer
     ) {
     }
 

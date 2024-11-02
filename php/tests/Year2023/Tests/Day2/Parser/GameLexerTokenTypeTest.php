@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day2\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Shared\Lexer\Token;
-use Advent\Year2023\Day2\Parser\GameLexer;
 use Advent\Year2023\Day2\Parser\GameTokenType;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class GameLexerTest extends TestCase
+final class GameLexerTokenTypeTest extends TestCase
 {
     #[Test]
     public function it_tokenizes_game_record(): void
     {
-        $lexer = new GameLexer();
+        $lexer = new Lexer(GameTokenType::class);
 
         $this->assertEquals(
             [

@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Lexer;
+namespace Advent\Shared\Lexer\Doctrine;
 
 use Advent\Shared\Lexer\Attributes\Regex;
-use Advent\Shared\Lexer\Doctrine\DoctrineLexer;
 
-final class LexerBuilder
+final class DoctrineLexerBuilder
 {
     /** @var array<class-string> */
     private array $definitions = [];
@@ -28,7 +27,7 @@ final class LexerBuilder
         return $this;
     }
 
-    public function build(): Lexer
+    public function build(): DoctrineLexer
     {
         $patterns = [];
 
@@ -44,6 +43,6 @@ final class LexerBuilder
             }
         }
 
-        return new Lexer(new DoctrineLexer($patterns));
+        return new DoctrineLexer($patterns);
     }
 }

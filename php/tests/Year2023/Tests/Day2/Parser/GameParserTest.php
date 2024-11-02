@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day2\Parser;
 
+use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day2\Model\Cubes;
 use Advent\Year2023\Day2\Model\CubesSet;
 use Advent\Year2023\Day2\Model\Game;
-use Advent\Year2023\Day2\Parser\GameLexer;
 use Advent\Year2023\Day2\Parser\GameParser;
+use Advent\Year2023\Day2\Parser\GameTokenType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ final class GameParserTest extends TestCase
     #[DataProvider('scenarios')]
     public function it_parses_game_record(string $gameRecord, Game $expected): void
     {
-        $parser = new GameParser(new GameLexer());
+        $parser = new GameParser(new Lexer(GameTokenType::class));
 
         $this->assertEquals($expected, $parser->parse($gameRecord));
     }
