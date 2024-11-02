@@ -25,6 +25,9 @@ use Advent\Year2023\Day4\ScratchcardEvaluator;
 use Advent\Year2023\Day5\AlmanacEvaluator;
 use Advent\Year2023\Day5\Parser\AlmanacLexer;
 use Advent\Year2023\Day5\Parser\AlmanacParser;
+use Advent\Year2023\Day6\RaceEvaluator;
+use Advent\Year2023\Day6\Parser\RaceLogLexer;
+use Advent\Year2023\Day6\Parser\RaceLogParser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -122,5 +125,21 @@ final class PuzzleAnswersTest extends TestCase
         $almanacEvaluator = new AlmanacEvaluator(new AlmanacParser(new AlmanacLexer()));
 
         $this->assertEquals(23738616, $almanacEvaluator->lowestLocationNumberWithSeedRanges(PuzzleInputs::day5_almanac()));
+    }
+
+    #[Test]
+    public function day_6_part_1_multiply_number_of_ways_to_win_from_all_races(): void
+    {
+        $raceEvaluator = new RaceEvaluator(new RaceLogParser(new RaceLogLexer()));
+
+        $this->assertEquals(128700, $raceEvaluator->productOfAllNumberOfWaysOfWinning(PuzzleInputs::day6_sheetOfPaper()));
+    }
+
+    #[Test]
+    public function day_6_part_2_number_of_ways_to_win_from_single_races(): void
+    {
+        $raceEvaluator = new RaceEvaluator(new RaceLogParser(new RaceLogLexer()));
+
+        $this->assertEquals(39594072, $raceEvaluator->productOfAllNumberOfWaysOfWinning(PuzzleInputs::day6_sheetOfPaperWithFixedKerning()));
     }
 }

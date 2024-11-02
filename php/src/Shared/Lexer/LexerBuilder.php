@@ -13,7 +13,7 @@ final class LexerBuilder
     private array $definitions = [];
 
     /**
-     * @param class-string $enumName
+     * @param class-string<\UnitEnum> $enumName
      */
     public function readTokenTypesFrom(string $enumName): self
     {

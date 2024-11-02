@@ -56,6 +56,11 @@ final readonly class Range implements \IteratorAggregate
         return $ranges;
     }
 
+    public function length(): int
+    {
+        return $this->end - $this->start + 1;
+    }
+
     public function getIterator(): Traversable
     {
         for ($i = $this->start; $i <= $this->end; $i++) {

@@ -33,4 +33,14 @@ final readonly class PuzzleInputs
     {
         return LocalFile::create(__DIR__ . '/../../resources/day5.txt');
     }
+
+    public static function day6_sheetOfPaper(): File
+    {
+        return LocalFile::create(__DIR__ . '/../../resources/day6.txt');
+    }
+
+    public static function day6_sheetOfPaperWithFixedKerning(): File
+    {
+        return LocalFile::create(__DIR__ . '/../../resources/day6_fixed_kerning.txt');
+    }
 }

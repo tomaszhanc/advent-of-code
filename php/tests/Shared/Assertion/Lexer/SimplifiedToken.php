@@ -15,4 +15,9 @@ final readonly class SimplifiedToken
         public object $type
     ) {
     }
+
+    public static function endOfLine(object $type): self
+    {
+        return new self(PHP_EOL, $type);
+    }
 }

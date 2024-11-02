@@ -14,10 +14,10 @@ final class RangeTest extends TestCase
     #[Test]
     public function it_creates_range_of_given_length(): void
     {
-        $this->assertEquals(
-            new Range(79, 92),
-            Range::ofLength(start: 79, length: 14)
-        );
+        $range = Range::ofLength(79, length: 14);
+
+        $this->assertEquals(new Range(79, 92), $range);
+        $this->assertEquals(14, $range->length());
     }
 
     #[Test]
