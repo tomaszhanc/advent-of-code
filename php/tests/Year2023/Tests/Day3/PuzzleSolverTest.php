@@ -6,21 +6,21 @@ namespace Advent\Tests\Year2023\Tests\Day3;
 
 use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
-use Advent\Year2023\Day3\GearsEvaluator;
-use Advent\Year2023\Day3\Model\GearsFactory;
-use Advent\Year2023\Day3\Parser\EngineSchematicParser;
 use Advent\Year2023\Day3\Parser\EngineSchematicType;
+use Advent\Year2023\Day3\PuzzleSolver;
+use Advent\Year2023\Day3\Model\PartNumbersFactory;
+use Advent\Year2023\Day3\Parser\EngineSchematicParser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class GearsEvaluatorTest extends TestCase
+final class PartNumbersEvaluatorTest extends TestCase
 {
     #[Test]
-    public function it_sums_all_gear_ratios(): void
+    public function it_sums_numbers_of_all_elements_that_are_part_numbers(): void
     {
-        $gearsEvaluator = new GearsEvaluator(
+        $partNumbersEvaluator = new PuzzleSolver(
             new EngineSchematicParser(new Lexer(EngineSchematicType::class)),
-            new GearsFactory()
+            new PartNumbersFactory()
         );
 
         $file = new InMemoryInput(
@@ -36,6 +36,6 @@ final class GearsEvaluatorTest extends TestCase
             '.664.598..',
         );
 
-        $this->assertEquals(467835, $gearsEvaluator->sumAllGearRatios($file));
+        $this->assertEquals(4361, $partNumbersEvaluator->sumAllPartNumbers($file));
     }
 }

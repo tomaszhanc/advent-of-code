@@ -6,18 +6,20 @@ namespace Advent\Tests\Year2023\Tests\Day6;
 
 use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day6\Parser\RaceLogType;
-use Advent\Year2023\Day6\RaceEvaluator;
+use Advent\Year2023\Day6\PuzzleSolver;
 use Advent\Year2023\Day6\Parser\RaceLogParser;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-final class RaceEvaluatorTest extends TestCase
+final class PuzzleSolver extends TestCase
 {
+    
+
     #[Test]
     public function it_returns_product_of_all_number_of_ways_of_winning(): void
     {
-        $raceEvaluator = new RaceEvaluator(
+        $raceEvaluator = new PuzzleSolver(
             new RaceLogParser(new Lexer(RaceLogType::class)),
         );
 

@@ -4,7 +4,7 @@ namespace Advent\Tests\Year2023\Tests\Day2;
 
 use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
-use Advent\Year2023\Day2\GameEvaluator;
+use Advent\Year2023\Day2\PuzzleSolver;
 use Advent\Year2023\Day2\Model\Cubes;
 use Advent\Year2023\Day2\Model\CubesSet;
 use Advent\Year2023\Day2\Parser\GameParser;
@@ -14,11 +14,11 @@ use PHPUnit\Framework\TestCase;
 
 final class GamesEvaluatorTest extends TestCase
 {
-    private GameEvaluator $gameEvaluator;
+    private PuzzleSolver $gameEvaluator;
 
     protected function setUp(): void
     {
-        $this->gameEvaluator = new GameEvaluator(new GameParser(new Lexer(GameTokenType::class)));
+        $this->gameEvaluator = new PuzzleSolver(new GameParser(new Lexer(GameTokenType::class)));
     }
 
     #[Test]
