@@ -8,7 +8,7 @@ use Advent\Shared\Input\Input;
 use Advent\Year2023\Day4\Model\ScratchcardWinningsSettler;
 use Advent\Year2023\Day4\Parser\ScratchcardParser;
 
-final readonly class ScratchcardEvaluator
+final readonly class PuzzleSolver
 {
     public function __construct(
         private ScratchcardParser $parser

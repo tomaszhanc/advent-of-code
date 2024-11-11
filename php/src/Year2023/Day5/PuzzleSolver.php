@@ -7,7 +7,7 @@ namespace Advent\Year2023\Day5;
 use Advent\Shared\Input\Input;
 use Advent\Year2023\Day5\Parser\AlmanacParser;
 
-final readonly class AlmanacEvaluator
+final readonly class PuzzleSolver
 {
     public function __construct(
         private AlmanacParser $parser

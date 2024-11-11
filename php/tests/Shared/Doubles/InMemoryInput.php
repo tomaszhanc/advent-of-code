@@ -15,11 +15,6 @@ final readonly class InMemoryInput implements Input
         $this->lines = $lines;
     }
 
-    public static function withContent(string $content): self
-    {
-        return new self(...explode("\n", $content));
-    }
-
     public function lines(): \Iterator
     {
         return new \ArrayIterator($this->lines);

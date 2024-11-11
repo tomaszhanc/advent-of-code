@@ -7,14 +7,14 @@ namespace Advent\Year2023\Day1;
 use Advent\Shared\Input\Input;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
 
-final readonly class LinesCalibrationValues
+final readonly class PuzzleSolver
 {
     public function __construct(
         private DigitLineParser $lineParser
     ) {
     }
 
-    public function sumAllFrom(Input $calibrationDocument): int
+    public function sumAllCalibrationValuesFrom(Input $calibrationDocument): int
     {
         $sum = 0;
 

@@ -8,7 +8,7 @@ use Advent\Shared\Input\Input;
 use Advent\Year2023\Day2\Model\CubesSet;
 use Advent\Year2023\Day2\Parser\GameParser;
 
-final readonly class GameEvaluator
+final readonly class PuzzleSolver
 {
     public function __construct(
         private GameParser $gameParser

@@ -8,7 +8,7 @@ use Advent\Shared\Input\Input;
 use Advent\Year2023\Day6\Model\Race;
 use Advent\Year2023\Day6\Parser\RaceLogParser;
 
-final readonly class RaceEvaluator
+final readonly class PuzzleSolver
 {
     public function __construct(
         private RaceLogParser $parser
