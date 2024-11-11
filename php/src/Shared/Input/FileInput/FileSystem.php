@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Filesystem;
+namespace Advent\Shared\Input\FileInput;
 
-interface Filesystem
+interface FileSystem
 {
     /**
      * @return \Iterator<int, string>

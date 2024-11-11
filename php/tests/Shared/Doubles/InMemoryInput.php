@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Shared\Doubles;
 
-use Advent\Shared\Filesystem\File;
+use Advent\Shared\Input\Input;
 
-final readonly class FileStub implements File
+final readonly class InMemoryInput implements Input
 {
     private array $lines;
 

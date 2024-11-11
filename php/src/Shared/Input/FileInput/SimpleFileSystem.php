@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Filesystem;
+namespace Advent\Shared\Input\FileInput;
 
-final readonly class SimpleFilesystem implements Filesystem
+use Advent\Shared\Input\RuntimeException;
+
+final readonly class SimpleFileSystem implements FileSystem
 {
     public function readLineByLine(string $filePath): \Iterator
     {

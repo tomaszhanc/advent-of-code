@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day1;
 
 use Advent\Shared\Lexer\Lexer;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2023\Day1\LinesCalibrationValues;
 use Advent\Year2023\Day1\Parser\DigitLexerTokenType;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
@@ -22,7 +22,7 @@ final class LinesCalibrationValuesTest extends TestCase
                 new Lexer(DigitLexerTokenType::class)
             )
         );
-        $file = new FileStub('zoneight234', 'a1b2c3d4e5f');
+        $file = new InMemoryInput('zoneight234', 'a1b2c3d4e5f');
 
         $this->assertSame(24 + 15, $compiler->sumAllFrom($file));
     }

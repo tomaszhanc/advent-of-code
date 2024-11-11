@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day4;
 
 use Advent\Shared\Lexer\Lexer;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2023\Day4\Parser\ScratchcardParser;
 use Advent\Year2023\Day4\Parser\ScratchcardType;
 use Advent\Year2023\Day4\ScratchcardEvaluator;
@@ -19,7 +19,7 @@ final class ScratchcardEvaluatorTest extends TestCase
     {
         $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new Lexer(ScratchcardType::class)));
 
-        $file = new FileStub(
+        $file = new InMemoryInput(
             'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53', // winners: 48, 83, 86, 17 => 2^3 = 8
             'Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19', // winners: 32, 61 => 2^1 = 2
             'Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1', // winners: 21, 1 => 2^1 = 2
@@ -36,7 +36,7 @@ final class ScratchcardEvaluatorTest extends TestCase
     {
         $scratchcardEvaluator = new ScratchcardEvaluator(new ScratchcardParser(new Lexer(ScratchcardType::class)));
 
-        $file = new FileStub(
+        $file = new InMemoryInput(
             'Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53', // winners: 48, 83, 86, 17 => wins copy of cards: 2, 3, 4, 5
             'Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19', // winners: 32, 61         => wins copy of cards: 3, 4
             'Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1', // winners: 21, 1          => wins copy of cards: 4, 5

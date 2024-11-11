@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day1;
 
-use Advent\Shared\Filesystem\File;
+use Advent\Shared\Input\Input;
 use Advent\Year2023\Day1\Parser\DigitLineParser;
 
 final readonly class LinesCalibrationValues
@@ -14,7 +14,7 @@ final readonly class LinesCalibrationValues
     ) {
     }
 
-    public function sumAllFrom(File $calibrationDocument): int
+    public function sumAllFrom(Input $calibrationDocument): int
     {
         $sum = 0;
 

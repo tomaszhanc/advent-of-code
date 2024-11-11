@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day3;
 
 use Advent\Shared\Lexer\Lexer;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2023\Day3\GearsEvaluator;
 use Advent\Year2023\Day3\Model\GearsFactory;
 use Advent\Year2023\Day3\Parser\EngineSchematicParser;
@@ -23,7 +23,7 @@ final class GearsEvaluatorTest extends TestCase
             new GearsFactory()
         );
 
-        $file = new FileStub(
+        $file = new InMemoryInput(
             '467..114..',
             '...*......',
             '..35..633.',

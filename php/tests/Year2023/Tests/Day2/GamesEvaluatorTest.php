@@ -3,7 +3,7 @@
 namespace Advent\Tests\Year2023\Tests\Day2;
 
 use Advent\Shared\Lexer\Lexer;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2023\Day2\GameEvaluator;
 use Advent\Year2023\Day2\Model\Cubes;
 use Advent\Year2023\Day2\Model\CubesSet;
@@ -24,7 +24,7 @@ final class GamesEvaluatorTest extends TestCase
     #[Test]
     public function it_sums_all_game_ids_that_are_possible_to_be_played_out_with_a_given_cubes_set(): void
     {
-        $gamesRecord = new FileStub(
+        $gamesRecord = new InMemoryInput(
             'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',
             'Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue',
             'Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red',
@@ -50,7 +50,7 @@ final class GamesEvaluatorTest extends TestCase
     #[Test]
     public function it_sums_powers_of_all_smallest_possible_cubes_set_to_play_a_given_game(): void
     {
-        $gamesRecord = new FileStub(
+        $gamesRecord = new InMemoryInput(
             // smallest cubes set: 4 red, 2 green, 6 blue, power = 48
             'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',
             // smallest cubes set: 1 red, 3 green, 4 blue, power = 12

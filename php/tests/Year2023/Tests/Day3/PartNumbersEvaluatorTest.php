@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day3;
 
 use Advent\Shared\Lexer\Lexer;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2023\Day3\Parser\EngineSchematicType;
 use Advent\Year2023\Day3\PartNumbersEvaluator;
 use Advent\Year2023\Day3\Model\PartNumbersFactory;
@@ -23,7 +23,7 @@ final class PartNumbersEvaluatorTest extends TestCase
             new PartNumbersFactory()
         );
 
-        $file = new FileStub(
+        $file = new InMemoryInput(
             '467..114..',
             '...*......',
             '..35..633.',

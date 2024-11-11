@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day4;
 
-use Advent\Shared\Filesystem\File;
+use Advent\Shared\Input\Input;
 use Advent\Year2023\Day4\Model\ScratchcardWinningsSettler;
 use Advent\Year2023\Day4\Parser\ScratchcardParser;
 
@@ -15,7 +15,7 @@ final readonly class ScratchcardEvaluator
     ) {
     }
 
-    public function sumAllPoints(File $scratchcardsRecord): int
+    public function sumAllPoints(Input $scratchcardsRecord): int
     {
         $sum = 0;
 
@@ -26,7 +26,7 @@ final readonly class ScratchcardEvaluator
         return $sum;
     }
 
-    public function countAllWonScratchcards(File $scratchcardsRecord): int
+    public function countAllWonScratchcards(Input $scratchcardsRecord): int
     {
         $winningsSettler = new ScratchcardWinningsSettler();
 

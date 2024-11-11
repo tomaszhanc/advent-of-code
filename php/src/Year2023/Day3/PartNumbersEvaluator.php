@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day3;
 
-use Advent\Shared\Filesystem\File;
+use Advent\Shared\Input\Input;
 use Advent\Shared\Iterator\LookaroundIterator;
 use Advent\Year2023\Day3\Model\Element\Elements;
 use Advent\Year2023\Day3\Model\PartNumbersFactory;
@@ -18,7 +18,7 @@ final readonly class PartNumbersEvaluator
     ) {
     }
 
-    public function sumAllPartNumbers(File $engineSchematic): int
+    public function sumAllPartNumbers(Input $engineSchematic): int
     {
         $sum = 0;
         $iterator = new LookaroundIterator($engineSchematic->lines());

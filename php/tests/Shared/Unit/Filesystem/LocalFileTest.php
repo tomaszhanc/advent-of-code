@@ -2,8 +2,8 @@
 
 namespace Advent\Tests\Shared\Unit\Filesystem;
 
-use Advent\Shared\Filesystem\LocalFile;
-use Advent\Shared\Filesystem\SimpleFilesystem;
+use Advent\Shared\Input\FileInput;
+use Advent\Shared\Input\FileInput\SimpleFileSystem;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -12,8 +12,8 @@ final class LocalFileTest extends TestCase
     #[Test]
     public function it_iterates_over_all_lines_in_the_file(): void
     {
-        $localFile = new LocalFile(
-            new SimpleFilesystem(),
+        $localFile = new FileInput(
+            new SimpleFileSystem(),
             __DIR__ . '/../../Resources/1000_lines.txt'
         );
 

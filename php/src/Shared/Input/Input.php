@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Filesystem;
+namespace Advent\Shared\Input;
 
-interface File
+interface Input
 {
     /** @return \Iterator<string> */
     public function lines(): \Iterator;

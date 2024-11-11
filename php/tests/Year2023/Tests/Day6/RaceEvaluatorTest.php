@@ -8,7 +8,7 @@ use Advent\Shared\Lexer\Lexer;
 use Advent\Year2023\Day6\Parser\RaceLogType;
 use Advent\Year2023\Day6\RaceEvaluator;
 use Advent\Year2023\Day6\Parser\RaceLogParser;
-use Advent\Tests\Shared\Doubles\FileStub;
+use Advent\Tests\Shared\Doubles\InMemoryInput;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -17,15 +17,15 @@ final class RaceEvaluatorTest extends TestCase
     #[Test]
     public function it_returns_product_of_all_number_of_ways_of_winning(): void
     {
-        $blaEvaluator = new RaceEvaluator(
+        $raceEvaluator = new RaceEvaluator(
             new RaceLogParser(new Lexer(RaceLogType::class)),
         );
 
-        $file = new FileStub(
+        $file = new InMemoryInput(
             'Time:      7  15   30',
             'Distance:  9  40  200',
         );
 
-        $this->assertEquals(288, $blaEvaluator->productOfAllNumberOfWaysOfWinning($file));
+        $this->assertEquals(288, $raceEvaluator->productOfAllNumberOfWaysOfWinning($file));
     }
 }
