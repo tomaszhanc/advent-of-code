@@ -9,7 +9,7 @@ final readonly class HandStrengthComparator
     public function __invoke(Hand $a, Hand $b): int
     {
         if ($a->type()->value != $b->type()->value) {
-            return $a->type()->value <=> $b->type()->value;
+            return $a->type()->strength() <=> $b->type()->strength();
         }
 
         for ($i = 1; $i <= 5; $i++) {

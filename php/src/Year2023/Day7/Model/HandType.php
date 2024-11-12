@@ -13,4 +13,9 @@ enum HandType: int
     case TWO_PAIR = 3;
     case ONE_PAIR = 2;
     case HIGH_CARD = 1;
+
+    public function strength() : int
+    {
+        return $this->value;
+    }
 }
