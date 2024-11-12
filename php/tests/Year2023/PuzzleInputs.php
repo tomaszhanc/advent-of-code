@@ -43,4 +43,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/day6_fixed_kerning.txt');
     }
+
+    public static function day7_listOfHands(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/day7.txt');
+    }
 }
