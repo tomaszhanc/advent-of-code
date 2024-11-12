@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day7;
 
 use Advent\Shared\Input\Input;
+use Advent\Year2023\Day7\Model\GameRules\StandardRules;
 use Advent\Year2023\Day7\Parser\CamelCardsParser;
 
 final readonly class PuzzleSolver
@@ -18,6 +19,6 @@ final readonly class PuzzleSolver
     {
         $hands = $this->parser->parseAll($file);
 
-        return $hands->totalWinnings();
+        return $hands->totalWinnings(new StandardRules());
     }
 }

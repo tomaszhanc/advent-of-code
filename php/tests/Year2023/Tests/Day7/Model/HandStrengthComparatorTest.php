@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day7\Model;
 
+use Advent\Year2023\Day7\Model\GameRules\StandardRules;
 use Advent\Year2023\Day7\Model\Hand;
 use Advent\Year2023\Day7\Model\HandStrengthComparator;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -16,7 +17,7 @@ final class HandStrengthComparatorTest extends TestCase
     #[DataProvider('scenarios')]
     public function it_compares_hands_based_on_their_strength(Hand $winner, Hand $loser): void
     {
-        $comparator = new HandStrengthComparator();
+        $comparator = new HandStrengthComparator(new StandardRules());
 
         $this->assertEquals(1, $comparator($winner, $loser));
         $this->assertEquals(-1, $comparator($loser, $winner));

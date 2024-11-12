@@ -6,18 +6,26 @@ namespace Advent\Year2023\Day7\Model;
 
 final readonly class HandStrengthComparator
 {
+    public function __construct(private GameRules $rules)
+    {
+    }
+
     public function __invoke(Hand $a, Hand $b): int
     {
-        if ($a->type()->value != $b->type()->value) {
-            return $a->type()->strength() <=> $b->type()->strength();
+        $comparison = $a->type($this->rules)->strength() <=> $b->type($this->rules)->strength();
+
+        if ($comparison !== 0) {
+            return $comparison;
         }
 
         for ($i = 1; $i <= 5; $i++) {
-            if ($a->card($i)->strength() === $b->card($i)->strength()) {
+            $comparison = $a->card($i)->strength($this->rules) <=> $b->card($i)->strength($this->rules);
+
+            if ($comparison === 0) {
                 continue;
             }
 
-            return $a->card($i)->strength() <=> $b->card($i)->strength();
+            return $comparison;
         }
 
         return 0;

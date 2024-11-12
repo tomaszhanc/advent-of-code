@@ -45,9 +45,13 @@ final readonly class Hand
         return new Card($this->cards[$i - 1]);
     }
 
-    public function type(): HandType
+    public function type(GameRules $rules): HandType
     {
         $cardOccurrence = array_count_values($this->cards);
+        // fixme it shouldn't count J and switchem them into $mostOccurance card?
+        // hmm so do occurance twice? first to see which is the best and then to see if it's a pair or something with replacesd J?
+
+
         rsort($cardOccurrence);
         $mostOccurrences = array_shift($cardOccurrence);
 

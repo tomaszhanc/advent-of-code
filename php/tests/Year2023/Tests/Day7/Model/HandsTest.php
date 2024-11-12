@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day7\Model;
 
+use Advent\Year2023\Day7\Model\GameRules\StandardRules;
 use Advent\Year2023\Day7\Model\Hand;
 use Advent\Year2023\Day7\Model\Hands;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,6 +23,6 @@ final class HandsTest extends TestCase
             Hand::of('QQQJA', 483)
         );
 
-        $this->assertEquals(6440, $hands->totalWinnings());
+        $this->assertEquals(6440, $hands->totalWinnings(new StandardRules()));
     }
 }

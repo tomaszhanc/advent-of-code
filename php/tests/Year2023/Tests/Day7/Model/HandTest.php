@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day7\Model;
 
+use Advent\Year2023\Day7\Model\GameRules\StandardRules;
 use Advent\Year2023\Day7\Model\Hand;
 use Advent\Year2023\Day7\Model\HandType;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -16,7 +17,7 @@ final class HandTest extends TestCase
     #[DataProvider('hands')]
     public function it_returns_hand_type(string $hand, HandType $type): void
     {
-        $this->assertEquals($type, Hand::of($hand, 0)->type());
+        $this->assertEquals($type, Hand::of($hand, 0)->type(new StandardRules()));
     }
 
     public static function hands(): iterable
