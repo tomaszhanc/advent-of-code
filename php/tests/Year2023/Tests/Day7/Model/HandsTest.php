@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day7\Model;
 
+use Advent\Year2023\Day7\Model\GameRules\JokerInPlay;
 use Advent\Year2023\Day7\Model\GameRules\StandardRules;
 use Advent\Year2023\Day7\Model\Hand;
 use Advent\Year2023\Day7\Model\Hands;
@@ -24,5 +25,19 @@ final class HandsTest extends TestCase
         );
 
         $this->assertEquals(6440, $hands->totalWinnings(new StandardRules()));
+    }
+
+    #[Test]
+    public function it_calculates_total_winnings_when_joker_is_in_play(): void
+    {
+        $hands = new Hands(
+            Hand::of('32T3K', 765),
+            Hand::of('T55J5', 684),
+            Hand::of('KK677', 28),
+            Hand::of('KTJJT', 220),
+            Hand::of('QQQJA', 483)
+        );
+
+        $this->assertEquals(5905, $hands->totalWinnings(new JokerInPlay()));
     }
 }

@@ -5,24 +5,23 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day7\Model;
 
 use Advent\Shared\RuntimeException;
+use Advent\Year2023\Day7\Model\GameRules\CardOccurrence;
 
 final readonly class Hand
 {
-    /** @var string[] */
+    public int $bid;
+
+    /** @var Card[] */
     private array $cards;
 
-    public function __construct(
-        public int $bid,
-        Card ...$cards,
-    ) {
+    public function __construct(int $bid, Card ...$cards)
+    {
         if (count($cards) !== 5) {
             throw RuntimeException::because('Hand must have 5 cards');
         }
 
-        $this->cards = array_map(
-            fn (Card $card) => $card->card,
-            $cards
-        );
+        $this->bid = $bid;
+        $this->cards = $cards;
     }
 
     public static function of(string $hand, int $bid): self
@@ -42,43 +41,22 @@ final readonly class Hand
             throw RuntimeException::because('Card "%d" does not exist.', $i);
         }
 
-        return new Card($this->cards[$i - 1]);
+        return $this->cards[$i - 1];
     }
 
-    public function type(GameRules $rules): HandType
+    public function replaceJokersWith(Card $card): self
     {
-        $cardOccurrence = array_count_values($this->cards);
-        // fixme it shouldn't count J and switchem them into $mostOccurance card?
-        // hmm so do occurance twice? first to see which is the best and then to see if it's a pair or something with replacesd J?
+        return new self(
+            $this->bid,
+            ...array_map(
+                fn (Card $next) => $next->is('J') ? $card : $next,
+                $this->cards
+            )
+        );
+    }
 
-
-        rsort($cardOccurrence);
-        $mostOccurrences = array_shift($cardOccurrence);
-
-        if ($mostOccurrences === 5) {
-            return HandType::FIVE_OF_A_KIND;
-        }
-
-        if ($mostOccurrences === 4) {
-            return HandType::FOUR_OF_A_KIND;
-        }
-
-        if ($mostOccurrences === 3) {
-            if (array_shift($cardOccurrence) === 2) {
-                return HandType::FULL_HOUSE;
-            }
-
-            return HandType::THREE_OF_A_KIND;
-        }
-
-        if ($mostOccurrences === 2) {
-            if (array_shift($cardOccurrence) === 2) {
-                return HandType::TWO_PAIR;
-            }
-
-            return HandType::ONE_PAIR;
-        }
-
-        return HandType::HIGH_CARD;
+    public function cardOccurrence(): CardOccurrence
+    {
+        return new CardOccurrence(...$this->cards);
     }
 }

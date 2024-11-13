@@ -6,6 +6,8 @@ namespace Advent\Year2023\Day7\Model\GameRules;
 
 use Advent\Year2023\Day7\Model\Card;
 use Advent\Year2023\Day7\Model\GameRules;
+use Advent\Year2023\Day7\Model\Hand;
+use Advent\Year2023\Day7\Model\HandStrength;
 
 final readonly class StandardRules implements GameRules
 {
@@ -27,6 +29,37 @@ final readonly class StandardRules implements GameRules
 
     public function cardStrength(Card $card): int
     {
-        return self::STANDARD_STRENGTH[$card->card];
+        return self::STANDARD_STRENGTH[$card->toString()];
+    }
+
+    public function handStrength(Hand $hand): HandStrength
+    {
+        $cardOccurrence = $hand->cardOccurrence();
+
+        if ($cardOccurrence->theMostOccurrences() === 5) {
+            return HandStrength::FIVE_OF_A_KIND;
+        }
+
+        if ($cardOccurrence->theMostOccurrences() === 4) {
+            return HandStrength::FOUR_OF_A_KIND;
+        }
+
+        if ($cardOccurrence->theMostOccurrences() === 3) {
+            if ($cardOccurrence->secondMostOccurrences() === 2) {
+                return HandStrength::FULL_HOUSE;
+            }
+
+            return HandStrength::THREE_OF_A_KIND;
+        }
+
+        if ($cardOccurrence->theMostOccurrences() === 2) {
+            if ($cardOccurrence->secondMostOccurrences() === 2) {
+                return HandStrength::TWO_PAIR;
+            }
+
+            return HandStrength::ONE_PAIR;
+        }
+
+        return HandStrength::HIGH_CARD;
     }
 }

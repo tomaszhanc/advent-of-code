@@ -6,17 +6,43 @@ namespace Advent\Year2023\Day7\Model\GameRules;
 
 use Advent\Year2023\Day7\Model\Card;
 use Advent\Year2023\Day7\Model\GameRules;
+use Advent\Year2023\Day7\Model\Hand;
+use Advent\Year2023\Day7\Model\HandStrength;
 
 final readonly class JokerInPlay implements GameRules
 {
+    private StandardRules $standardRules;
+
+    public function __construct()
+    {
+        $this->standardRules = new StandardRules();
+    }
+
     public function cardStrength(Card $card): int
     {
-        $rules = new StandardRules();
-
-        if ($card->card === 'J') {
-            return $rules->cardStrength(new Card('2')) - 1;
+        if ($card->is('J')) {
+            return $this->standardRules->cardStrength(new Card('2')) - 1;
         }
 
-        return $rules->cardStrength($card);
+        return $this->standardRules->cardStrength($card);
+    }
+
+    public function handStrength(Hand $hand): HandStrength
+    {
+        $cardOccurrence = $hand->cardOccurrence();
+
+        if ($cardOccurrence->theMostOccurredCard()->is('J')) {
+            if ($cardOccurrence->theMostOccurrences() === 5) {
+                return HandStrength::FIVE_OF_A_KIND;
+            }
+
+            return $this->standardRules->handStrength(
+                $hand->replaceJokersWith($cardOccurrence->secondMostOccurredCard())
+            );
+        }
+
+        return $this->standardRules->handStrength(
+            $hand->replaceJokersWith($cardOccurrence->theMostOccurredCard())
+        );
     }
 }

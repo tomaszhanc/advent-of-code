@@ -45,8 +45,8 @@ final class PuzzleSolverTest extends TestCase
     }
 
     #[Test]
-    public function it_solves_day_7_part_2_(): void
+    public function it_solves_day_7_part_2_calculate_total_winnings_with_jokers_in_play(): void
     {
-        $this->assertEquals(0, $this->solver->totalWinningsFor(PuzzleInputs::day7_listOfHands()));
+        $this->assertEquals(254115617, $this->solver->totalWinningsWithJokersFor(PuzzleInputs::day7_listOfHands()));
     }
 }

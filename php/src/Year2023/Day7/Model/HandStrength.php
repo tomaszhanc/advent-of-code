@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day7\Model;
 
-enum HandType: int
+enum HandStrength: int
 {
     case FIVE_OF_A_KIND = 7;
     case FOUR_OF_A_KIND = 6;

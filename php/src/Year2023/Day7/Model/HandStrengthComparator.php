@@ -12,20 +12,18 @@ final readonly class HandStrengthComparator
 
     public function __invoke(Hand $a, Hand $b): int
     {
-        $comparison = $a->type($this->rules)->strength() <=> $b->type($this->rules)->strength();
+        $comparison = $this->rules->handStrength($a)->strength() <=> $this->rules->handStrength($b)->strength();
 
         if ($comparison !== 0) {
             return $comparison;
         }
 
         for ($i = 1; $i <= 5; $i++) {
-            $comparison = $a->card($i)->strength($this->rules) <=> $b->card($i)->strength($this->rules);
+            $comparison = $this->rules->cardStrength($a->card($i)) <=> $this->rules->cardStrength($b->card($i));
 
-            if ($comparison === 0) {
-                continue;
+            if ($comparison !== 0) {
+                return $comparison;
             }
-
-            return $comparison;
         }
 
         return 0;
