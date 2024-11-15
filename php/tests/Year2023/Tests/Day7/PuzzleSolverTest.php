@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day7;
 
-use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Year2023\PuzzleInputs;
-use Advent\Year2023\Day7\Parser\CamelCardsType;
 use Advent\Year2023\Day7\PuzzleSolver;
 use Advent\Year2023\Day7\Parser\CamelCardsParser;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
@@ -19,9 +17,7 @@ final class PuzzleSolverTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->solver = new PuzzleSolver(
-            new CamelCardsParser(new Lexer(CamelCardsType::class)),
-        );
+        $this->solver = new PuzzleSolver(new CamelCardsParser(), );
     }
 
     #[Test]

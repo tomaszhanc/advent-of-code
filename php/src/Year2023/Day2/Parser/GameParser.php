@@ -38,9 +38,7 @@ final readonly class GameParser
         $tokens->skipUntil(GameTokenType::GAME);
 
         $gameIdToken = $tokens->next();
-        if ($gameIdToken->isNotA(GameTokenType::NUMBER)) {
-            throw RuntimeException::unexpectedToken(GameTokenType::NUMBER, $gameIdToken->type);
-        }
+        $gameIdToken->assertIsA(GameTokenType::NUMBER);
 
         return (int) $gameIdToken->value;
     }
@@ -62,9 +60,7 @@ final readonly class GameParser
         $cubesAmountToken = $tokens->skipUntil(GameTokenType::NUMBER);
 
         $cubeColorToken = $tokens->next();
-        if (!$cubeColorToken->isA(GameTokenType::COLOR)) {
-            throw RuntimeException::unexpectedToken(GameTokenType::COLOR, $cubeColorToken->type);
-        }
+        $cubeColorToken->assertIsA(GameTokenType::COLOR);
 
         return new Cubes(
             (int) $cubesAmountToken->value,

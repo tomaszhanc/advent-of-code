@@ -36,9 +36,7 @@ final readonly class ScratchcardParser
         $tokens->skipUntil(ScratchcardType::CARD);
 
         $cardIdToken = $tokens->next();
-        if ($cardIdToken->isNotA(ScratchcardType::NUMBER)) {
-            throw RuntimeException::unexpectedToken(ScratchcardType::NUMBER, $cardIdToken->type);
-        }
+        $cardIdToken->assertIsA(ScratchcardType::NUMBER);
 
         return (int) $cardIdToken->value;
     }

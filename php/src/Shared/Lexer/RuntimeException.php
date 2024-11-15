@@ -11,12 +11,13 @@ final class RuntimeException extends \RuntimeException
         return new self(sprintf($pattern, ...$parameters));
     }
 
-    public static function unexpectedToken(\UnitEnum $expectedToken, \UnitEnum $receivedToken): self
+    public static function unexpectedToken(\UnitEnum $expectedToken, \UnitEnum $receivedToken, string|int $value): self
     {
         return self::because(
-            'Expected %s token, got %s token',
+            'Expected "%s" token, got "%s" token with value "%s"',
             $expectedToken->name,
-            $receivedToken->name
+            $receivedToken->name,
+            $value
         );
     }
 }

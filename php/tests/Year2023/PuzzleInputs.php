@@ -48,4 +48,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/day7.txt');
     }
+
+    public static function day8_navigation_document(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/day8.txt');
+    }
 }

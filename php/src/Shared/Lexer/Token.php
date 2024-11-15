@@ -26,4 +26,11 @@ final readonly class Token
     {
         return !$this->isA($type);
     }
+
+    public function assertIsA(\UnitEnum $type): void
+    {
+        if ($this->isNotA($type)) {
+            throw RuntimeException::unexpectedToken($type, $this->type, $this->value);
+        }
+    }
 }
