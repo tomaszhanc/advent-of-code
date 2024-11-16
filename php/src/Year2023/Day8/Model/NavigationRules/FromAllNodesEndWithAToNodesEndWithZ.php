@@ -8,7 +8,7 @@ use Advent\Year2023\Day8\Model\NavigationRules;
 use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 
-final readonly class FromAllNodesEndWithAtoNodesEndWithZ implements NavigationRules
+final readonly class FromAllNodesEndWithAToNodesEndWithZ implements NavigationRules
 {
     public function startingNodes(Nodes $nodes): iterable
     {

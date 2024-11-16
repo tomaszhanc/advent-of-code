@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day8\Model\NavigationRules;
 
-use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAtoNodesEndWithZ;
+use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAToNodesEndWithZ;
 use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 use PHPUnit\Framework\Attributes\Test;
@@ -15,7 +15,7 @@ final class FromAllNodesEndWithAtoNodesEndWithZTest extends TestCase
     #[Test]
     public function it_returns_all_nodes_ending_with_A(): void
     {
-        $rules = new FromAllNodesEndWithAtoNodesEndWithZ();
+        $rules = new FromAllNodesEndWithAToNodesEndWithZ();
         $nodes = new Nodes(
             $node11A = new Node('11A', '11B', 'XXX'),
             new Node('11B', 'XXX', '11Z'),

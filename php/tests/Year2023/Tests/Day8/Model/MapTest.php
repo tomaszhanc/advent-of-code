@@ -10,7 +10,7 @@ use Advent\Year2023\Day8\Model\Instructions;
 use Advent\Year2023\Day8\Model\Map;
 use Advent\Year2023\Day8\Model\NavigationRules;
 use Advent\Year2023\Day8\Model\NavigationRules\FromNodeAAAToNodeZZZ;
-use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAtoNodesEndWithZ;
+use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAToNodesEndWithZ;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -72,6 +72,6 @@ final class MapTest extends TestCase
             )
         );
 
-        $this->assertEquals(6, $map->numberOfSteps(new FromAllNodesEndWithAtoNodesEndWithZ()));
+        $this->assertEquals(6, $map->numberOfSteps(new FromAllNodesEndWithAToNodesEndWithZ()));
     }
 }
