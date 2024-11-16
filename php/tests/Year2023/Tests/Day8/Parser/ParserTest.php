@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day8\Parser;
 
-use Advent\Shared\Input\FileInput;
-use Advent\Shared\Lexer\Lexer;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
+use Advent\Year2023\Day8\Model\Nodes;
+use Advent\Year2023\Day8\Model\Direction;
 use Advent\Year2023\Day8\Model\Instructions;
 use Advent\Year2023\Day8\Model\Map;
-use Advent\Year2023\Day8\Model\Direction;
-use Advent\Year2023\Day8\Model\Node;
-use Advent\Year2023\Day8\Model\Nodes;
+use Advent\Year2023\Day8\Model\NavigationRules;
 use Advent\Year2023\Day8\Parser\Parser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

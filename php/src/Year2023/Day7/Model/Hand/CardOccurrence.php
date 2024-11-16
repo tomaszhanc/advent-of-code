@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2023\Day7\Model\GameRules;
+namespace Advent\Year2023\Day7\Model\Hand;
 
 use Advent\Year2023\Day7\Model\Card;
 

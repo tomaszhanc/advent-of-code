@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day7\Model;
 
 use Advent\Shared\RuntimeException;
-use Advent\Year2023\Day7\Model\GameRules\CardOccurrence;
+use Advent\Year2023\Day7\Model\Hand\CardOccurrence;
 
 final readonly class Hand
 {

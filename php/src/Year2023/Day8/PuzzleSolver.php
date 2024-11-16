@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day8;
 
 use Advent\Shared\Input\Input;
+use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAtoNodesEndWithZ;
+use Advent\Year2023\Day8\Model\NavigationRules\FromNodeAAAToNodeZZZ;
 use Advent\Year2023\Day8\Parser\Parser;
 
 final readonly class PuzzleSolver
@@ -14,10 +16,17 @@ final readonly class PuzzleSolver
     ) {
     }
 
-    public function numberOfSteps(Input $file): int
+    public function numberOfStepsFromAAAToZZZ(Input $file): int
     {
         $map = $this->parser->parse($file->content());
 
-        return $map->numberOfStepsToReachFinalDestination();
+        return $map->numberOfSteps(new FromNodeAAAToNodeZZZ());
+    }
+
+    public function numberOfStepsFromAllStartingPositions(Input $file): int
+    {
+        $map = $this->parser->parse($file->content());
+
+        return $map->numberOfSteps(new FromAllNodesEndWithAtoNodesEndWithZ());
     }
 }

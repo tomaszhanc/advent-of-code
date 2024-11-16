@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day8\Model;
 
+use Advent\Year2023\Day8\Model\Map\NumberOfSteps;
+
 final readonly class Map
 {
     public function __construct(
@@ -12,18 +14,24 @@ final readonly class Map
     ) {
     }
 
-    public function numberOfStepsToReachFinalDestination(): int
+    public function numberOfSteps(NavigationRules $rules): int
     {
-        $currentNode = $this->nodes->startNode();
-        $numberOfSteps = 0;
+        $allNumberOfSteps = [];
 
-        foreach ($this->instructions as $nextStep) {
-            $currentNode = $this->nodes->moveFrom($currentNode, $nextStep);
-            $numberOfSteps++;
+        foreach ($rules->startingNodes($this->nodes) as $currentNode) {
+            $numberOfSteps = 0;
 
-            if ($currentNode->isFinalDestination()) {
-                return $numberOfSteps;
+            foreach ($this->instructions as $nextStep) {
+                $currentNode = $currentNode->move($nextStep, $this->nodes);
+                $numberOfSteps++;
+
+                if ($rules->isFinalDestination($currentNode)) {
+                    $allNumberOfSteps[] = $numberOfSteps;
+                    break;
+                }
             }
         }
+
+        return (new NumberOfSteps(...$allNumberOfSteps))->toReachAllDestinationSimultaneously();
     }
 }

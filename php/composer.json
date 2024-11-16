@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
             "Advent\\": "src/"
-        }
+        },
+        "files": ["src/Shared/Math/functions.php"]
     },
     "autoload-dev": {
         "psr-4": {

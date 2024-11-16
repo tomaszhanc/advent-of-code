@@ -19,17 +19,17 @@ final class Nodes
         );
     }
 
-    public function startNode(): Node
+    public function get(string $name): Node
     {
-        return $this->nodes['AAA'] ?? throw RuntimeException::because('Starting node does not exist');
+        return $this->nodes[$name] ?? throw RuntimeException::because('Node %s does not exist', $name);
     }
 
-    public function moveFrom(Node $from, Direction $step): Node
+    /**
+     * @param callable(Node) : bool $filter
+     * @return Node[]
+     */
+    public function filter(callable $filter): array
     {
-        if ($step === Direction::LEFT) {
-            return $this->nodes[$from->leftNodeName];
-        }
-
-        return $this->nodes[$from->rightNodeName];
+        return array_values(array_filter($this->nodes, $filter));
     }
 }
