@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day8\Model;
 
+use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 use Advent\Year2023\Day8\Model\Direction;
-use Advent\Year2023\Day8\Model\NavigationRules;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

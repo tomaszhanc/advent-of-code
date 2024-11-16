@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day8\Parser;
 
 use Advent\Tests\Shared\Doubles\InMemoryInput;
+use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 use Advent\Year2023\Day8\Model\Direction;
 use Advent\Year2023\Day8\Model\Instructions;

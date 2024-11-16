@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2023\Tests\Day8\Model;
 
+use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 use Advent\Year2023\Day8\Model\Direction;
 use Advent\Year2023\Day8\Model\Instructions;
 use Advent\Year2023\Day8\Model\Map;
-use Advent\Year2023\Day8\Model\NavigationRules;
 use Advent\Year2023\Day8\Model\NavigationRules\FromNodeAAAToNodeZZZ;
 use Advent\Year2023\Day8\Model\NavigationRules\FromAllNodesEndWithAToNodesEndWithZ;
 use PHPUnit\Framework\Attributes\DataProvider;

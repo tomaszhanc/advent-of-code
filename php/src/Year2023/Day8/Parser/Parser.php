@@ -6,11 +6,11 @@ namespace Advent\Year2023\Day8\Parser;
 
 use Advent\Shared\Lexer\Lexer;
 use Advent\Shared\Lexer\Tokens;
+use Advent\Year2023\Day8\Model\Node;
 use Advent\Year2023\Day8\Model\Nodes;
 use Advent\Year2023\Day8\Model\Direction;
 use Advent\Year2023\Day8\Model\Instructions;
 use Advent\Year2023\Day8\Model\Map;
-use Advent\Year2023\Day8\Model\NavigationRules;
 
 final readonly class Parser
 {
