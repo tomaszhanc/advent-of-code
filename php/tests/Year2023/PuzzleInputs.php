@@ -53,4 +53,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/day8.txt');
     }
+
+    public static function day9_oasis_report(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/day9.txt');
+    }
 }
