@@ -6,10 +6,10 @@ namespace Advent\Shared\Grid;
 
 interface Line
 {
-    public function isAdjacentTo(Cell $cell): bool;
+    public function isAdjacentTo(Location $location): bool;
 
     /**
-     * @return Cell[]
+     * @return Location[]
      */
     public function cells(): iterable;
 }

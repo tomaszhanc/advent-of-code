@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day3\Model\Element;
 
-use Advent\Shared\Grid\Cell;
+use Advent\Shared\Grid\Location;
 use Advent\Shared\Grid\Line\HorizontalLine;
 
 final readonly class NumberElement
@@ -18,15 +18,15 @@ final readonly class NumberElement
 
     public function isAdjacentTo(SymbolElement $symbolElement): bool
     {
-        $symbol = new Cell($symbolElement->position, $symbolElement->lineNumber);
+        $symbol = new Location($symbolElement->position, $symbolElement->lineNumber);
 
         if ($this->length() === 1) {
-            $number = new Cell($this->position, $this->lineNumber);
+            $number = new Location($this->position, $this->lineNumber);
             return $number->isAdjacentTo($symbol);
         }
 
         $number = HorizontalLine::ofLength(
-            new Cell($this->position, $this->lineNumber),
+            new Location($this->position, $this->lineNumber),
             $this->length()
         );
 

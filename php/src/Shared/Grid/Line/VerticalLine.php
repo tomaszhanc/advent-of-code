@@ -4,49 +4,49 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid\Line;
 
-use Advent\Shared\Grid\Cell;
+use Advent\Shared\Grid\Location;
 use Advent\Shared\Grid\InvalidArgumentException;
 use Advent\Shared\Grid\Line;
 
 final readonly class VerticalLine implements Line
 {
     public function __construct(
-        public Cell $startCell,
-        public Cell $endCell
+        public Location $startCell,
+        public Location $endCell
     ) {
-        if ($this->startCell->columnIndex !== $this->endCell->columnIndex) {
+        if ($this->startCell->x !== $this->endCell->x) {
             throw InvalidArgumentException::because('Vertical line must have cells in the same column');
         }
 
-        if ($startCell->equals($endCell)) {
+        if ($startCell->equalsTo($endCell)) {
             throw InvalidArgumentException::because('Vertical line cannot start and end on the same cell');
         }
 
-        if ($startCell->rowIndex > $endCell->rowIndex) {
+        if ($startCell->y > $endCell->y) {
             throw InvalidArgumentException::because('Start cell must be before end cell');
         }
     }
 
-    public static function ofLength(Cell $startCell, int $length): self
+    public static function ofLength(Location $startCell, int $length): self
     {
         return new self(
             $startCell,
-            new Cell($startCell->columnIndex, $startCell->rowIndex + $length - 1)
+            new Location($startCell->x, $startCell->y + $length - 1)
         );
     }
 
-    public function isAdjacentTo(Cell $cell): bool
+    public function isAdjacentTo(Location $location): bool
     {
-        $startCell = $this->startCell->adjacencyTo($cell);
-        $endCell = $this->endCell->adjacencyTo($cell);
+        $startCell = $this->startCell->adjacencyTo($location);
+        $endCell = $this->endCell->adjacencyTo($location);
 
         if ($startCell->isDirectlyBelow() || $endCell->isDirectlyAbove()) {
             return true;
         }
 
         if ($startCell->isColumnAdjacent()) {
-            return $cell->rowIndex >= $this->startCell->rowIndex - 1
-                && $cell->rowIndex <= $this->endCell->rowIndex + 1;
+            return $location->y >= $this->startCell->y - 1
+                && $location->y <= $this->endCell->y + 1;
         }
 
         return false;
@@ -54,8 +54,8 @@ final readonly class VerticalLine implements Line
 
     public function cells(): iterable
     {
-        foreach (range($this->startCell->rowIndex, $this->endCell->rowIndex) as $rowIndex) {
-            yield new Cell($this->startCell->columnIndex, $rowIndex);
+        foreach (range($this->startCell->y, $this->endCell->y) as $rowIndex) {
+            yield new Location($this->startCell->x, $rowIndex);
         }
     }
 }

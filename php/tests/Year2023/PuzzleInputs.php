@@ -58,4 +58,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/day9.txt');
     }
+
+    public static function day10_pipe_diagram(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/day10.txt');
+    }
 }
