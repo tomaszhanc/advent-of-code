@@ -24,19 +24,19 @@ final readonly class Location
     {
         $offsetX = $offsetY = 0;
 
-        if ($direction->is(Direction::UP)) {
+        if ($direction->isIn(Direction::UP)) {
             $offsetY = -1;
         }
 
-        if ($direction->is(Direction::DOWN)) {
+        if ($direction->isIn(Direction::DOWN)) {
             $offsetY = +1;
         }
 
-        if ($direction->is(Direction::LEFT)) {
+        if ($direction->isIn(Direction::LEFT)) {
             $offsetX = -1;
         }
 
-        if ($direction->is(Direction::RIGHT)) {
+        if ($direction->isIn(Direction::RIGHT)) {
             $offsetX = +1;
         }
 

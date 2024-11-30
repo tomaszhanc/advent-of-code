@@ -6,7 +6,6 @@ namespace Advent\Tests\Year2023\Tests\Day10;
 
 use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Tests\Year2023\PuzzleInputs;
-use Advent\Year2023\Day10\Model\PipeDiagramFactory;
 use Advent\Year2023\Day10\PuzzleSolver;
 use Advent\Year2023\Day10\Parser\PipeParser;
 use PHPUnit\Framework\Attributes\Test;
@@ -18,7 +17,7 @@ final class PuzzleSolverTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->solver = new PuzzleSolver(new PipeParser(), new PipeDiagramFactory());
+        $this->solver = new PuzzleSolver(new PipeParser());
     }
 
     #[Test]

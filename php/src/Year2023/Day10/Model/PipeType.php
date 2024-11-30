@@ -31,7 +31,7 @@ enum PipeType: int
         };
     }
 
-    public function in(Direction $direction): bool
+    public function isIn(Direction $direction): bool
     {
         if ($direction->isDiagonal()) {
             return false;
@@ -41,11 +41,11 @@ enum PipeType: int
     }
 
     /** @return Direction[] */
-    public function directions(): array
+    public function accessibleDirections(): array
     {
         return array_values(array_filter(
-            Direction::cases(),
-            fn (Direction $direction): bool => $this->in($direction)
+            [Direction::UP, Direction::DOWN, Direction::RIGHT, Direction::LEFT],
+            fn (Direction $direction): bool => $this->isIn($direction)
         ));
     }
 }

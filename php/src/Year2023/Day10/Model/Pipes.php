@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day10\Model;
 
+use Advent\Shared\Grid\GridCells;
+use Advent\Shared\Grid\Search\BreadthFirstSearch;
+use Advent\Shared\Grid\Search\ResultEvaluator\FindFarthestPoint;
 use Advent\Shared\RuntimeException;
-use Traversable;
 
-final readonly class Pipes implements \IteratorAggregate
+final readonly class Pipes
 {
     /** @var Pipe[] */
     private array $pipes;
@@ -17,7 +19,17 @@ final readonly class Pipes implements \IteratorAggregate
         $this->pipes = $pipes;
     }
 
-    public function startingPoint(): Pipe
+    public function numberOfStepsToFarthestPoint(): int
+    {
+        $bfs = new BreadthFirstSearch(new FindFarthestPoint());
+
+        return $bfs->search(
+            $this->startingPoint(),
+            new GridCells(...$this->pipes)
+        )->distance();
+    }
+
+    private function startingPoint(): Pipe
     {
         foreach ($this->pipes as $pipe) {
             if ($pipe->isStartingPoint()) {
@@ -26,11 +38,5 @@ final readonly class Pipes implements \IteratorAggregate
         }
 
         throw RuntimeException::because("Can't create PipeDiagram because starting point was not found");
-    }
-
-    /** @return Traversable<Pipe> */
-    public function getIterator(): Traversable
-    {
-        return new \ArrayIterator($this->pipes);
     }
 }

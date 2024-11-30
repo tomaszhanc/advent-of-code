@@ -15,9 +15,14 @@ enum Direction: int
     case DOWN_LEFT  = self::DOWN->value | self::LEFT->value;
     case DOWN_RIGHT = self::DOWN->value | self::RIGHT->value;
 
-    public function is(Direction $direction): bool
+    public function isIn(Direction $direction): bool
     {
         return ($this->value & $direction->value) === $direction->value;
+    }
+
+    public function equals(Direction $direction): bool
+    {
+        return $this->value === $direction->value;
     }
 
     public function opposite(): self
