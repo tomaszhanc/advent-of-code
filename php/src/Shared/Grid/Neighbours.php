@@ -7,8 +7,10 @@ namespace Advent\Shared\Grid;
 final class Neighbours
 {
     /** @return GridCell[] */
-    public function for(GridCell $cell, GridCells $cells): iterable
+    public function for(GridCell $cell, GridCells $cells): array
     {
+        $neighbours = [];
+
         foreach ($cell->possibleDirections() as $direction) {
             $neighbourLocation = $cell->location()->neighbourAt($direction);
 
@@ -19,8 +21,10 @@ final class Neighbours
             $neighbour = $cells->getAt($neighbourLocation);
 
             if ($neighbour->canMoveTo($direction->opposite())) {
-                yield $neighbour;
+                $neighbours[] = $neighbour;
             }
         }
+
+        return $neighbours;
     }
 }

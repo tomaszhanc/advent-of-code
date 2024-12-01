@@ -4,23 +4,28 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid\Search;
 
-use Advent\Shared\Grid\GridCell;
-
 final readonly class SearchResult
 {
-    public function __construct(
-        private GridCell $cell,
-        private int $distance
-    ) {
+    /** @var Path[] */
+    private array $paths;
+
+    public function __construct(Path ...$paths)
+    {
+        $this->paths = $paths;
     }
 
-    public function cell(): GridCell
+    public function path(): Path
     {
-        return $this->cell;
+        return $this->paths[0];
     }
 
-    public function distance(): int
+    public function maxDistance(): int
     {
-        return $this->distance;
+        return max(
+            array_map(
+                fn (Path $path) => $path->distance(),
+                $this->paths
+            )
+        );
     }
 }

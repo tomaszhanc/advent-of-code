@@ -13,7 +13,7 @@ final readonly class Pipe implements GridCell
     public function __construct(
         private int $lineNumber,
         private int $position,
-        private PipeType $type
+        public PipeType $type
     ) {
     }
 

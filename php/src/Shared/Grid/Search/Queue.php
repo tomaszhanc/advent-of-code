@@ -13,12 +13,12 @@ final readonly class Queue
         $this->queue = new \SplQueue();
     }
 
-    public function enqueue(SearchResult $result): void
+    public function enqueue(Path $result): void
     {
         $this->queue->enqueue($result);
     }
 
-    public function dequeue(): SearchResult
+    public function dequeue(): Path
     {
         return $this->queue->dequeue();
     }

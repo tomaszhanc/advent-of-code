@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Advent\Shared\Grid\Search\ResultEvaluator;
 
 use Advent\Shared\Grid\Search\ResultEvaluator;
-use Advent\Shared\Grid\Search\SearchResult;
+use Advent\Shared\Grid\Search\Path;
 
 final readonly class FindFarthestPoint implements ResultEvaluator // fixme rename interface
 {
-    public function evaluate(SearchResult $current, SearchResult $candidate): bool
+    public function evaluate(Path $a, Path $b): Path
     {
-        return $candidate->distance() >= $current->distance();
+        return $a->distance() >= $b->distance() ? $a : $b;
     }
 }

@@ -11,7 +11,7 @@ enum PipeType: int
 {
     case START = Direction::UP->value | Direction::DOWN->value | Direction::RIGHT->value | Direction::LEFT->value;
     case NORTH_SOUTH = Direction::UP->value | Direction::DOWN->value;
-    case EAST_WEST = Direction::RIGHT->value | Direction::LEFT->value;
+    case WEST_EAST = Direction::RIGHT->value | Direction::LEFT->value;
     case NORTH_EAST = Direction::UP->value | Direction::RIGHT->value;
     case NORTH_WEST = Direction::UP->value | Direction::LEFT->value;
     case SOUTH_EAST = Direction::DOWN->value | Direction::RIGHT->value;
@@ -21,7 +21,7 @@ enum PipeType: int
     {
         return match ($type) {
             '|' => self::NORTH_SOUTH,
-            '-' => self::EAST_WEST,
+            '-' => self::WEST_EAST,
             'L' => self::NORTH_EAST,
             'J' => self::NORTH_WEST,
             '7' => self::SOUTH_WEST,

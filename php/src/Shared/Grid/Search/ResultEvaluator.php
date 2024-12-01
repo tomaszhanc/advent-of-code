@@ -6,5 +6,5 @@ namespace Advent\Shared\Grid\Search;
 
 interface ResultEvaluator
 {
-    public function evaluate(SearchResult $current, SearchResult $candidate): bool;
+    public function evaluate(Path $a, Path $b): Path;
 }

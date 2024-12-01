@@ -26,7 +26,7 @@ final class PipeTypeTest extends TestCase
         yield [PipeType::NORTH_WEST, Direction::UP, Direction::LEFT];
         yield [PipeType::SOUTH_EAST, Direction::DOWN, Direction::RIGHT];
         yield [PipeType::SOUTH_WEST, Direction::DOWN, Direction::LEFT];
-        yield [PipeType::EAST_WEST, Direction::RIGHT, Direction::LEFT];
+        yield [PipeType::WEST_EAST, Direction::RIGHT, Direction::LEFT];
         yield [PipeType::START, Direction::UP, Direction::DOWN, Direction::RIGHT, Direction::LEFT];
     }
 }
