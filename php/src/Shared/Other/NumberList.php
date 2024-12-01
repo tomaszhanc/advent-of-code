@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Other;
 
-final readonly class NumberList
+use Traversable;
+
+final readonly class NumberList implements \IteratorAggregate
 {
     /** @var int[] */
     private array $numbers;
@@ -20,5 +22,15 @@ final readonly class NumberList
         sort($numbers);
 
         return $numbers;
+    }
+
+    public function occurrenceOf(int $number): int
+    {
+        return array_count_values($this->numbers)[$number] ?? 0;
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new \ArrayIterator($this->numbers);
     }
 }

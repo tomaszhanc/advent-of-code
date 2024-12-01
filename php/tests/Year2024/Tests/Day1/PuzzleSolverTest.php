@@ -36,6 +36,21 @@ final class PuzzleSolverTest extends TestCase
     }
 
     #[Test]
+    public function it_returns_similarity_score_of_two_lists(): void
+    {
+        $input = new InMemoryInput(
+            '3   4',
+            '4   3',
+            '2   5',
+            '1   3',
+            '3   9',
+            '3   3',
+        );
+
+        $this->assertEquals(31, $this->solver->similarityScore($input));
+    }
+
+    #[Test]
     public function it_solves_day_1_part_1(): void
     {
         $this->assertEquals(2176849, $this->solver->totalDistanceBetweenTwoLists(PuzzleInputs::day1_list()));
@@ -44,6 +59,6 @@ final class PuzzleSolverTest extends TestCase
     #[Test]
     public function it_solves_day_1_part_2(): void
     {
-        $this->assertEquals(0, $this->solver->bar(PuzzleInputs::day1_list()));
+        $this->assertEquals(23384288, $this->solver->similarityScore(PuzzleInputs::day1_list()));
     }
 }

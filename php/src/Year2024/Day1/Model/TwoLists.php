@@ -16,15 +16,22 @@ final readonly class TwoLists
 
     public function totalDistance(): int
     {
-        $sortedList1 = $this->list1->sortedAscending();
-        $sortedList2 = $this->list2->sortedAscending();
+        return array_sum(
+            array_map(
+                fn (int $a, int $b) => abs($a - $b),
+                $this->list1->sortedAscending(),
+                $this->list2->sortedAscending()
+            ),
+        );
+    }
 
-        $sum = 0;
-
-        for ($i = 0; $i < count($sortedList1); $i++) {
-            $sum += abs($sortedList1[$i] - $sortedList2[$i]);
-        }
-
-        return $sum;
+    public function similarityScore(): int
+    {
+        return array_sum(
+            array_map(
+                fn (int $number) => $number * $this->list2->occurrenceOf($number),
+                $this->list1->sortedAscending(),
+            ),
+        );
     }
 }

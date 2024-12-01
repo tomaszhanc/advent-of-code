@@ -14,10 +14,17 @@ final readonly class PuzzleSolver
     ) {
     }
 
-    public function totalDistanceBetweenTwoLists(Input $file): int
+    public function totalDistanceBetweenTwoLists(Input $input): int
     {
-        $twoLists = $this->parser->parse($file->content());
+        $twoLists = $this->parser->parse($input);
 
         return $twoLists->totalDistance();
+    }
+
+    public function similarityScore(Input $input): int
+    {
+        $twoLists = $this->parser->parse($input);
+
+        return $twoLists->similarityScore();
     }
 }

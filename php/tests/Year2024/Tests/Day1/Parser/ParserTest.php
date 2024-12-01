@@ -31,7 +31,7 @@ final class ParserTest extends TestCase
                 new NumberList(3, 4, 2, 1, 3, 3),
                 new NumberList(4, 3, 5, 3, 9, 3)
             ),
-            $parser->parse($input->content())
+            $parser->parse($input)
         );
     }
 }
