@@ -21,7 +21,7 @@ final class PuzzleSolverTest extends TestCase
     }
 
     #[Test]
-    public function it_returns_(): void
+    public function it_returns_number_od_safe_reports(): void
     {
         $input = new InMemoryInput(
             '7 6 4 2 1', // safe
@@ -30,7 +30,6 @@ final class PuzzleSolverTest extends TestCase
             '1 3 2 4 5', // unsafe
             '8 6 4 4 1', // unsafe
             '1 3 6 7 9', // safe
-            '72 74 75 77 80 81 81'
         );
 
         $this->assertEquals(2, $this->solver->numberOfSafeReports($input));
@@ -45,6 +44,6 @@ final class PuzzleSolverTest extends TestCase
     #[Test]
     public function it_solves_day_2_part_2(): void
     {
-        $this->assertEquals(0, $this->solver->bar(PuzzleInputs::day2_unusual_data()));
+        $this->assertEquals(674, $this->solver->numberOfSafeReportsWithAtMostSingleBadLevel(PuzzleInputs::day2_unusual_data()));
     }
 }

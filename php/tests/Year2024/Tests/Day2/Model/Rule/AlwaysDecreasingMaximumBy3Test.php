@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Advent\Tests\Year2024\Tests\Day2\Model\Rule;
@@ -19,7 +20,7 @@ final class AlwaysDecreasingMaximumBy3Test extends TestCase
         $this->assertTrue($rule->isSatisfied($current, $next));
     }
 
-    public static function valid_values() : iterable
+    public static function valid_values(): iterable
     {
         yield '-1' => [10, 9];
         yield '-2' => [10, 8];
@@ -35,7 +36,7 @@ final class AlwaysDecreasingMaximumBy3Test extends TestCase
         $this->assertFalse($rule->isSatisfied($current, $next));
     }
 
-    public static function invalid_values() : iterable
+    public static function invalid_values(): iterable
     {
         yield '0' => [10, 10];
 

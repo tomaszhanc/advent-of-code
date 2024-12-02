@@ -32,7 +32,7 @@ final class LookaroundIterator implements \Iterator
      * @param array<K, V> $collection
      * @return self<K, V>
      */
-    public static function fromArray(array $collection) : self
+    public static function fromArray(array $collection): self
     {
         return new self(new \ArrayIterator($collection));
     }
