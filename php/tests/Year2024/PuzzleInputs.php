@@ -13,4 +13,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day1.txt');
     }
+
+    public static function day2_unusual_data(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day2.txt');
+    }
 }

@@ -11,14 +11,30 @@ namespace Advent\Shared\Iterator;
  */
 final class LookaroundIterator implements \Iterator
 {
-    private $currentKey = null;
-    private $lookBehindItem = null;
-    private $currentItem = null;
-    private $lookAheadItem = null;
+    /** @var K */
+    private mixed $currentKey = null;
 
-    public function __construct(private \Iterator $iterator)
+    /** @var V */
+    private mixed $lookBehindItem = null;
+
+    /** @var V */
+    private mixed $currentItem = null;
+
+    /** @var V */
+    private mixed $lookAheadItem = null;
+
+    public function __construct(private readonly \Iterator $iterator)
     {
         $this->rewind();
+    }
+
+    /**
+     * @param array<K, V> $collection
+     * @return self<K, V>
+     */
+    public static function fromArray(array $collection) : self
+    {
+        return new self(new \ArrayIterator($collection));
     }
 
     /** @return V */
