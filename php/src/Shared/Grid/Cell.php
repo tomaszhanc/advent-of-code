@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid;
 
-interface GridCell
+interface Cell
 {
     public function location(): Location;
 

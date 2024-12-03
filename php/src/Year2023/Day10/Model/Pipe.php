@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day10\Model;
 
-use Advent\Shared\Grid\GridCell;
+use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Location;
 use Advent\Shared\Grid\Direction;
 
-final readonly class Pipe implements GridCell
+final readonly class Pipe implements Cell
 {
     public function __construct(
         private int $lineNumber,

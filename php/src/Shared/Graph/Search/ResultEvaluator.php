@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Search;
+namespace Advent\Shared\Graph\Search;
 
 interface ResultEvaluator
 {

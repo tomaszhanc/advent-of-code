@@ -8,28 +8,17 @@ use Advent\Shared\InvalidArgumentException;
 
 final readonly class Edge
 {
-    private function __construct(
-        public NodeId $from,
-        public NodeId $to,
-        public int $weight,
-        public bool $directed
+    public function __construct(
+        public Node $from,
+        public Node $to,
+        public int $weight
     ) {
         if ($weight < 0) {
-            throw InvalidArgumentException::because('Weight must be a positive integer, %d given', $weight);
+            throw InvalidArgumentException::because('Weight must be greater than 0, %d given', $weight);
         }
 
         if ($from === $to) {
             throw InvalidArgumentException::because('Nodes must be different');
         }
-    }
-
-    public static function directed(NodeId $from, NodeId $to, int $weight): Edge
-    {
-        return new Edge($from, $to, $weight, directed: true);
-    }
-
-    public static function undirected(NodeId $from, NodeId $to, int $weight): Edge
-    {
-        return new Edge($from, $to, $weight, directed: false);
     }
 }

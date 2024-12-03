@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Advent\Year2023\Day10\Model;
 
-use Advent\Shared\Grid\GridCells;
-use Advent\Shared\Grid\Search\BreadthFirstSearch;
-use Advent\Shared\Grid\Search\DeepFirstSearch;
-use Advent\Shared\Grid\Search\Path;
-use Advent\Shared\Grid\Search\ResultEvaluator\FindFarthestPoint;
+use Advent\Shared\Graph\Search\BreadthFirstSearch;
+use Advent\Shared\Graph\Search\DeepFirstSearch;
+use Advent\Shared\Graph\Search\Path;
+use Advent\Shared\Graph\Search\ResultEvaluator\FindFarthestPoint;
+use Advent\Shared\Grid\GraphBridge\GridCellNode;
+use Advent\Shared\Grid\GraphBridge\GridToGraphFactory;
+use Advent\Shared\Grid\Grid;
 use Advent\Shared\RuntimeException;
 use Traversable;
 
@@ -27,8 +29,8 @@ final readonly class Pipes implements \IteratorAggregate
         $dfs = new DeepFirstSearch(new FindFarthestPoint());
 
         return $dfs->search(
-            $this->startingPoint(),
-            new GridCells(...$this->pipes)
+            new GridCellNode($this->startingPoint()),
+            new GridToGraphFactory()->createGraph(new Grid(...$this->pipes))
         )->path();
     }
 
@@ -37,8 +39,8 @@ final readonly class Pipes implements \IteratorAggregate
         $bfs = new BreadthFirstSearch(new FindFarthestPoint());
 
         return $bfs->search(
-            $this->startingPoint(),
-            new GridCells(...$this->pipes)
+            new GridCellNode($this->startingPoint()),
+            new GridToGraphFactory()->createGraph(new Grid(...$this->pipes))
         )->maxDistance();
     }
 

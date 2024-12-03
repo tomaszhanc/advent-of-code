@@ -4,41 +4,28 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Graph\Search;
 
-use Advent\Shared\Graph\Neighbour;
-use Advent\Shared\Graph\Node;
-use Advent\Shared\Graph\NodeId;
-
 final readonly class SearchResult
 {
-    public function __construct(
-        private Node $node,
-        private int $distance
-    ) {
+    /** @var Path[] */
+    private array $paths;
+
+    public function __construct(Path ...$paths)
+    {
+        $this->paths = $paths;
     }
 
-    public function nodeId(): NodeId
+    public function path(): Path
     {
-        return $this->node instanceof Node
-            ? $this->node->nodeId()
-            : $this->node->node->nodeId();
+        return $this->paths[0];
     }
 
-    /** @return Neighbour[] */
-    public function neighbours(): array
+    public function maxDistance(): int
     {
-        return $this->node->neighbours();
-    }
-
-    public function distance(): int
-    {
-        return $this->distance;
-    }
-
-    public function next(Neighbour $neighbour): self
-    {
-        return new self(
-            $neighbour->node,
-            $this->distance + $neighbour->weight
+        return max(
+            array_map(
+                fn (Path $path) => $path->distance(),
+                $this->paths
+            )
         );
     }
 }

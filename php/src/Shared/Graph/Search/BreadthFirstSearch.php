@@ -2,42 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Search;
+namespace Advent\Shared\Graph\Search;
 
-use Advent\Shared\Grid\GridCell;
-use Advent\Shared\Grid\GridCells;
-use Advent\Shared\Grid\Neighbours;
+use Advent\Shared\Graph\Graph;
+use Advent\Shared\Graph\Node;
 
 final readonly class BreadthFirstSearch
 {
-    private Neighbours $neighbours;
     private ResultEvaluator $resultEvaluator;
 
     public function __construct(ResultEvaluator $resultEvaluator)
     {
-        $this->neighbours = new Neighbours();
         $this->resultEvaluator = $resultEvaluator;
     }
 
-    public function search(GridCell $startingCell, GridCells $allCells): SearchResult
+    public function search(Node $startingNode, Graph $graph): SearchResult
     {
-        $visitorLog = new VisitorLog();
-        $visitorLog->markAsVisited($startingCell); // fixme global vs path?
+        $resultPath = Path::startFrom($startingNode);
 
         $queue = new Queue();
-        $queue->enqueue($start = Path::startFrom($startingCell));
+        $visitorLog = new VisitorLog();
 
-        $resultPath = $start;
+        $visitorLog->markAsVisited($startingNode);
+        $queue->enqueue($resultPath);
 
         while (!$queue->isEmpty()) {
             $currentPath = $queue->dequeue();
-
-            // if v is the goal then return v
-
-            //
-            //
-            $currentNeighbours = $this->neighbours->for($currentPath->lastCell(), $allCells);
-
+            $currentNeighbours = $graph->neighboursFor($currentPath->lastNode());
+            $resultPath = $this->resultEvaluator->evaluate($resultPath, $currentPath);
 
             //
             //             // fixme to powinien być ResultEvaluator i jakos polaczony z tym iffem nizej
@@ -48,16 +40,13 @@ final readonly class BreadthFirstSearch
             //                $resultPath[] = $currentPath; // fixme COLLECTOR?
             //            }
 
-            $resultPath = $this->resultEvaluator->evaluate($resultPath, $currentPath);
-
             foreach ($currentNeighbours as $neighbour) {
-                // fixme vistorLog moze byc globalny albo na path, jak to ma dzialac?
-                if ($visitorLog->isVisited($neighbour)) {
+                if ($visitorLog->isVisited($neighbour->node)) {
                     continue;
                 }
 
-                $visitorLog->markAsVisited($neighbour);
-                $queue->enqueue($currentPath->addStep($neighbour, 1));
+                $visitorLog->markAsVisited($neighbour->node);
+                $queue->enqueue($currentPath->addStep($neighbour->node, $neighbour->weight));
             }
         }
 

@@ -4,26 +4,34 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Graph;
 
-use Advent\Shared\InvalidArgumentException;
-
 final readonly class Graph
 {
-    /** @var Node[] */
+    /** @var array<string, Node> */
     private array $nodes;
 
-    public function __construct(Node ...$nodes)
+    /** @var array<string, Neighbour[]> */
+    private array $neighbours;
+
+    public function __construct(Edge ...$edges)
     {
+        $nodes = [];
+        $neighbours = [];
+
+        foreach ($edges as $edge) {
+            $nodes[$edge->from->id()] = $edge->from;
+            $nodes[$edge->to->id()] = $edge->to;
+
+            $neighbours[$edge->from->id()][] = new Neighbour($edge->to, $edge->weight);
+            $neighbours[$edge->to->id()][] = new Neighbour($edge->from, $edge->weight);
+        }
+
         $this->nodes = $nodes;
+        $this->neighbours = $neighbours;
     }
 
-    public function get(NodeId $nodeId): Node
+    /** @return Neighbour[] */
+    public function neighboursFor(Node $node): array
     {
-        return $this->nodes[$nodeId->toString()]
-            ?? throw InvalidArgumentException::because('Node with id "%s" not found', $nodeId->toString());
-    }
-
-    public function exists(NodeId $nodeId): bool
-    {
-        return isset($this->nodes[$nodeId->toString()]);
+        return $this->neighbours[$node->id()] ?? [];
     }
 }

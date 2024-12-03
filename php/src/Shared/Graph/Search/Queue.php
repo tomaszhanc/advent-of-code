@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Search;
+namespace Advent\Shared\Graph\Search;
 
 final readonly class Queue
 {
+    /** @var \SplQueue<Path> */
     private \SplQueue $queue;
 
     public function __construct()
@@ -13,9 +14,9 @@ final readonly class Queue
         $this->queue = new \SplQueue();
     }
 
-    public function enqueue(Path $result): void
+    public function enqueue(Path $path): void
     {
-        $this->queue->enqueue($result);
+        $this->queue->enqueue($path);
     }
 
     public function dequeue(): Path

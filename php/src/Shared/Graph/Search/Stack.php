@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Search;
+namespace Advent\Shared\Graph\Search;
 
 final readonly class Stack
 {
+    /** @var \SplStack<Path> */
     private \SplStack $stack;
 
     public function __construct()
@@ -13,9 +14,9 @@ final readonly class Stack
         $this->stack = new \SplStack();
     }
 
-    public function push(Path $result): void
+    public function push(Path $path): void
     {
-        $this->stack->push($result);
+        $this->stack->push($path);
     }
 
     public function pop(): Path

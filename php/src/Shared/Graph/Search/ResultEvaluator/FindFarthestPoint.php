@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Search\ResultEvaluator;
+namespace Advent\Shared\Graph\Search\ResultEvaluator;
 
-use Advent\Shared\Grid\Search\ResultEvaluator;
-use Advent\Shared\Grid\Search\Path;
+use Advent\Shared\Graph\Search\ResultEvaluator;
+use Advent\Shared\Graph\Search\Path;
 
 final readonly class FindFarthestPoint implements ResultEvaluator // fixme rename interface
 {

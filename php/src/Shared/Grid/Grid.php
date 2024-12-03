@@ -8,25 +8,25 @@ use Advent\Shared\InvalidArgumentException;
 use Traversable;
 
 /**
- * @template T implements GridCell
+ * @template T implements Cell
  * @implements \IteratorAggregate<T>
  */
-final readonly class GridCells implements \IteratorAggregate
+final readonly class Grid implements \IteratorAggregate
 {
     /** @var T[] */
     private array $cells;
 
     /** @param T ...$cells */
-    public function __construct(GridCell ...$cells)
+    public function __construct(Cell ...$cells)
     {
         $this->cells = array_combine(
-            array_map(fn (GridCell $cell) => $this->key($cell->location()), $cells),
+            array_map(fn (Cell $cell) => $this->key($cell->location()), $cells),
             $cells
         );
     }
 
     /** @return T */
-    public function getAt(Location $location): GridCell
+    public function getCellAt(Location $location): Cell
     {
         return $this->cells[$this->key($location)] ?? throw InvalidArgumentException::because(
             'No cell at location [%s]',
@@ -35,16 +35,17 @@ final readonly class GridCells implements \IteratorAggregate
     }
 
     /** @return ?T */
-    public function findAt(Location $location): ?GridCell
+    public function findCellAt(Location $location): ?Cell
     {
         return $this->cells[$this->key($location)] ?? null;
     }
 
-    public function hasAt(Location $location): bool
+    public function hasCellAt(Location $location): bool
     {
-        return $this->findAt($location) !== null;
+        return $this->findCellAt($location) !== null;
     }
 
+    /** @return Traversable<T & Cell> */
     public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->cells);

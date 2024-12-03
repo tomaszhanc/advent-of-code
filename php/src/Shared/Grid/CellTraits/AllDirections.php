@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Traits;
+namespace Advent\Shared\Grid\CellTraits;
 
 use Advent\Shared\Grid\Direction;
 
-trait NonOrthogonalDirections
+trait AllDirections
 {
     use CanMoveToPossibleDirections;
 
@@ -14,9 +14,13 @@ trait NonOrthogonalDirections
     {
         return [
             Direction::UP_LEFT,
+            Direction::UP,
             Direction::UP_RIGHT,
+            Direction::RIGHT,
             Direction::DOWN_RIGHT,
+            Direction::DOWN,
             Direction::DOWN_LEFT,
+            Direction::LEFT,
         ];
     }
 }

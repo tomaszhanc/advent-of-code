@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Traits;
+namespace Advent\Shared\Grid\CellTraits;
 
 use Advent\Shared\Grid\Direction;
 
