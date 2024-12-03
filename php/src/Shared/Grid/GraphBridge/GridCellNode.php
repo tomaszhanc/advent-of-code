@@ -10,7 +10,7 @@ use Advent\Shared\Grid\Cell;
 final readonly class GridCellNode implements Node
 {
     public function __construct(
-        private Cell $cell
+        public Cell $cell
     ) {
     }
 
