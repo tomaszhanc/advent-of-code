@@ -12,6 +12,7 @@ use Advent\Shared\Grid\GraphBridge\GridCellNode;
 use Advent\Shared\Grid\GraphBridge\GridToGraphFactory;
 use Advent\Shared\Grid\Grid;
 use Advent\Shared\RuntimeException;
+use Advent\Year2023\Day10\Model\Grid\PipeAllowedDirections;
 use Traversable;
 
 final readonly class Pipes implements \IteratorAggregate
@@ -30,7 +31,7 @@ final readonly class Pipes implements \IteratorAggregate
 
         return $dfs->search(
             new GridCellNode($this->startingPoint()),
-            new GridToGraphFactory()->createGraph(new Grid(...$this->pipes))
+            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes))
         )->path();
     }
 
@@ -40,7 +41,7 @@ final readonly class Pipes implements \IteratorAggregate
 
         return $bfs->search(
             new GridCellNode($this->startingPoint()),
-            new GridToGraphFactory()->createGraph(new Grid(...$this->pipes))
+            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes))
         )->path()->distance();
     }
 

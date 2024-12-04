@@ -6,7 +6,6 @@ namespace Advent\Year2023\Day10\Model;
 
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Location;
-use Advent\Shared\Grid\Direction;
 
 final readonly class Pipe implements Cell
 {
@@ -25,16 +24,5 @@ final readonly class Pipe implements Cell
     public function isStartingPoint(): bool
     {
         return $this->type === PipeType::START;
-    }
-
-    public function canMoveTo(Direction $direction): bool
-    {
-        return $this->type->isIn($direction);
-    }
-
-    /** @return Direction[] */
-    public function possibleDirections(): array
-    {
-        return $this->type->accessibleDirections();
     }
 }

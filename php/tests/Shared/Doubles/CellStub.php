@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Advent\Tests\Shared\Doubles;
 
 use Advent\Shared\Grid\Cell;
-use Advent\Shared\Grid\CellTraits\AllDirections;
 use Advent\Shared\Grid\Location;
 
 final readonly class CellStub implements Cell
 {
-    use AllDirections;
-
     public function __construct(
-        private readonly Location $location
+        private Location $location
     ) {
     }
 

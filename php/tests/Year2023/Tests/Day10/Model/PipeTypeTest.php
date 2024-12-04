@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Tests\Year2023\Tests\Day10\Model;
 
 use Advent\Shared\Grid\Direction;
+use Advent\Shared\Grid\Directions;
 use Advent\Year2023\Day10\Model\PipeType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,7 +17,7 @@ final class PipeTypeTest extends TestCase
     #[DataProvider('pipe_directions')]
     public function it_return_pipe_type_directions(PipeType $type, Direction ...$directions): void
     {
-        $this->assertEqualsCanonicalizing($directions, $type->accessibleDirections());
+        $this->assertEqualsCanonicalizing(new Directions(...$directions), $type->accessibleDirections());
     }
 
     public static function pipe_directions(): iterable

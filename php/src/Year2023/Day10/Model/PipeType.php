@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Year2023\Day10\Model;
 
 use Advent\Shared\Grid\Direction;
+use Advent\Shared\Grid\Directions;
 use Advent\Shared\InvalidArgumentException;
 
 enum PipeType: int
@@ -31,21 +32,11 @@ enum PipeType: int
         };
     }
 
-    public function isIn(Direction $direction): bool
+    public function accessibleDirections(): Directions
     {
-        if ($direction->isDiagonal()) {
-            return false;
-        }
-
-        return ($this->value & $direction->value) === $direction->value;
-    }
-
-    /** @return Direction[] */
-    public function accessibleDirections(): array
-    {
-        return array_values(array_filter(
+        return new Directions(...array_values(array_filter(
             [Direction::UP, Direction::DOWN, Direction::RIGHT, Direction::LEFT],
-            fn (Direction $direction): bool => $this->isIn($direction)
-        ));
+            fn (Direction $direction): bool => ($this->value & $direction->value) === $direction->value
+        )));
     }
 }

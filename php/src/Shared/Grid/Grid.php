@@ -46,7 +46,7 @@ final readonly class Grid
         return $this->findCellAt($location) !== null;
     }
 
-    /** @return array<T[]> */
+    /** @return array<T & Cell[]> */
     public function allRows(): iterable
     {
         foreach ($this->rows as $row) {
@@ -54,7 +54,7 @@ final readonly class Grid
         }
     }
 
-    /** @return array<T[]> */
+    /** @return array<T & Cell[]> */
     public function allColumns(): iterable
     {
         $columns = [];
@@ -68,7 +68,7 @@ final readonly class Grid
         return $columns;
     }
 
-    /** @return T[] */
+    /** @return T & Cell[] */
     public function allDiagonals(): iterable
     {
         $leftToRightDiagonals = [];
@@ -87,7 +87,7 @@ final readonly class Grid
         return array_values([...$leftToRightDiagonals, ...$rightToLeftDiagonals]);
     }
 
-    /** @return T[] */
+    /** @return T & Cell[] */
     public function allCells(): iterable
     {
         foreach ($this->rows as $row) {
