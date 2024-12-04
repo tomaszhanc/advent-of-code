@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Advent\Year2024\Day4\Model;
+namespace Advent\Shared\Grid\Pattern;
 
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Location;
 
-final readonly class Square implements Cell
+final readonly class SubGridCell implements Cell
 {
     public function __construct(
-        private Location $location,
-        public string $letter
+        private Cell $cell,
+        private Location $location
     ) {
     }
 
@@ -22,6 +22,6 @@ final readonly class Square implements Cell
 
     public function value(): string|\Stringable
     {
-        return $this->letter;
+        return $this->cell->value();
     }
 }

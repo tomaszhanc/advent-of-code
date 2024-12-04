@@ -7,6 +7,9 @@ namespace Advent\Year2023\Day10\Model;
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Location;
 
+/**
+ * @template-implements Cell<Pipe>
+ */
 final readonly class Pipe implements Cell
 {
     public function __construct(
@@ -24,5 +27,10 @@ final readonly class Pipe implements Cell
     public function isStartingPoint(): bool
     {
         return $this->type === PipeType::START;
+    }
+
+    public function value(): string
+    {
+        return $this->location()->toString();
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Year2024\Day4\Model;
 
 use Advent\Shared\Grid\Grid;
+use Advent\Shared\Grid\Pattern\PatternMatcher;
 
 final readonly class Crossword
 {
@@ -18,10 +19,9 @@ final readonly class Crossword
 
     public function numberOfOccurrences(string $key): int
     {
-        $grid = new Grid(...$this->squares);
         $result = 0;
-        ;
 
+        $grid = new Grid(...$this->squares);
         $crosswordLines = [
             ...$grid->allRows(),
             ...$grid->allColumns(),
@@ -32,6 +32,49 @@ final readonly class Crossword
             $line = $this->crosswordLineToString(...$crosswordLine);
             $result += substr_count($line, $key);
             $result += substr_count($line, strrev($key));
+        }
+
+        return $result;
+    }
+
+    public function numberOfOccurrences2(): int
+    {
+        $result = 0;
+
+        $grid = new Grid(...$this->squares);
+        $patterns = [
+            Grid::fromPattern([
+                ['M', '.', 'M'],
+                ['.', 'A', '.'],
+                ['S', '.', 'S'],
+            ]),
+            Grid::fromPattern([
+                ['M', '.', 'S'],
+                ['.', 'A', '.'],
+                ['M', '.', 'S'],
+            ]),
+            Grid::fromPattern([
+                ['S', '.', 'M'],
+                ['.', 'A', '.'],
+                ['S', '.', 'M'],
+            ]),
+            Grid::fromPattern([
+                ['S', '.', 'S'],
+                ['.', 'A', '.'],
+                ['M', '.', 'M'],
+            ]),
+        ];
+
+        foreach ($patterns as $pattern) {
+            $patternMatcher = new PatternMatcher($pattern);
+
+            // fixme moge sprawdzic match w metodzie subGrid, wtedy nie musze tworzyc calego grida
+            // i klonowac cells
+            foreach ($grid->subGrids(3, 3) as $subGrid) {
+                if ($patternMatcher->matchedBy($subGrid)) {
+                    $result++;
+                }
+            }
         }
 
         return $result;

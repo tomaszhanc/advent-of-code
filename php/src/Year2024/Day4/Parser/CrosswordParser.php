@@ -17,6 +17,10 @@ final readonly class CrosswordParser
 
         foreach ($input->lines() as $y => $line) {
             foreach (str_split($line) as $x => $char) {
+                if ($char === PHP_EOL) {
+                    continue;
+                }
+
                 $squares[] = new Square(
                     new Location($x, $y),
                     $char

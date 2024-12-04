@@ -20,4 +20,11 @@ final readonly class PuzzleSolver
 
         return $crossword->numberOfOccurrences($key);
     }
+
+    public function numberOfOccurrencesX(Input $input): int
+    {
+        $crossword = $this->parser->parse($input);
+
+        return $crossword->numberOfOccurrences2();
+    }
 }
