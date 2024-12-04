@@ -10,22 +10,18 @@ use Advent\Shared\Grid\Location;
 final readonly class StringCell implements Cell
 {
     public function __construct(
-        private Location $location,
+        private int $x,
+        private int $y,
         private string $value
     ) {
     }
 
-    public static function create(int $x, int $y, string $value): self
-    {
-        return new self(new Location($x, $y), $value);
-    }
-
     public function location(): Location
     {
-        return $this->location;
+        return new Location($this->x, $this->y);
     }
 
-    public function value(): string|\Stringable
+    public function value(): string
     {
         return $this->value;
     }

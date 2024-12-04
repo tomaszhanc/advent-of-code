@@ -10,17 +10,18 @@ use Advent\Shared\Grid\Location;
 final readonly class Square implements Cell
 {
     public function __construct(
-        private Location $location,
+        private int $x,
+        private int $y,
         public string $letter
     ) {
     }
 
     public function location(): Location
     {
-        return $this->location;
+        return new Location($this->x, $this->y);
     }
 
-    public function value(): string|\Stringable
+    public function value(): string
     {
         return $this->letter;
     }

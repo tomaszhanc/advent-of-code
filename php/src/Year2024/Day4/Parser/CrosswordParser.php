@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Advent\Year2024\Day4\Parser;
 
-use Advent\Shared\Grid\Location;
 use Advent\Shared\Input\Input;
 use Advent\Year2024\Day4\Model\Crossword;
 use Advent\Year2024\Day4\Model\Square;
@@ -21,10 +20,7 @@ final readonly class CrosswordParser
                     continue;
                 }
 
-                $squares[] = new Square(
-                    new Location($x, $y),
-                    $char
-                );
+                $squares[] = new Square($x, $y, $char);
             }
         }
 

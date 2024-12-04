@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Pattern;
+namespace Advent\Shared\Grid\Cell;
 
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Location;
@@ -10,14 +10,15 @@ use Advent\Shared\Grid\Location;
 final readonly class SubGridCell implements Cell
 {
     public function __construct(
-        private Cell $cell,
-        private Location $location
+        private int $x,
+        private int $y,
+        private Cell $cell
     ) {
     }
 
     public function location(): Location
     {
-        return $this->location;
+        return new Location($this->x, $this->y);
     }
 
     public function value(): string|\Stringable

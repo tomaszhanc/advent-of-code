@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Advent\Shared\Grid;
 
 use Advent\Shared\Grid\Cell\StringCell;
+use Advent\Shared\Grid\Cell\SubGridCell;
 use Advent\Shared\Grid\Pattern\PatternCell;
-use Advent\Shared\Grid\Pattern\SubGridCell;
 use Advent\Shared\InvalidArgumentException;
 use Advent\Shared\RuntimeException;
 
@@ -18,6 +18,10 @@ final readonly class Grid
     /** @var T[] */
     private array $rows;
 
+    private int $height;
+
+    private int $width;
+
     /** @param T ...$cells */
     public function __construct(Cell ...$cells)
     {
@@ -28,6 +32,8 @@ final readonly class Grid
         }
 
         $this->rows = $rows;
+        $this->height = count($this->rows);
+        $this->width = max(array_map('count', $this->rows));
     }
 
     public static function fromArray(array $grid): self
@@ -36,7 +42,7 @@ final readonly class Grid
 
         foreach ($grid as $y => $row) {
             foreach ($row as $x => $value) {
-                $cells[] = new StringCell(new Location($x, $y), (string) $value);
+                $cells[] = new StringCell($x, $y, (string) $value);
             }
         }
 
@@ -49,7 +55,7 @@ final readonly class Grid
 
         foreach ($pattern as $y => $row) {
             foreach ($row as $x => $value) {
-                $cells[] = new PatternCell(new Location($x, $y), $value);
+                $cells[] = new PatternCell($x, $y, $value);
             }
         }
 
@@ -58,12 +64,12 @@ final readonly class Grid
 
     public function height(): int
     {
-        return count($this->rows);
+        return $this->height;
     }
 
     public function width(): int
     {
-        return max(array_map('count', $this->rows));
+        return $this->width;
     }
 
     /** @return ?T */
@@ -122,8 +128,6 @@ final readonly class Grid
             $rightToLeftDiagonals[$x + $y][] = $cell;
         }
 
-        // TODO sort diagonals
-
         return array_values([...$leftToRightDiagonals, ...$rightToLeftDiagonals]);
     }
 
@@ -158,32 +162,16 @@ final readonly class Grid
 
         for ($x = $start->x, $newX = 0; $x < $start->x + $sizeX; $x++, $newX++) {
             for ($y = $start->y, $newY = 0; $y < $start->y + $sizeY; $y++, $newY++) {
-                if (!$this->hasCellAt(new Location($x, $y))) {
+                $cell = $this->rows[$y][$x] ?? null;
+
+                if ($cell === null) {
                     throw RuntimeException::because('Cannot create subgrid [%dx%d] starting from cell %s', $sizeX, $sizeY, $start->toString());
                 }
 
-                $cells[] = new SubGridCell(
-                    $this->getCellAt(new Location($x, $y)),
-                    new Location($newX, $newY)
-                );
+                $cells[] = new SubGridCell($newX, $newY, $cell);
             }
         }
 
         return new Grid(...$cells);
-    }
-
-    public function toArray()
-    {
-        $rows = [];
-
-        foreach ($this->allRows() as $row) {
-            $stringRow = '';
-            foreach ($row as $cell) {
-                $stringRow .= $cell->value();
-            }
-            $rows[] = $stringRow;
-        }
-
-        return $rows;
     }
 }

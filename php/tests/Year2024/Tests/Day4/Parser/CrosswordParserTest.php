@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Year2024\Tests\Day4\Parser;
 
-use Advent\Shared\Grid\Location;
 use Advent\Tests\Shared\Doubles\InMemoryInput;
 use Advent\Year2024\Day4\Model\Crossword;
 use Advent\Year2024\Day4\Model\Square;
@@ -26,18 +25,18 @@ final class CrosswordParserTest extends TestCase
 
         $this->assertEquals(
             new Crossword(
-                new Square(new Location(0, 0), 'M'),
-                new Square(new Location(1, 0), 'M'),
-                new Square(new Location(2, 0), 'M'),
-                new Square(new Location(3, 0), 'S'),
-                new Square(new Location(0, 1), 'M'),
-                new Square(new Location(1, 1), 'S'),
-                new Square(new Location(2, 1), 'A'),
-                new Square(new Location(3, 1), 'M'),
-                new Square(new Location(0, 2), 'A'),
-                new Square(new Location(1, 2), 'M'),
-                new Square(new Location(2, 2), 'X'),
-                new Square(new Location(3, 2), 'S'),
+                new Square(x: 0, y: 0, letter: 'M'),
+                new Square(x: 1, y: 0, letter: 'M'),
+                new Square(x: 2, y: 0, letter: 'M'),
+                new Square(x: 3, y: 0, letter: 'S'),
+                new Square(x: 0, y: 1, letter: 'M'),
+                new Square(x: 1, y: 1, letter: 'S'),
+                new Square(x: 2, y: 1, letter: 'A'),
+                new Square(x: 3, y: 1, letter: 'M'),
+                new Square(x: 0, y: 2, letter: 'A'),
+                new Square(x: 1, y: 2, letter: 'M'),
+                new Square(x: 2, y: 2, letter: 'X'),
+                new Square(x: 3, y: 2, letter: 'S'),
             ),
             $parser->parse($input)
         );

@@ -13,19 +13,15 @@ use Advent\Shared\Grid\Location;
 final readonly class PatternCell implements Cell
 {
     public function __construct(
-        private Location $location,
+        private int $x,
+        private int $y,
         private string $value
     ) {
     }
 
-    public static function any(Location $location): self
-    {
-        return new self($location, '.');
-    }
-
     public function location(): Location
     {
-        return $this->location;
+        return new Location($this->x, $this->y);
     }
 
     public function value(): string
