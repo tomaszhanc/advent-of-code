@@ -14,17 +14,17 @@ final readonly class PuzzleSolver
     ) {
     }
 
-    public function numberOfOccurrences(string $key, Input $input): int
+    public function occurrences(string $key, Input $input): int
     {
         $crossword = $this->parser->parse($input);
 
         return $crossword->numberOfOccurrences($key);
     }
 
-    public function numberOfOccurrencesX(Input $input): int
+    public function xmasPatternOccurrences(Input $input): int
     {
         $crossword = $this->parser->parse($input);
 
-        return $crossword->numberOfOccurrences2();
+        return $crossword->xmasPatternOccurences();
     }
 }

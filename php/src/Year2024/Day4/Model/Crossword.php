@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Advent\Year2024\Day4\Model;
 
 use Advent\Shared\Grid\Grid;
+use Advent\Shared\Grid\Pattern;
 use Advent\Shared\Grid\Pattern\PatternMatcher;
 
 final readonly class Crossword
@@ -37,47 +38,34 @@ final readonly class Crossword
         return $result;
     }
 
-    public function numberOfOccurrences2(): int
+    public function xmasPatternOccurences(): int
     {
-        $result = 0;
-
-        $grid = new Grid(...$this->squares);
-        $patterns = [
-            Grid::fromPattern([
+        $patternMatcher = new PatternMatcher(
+            Pattern::fromArray([
                 ['M', '.', 'M'],
                 ['.', 'A', '.'],
                 ['S', '.', 'S'],
             ]),
-            Grid::fromPattern([
+            Pattern::fromArray([
                 ['M', '.', 'S'],
                 ['.', 'A', '.'],
                 ['M', '.', 'S'],
             ]),
-            Grid::fromPattern([
+            Pattern::fromArray([
                 ['S', '.', 'M'],
                 ['.', 'A', '.'],
                 ['S', '.', 'M'],
             ]),
-            Grid::fromPattern([
+            Pattern::fromArray([
                 ['S', '.', 'S'],
                 ['.', 'A', '.'],
                 ['M', '.', 'M'],
-            ]),
-        ];
+            ])
+        );
 
-        foreach ($patterns as $pattern) {
-            $patternMatcher = new PatternMatcher($pattern);
+        $matchedSubGrids = $patternMatcher->matchIn(new Grid(...$this->squares));
 
-            // fixme moge sprawdzic match w metodzie subGrid, wtedy nie musze tworzyc calego grida
-            // i klonowac cells
-            foreach ($grid->subGrids(3, 3) as $subGrid) {
-                if ($patternMatcher->matchedBy($subGrid)) {
-                    $result++;
-                }
-            }
-        }
-
-        return $result;
+        return count(iterator_to_array($matchedSubGrids));
     }
 
     private function crosswordLineToString(Square ...$squares): string

@@ -4,62 +4,62 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid\Pattern;
 
-use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Grid;
 use Advent\Shared\Grid\Location;
-use Advent\Shared\InvalidArgumentException;
+use Advent\Shared\Grid\Pattern;
 
 final readonly class PatternMatcher
 {
-    private string $expectedHash;
+    /** @var Pattern[] */
+    private array $patterns;
 
-    /** @var Location[] */
-    private array $expectedLocations;
+    public function __construct(Pattern ...$patterns)
+    {
+        $this->patterns = $patterns;
+    }
 
-    /** @param Grid<PatternCell> $pattern */
-    public function __construct(
-        Grid $pattern
-    ) {
-        $hashItems = [];
-        $patternLocations = [];
+    /** @return Grid[] */
+    public function matchIn(Grid $grid): iterable
+    {
+        foreach ($this->patterns as $pattern) {
+            $sizeX = $pattern->width();
+            $sizeY = $pattern->height();
 
-        foreach ($pattern->allCells() as $patternCell) {
-            if (!$patternCell instanceof PatternCell) {
-                throw InvalidArgumentException::because('Expected Pattern, got %s', get_class($patternCell));
+            foreach ($grid->allCells() as $cell) {
+                if ($cell->location()->x + $sizeX > $grid->width()) {
+                    continue;
+                }
+
+                if ($cell->location()->y + $sizeY > $grid->height()) {
+                    continue;
+                }
+
+                $matchedSubGrid = $this->matchPatternStartingAt($cell->location(), $pattern, $grid);
+
+                if ($matchedSubGrid !== null) {
+                    yield $matchedSubGrid;
+                }
+            }
+        }
+    }
+
+    private function matchPatternStartingAt(Location $start, Pattern $pattern, Grid $grid): ?Grid
+    {
+        $cells = [];
+
+        foreach ($pattern->expectedPatternCells() as $patternCell) {
+            $x = $patternCell->x + $start->x;
+            $y = $patternCell->y + $start->y;
+
+            $cell = $grid->getCellAt(new Location($x, $y));
+
+            if ($cell->value() !== $patternCell->value) {
+                return null;
             }
 
-            if ($patternCell->canBeAny()) {
-                continue;
-            }
-
-            $hashItems[] = $this->generateHashItem($patternCell);
-            $patternLocations[] = $patternCell->location();
+            $cells[] = $cell;
         }
 
-        $this->expectedHash = $this->generateHash($hashItems);
-        $this->expectedLocations = $patternLocations;
-    }
-
-    public function matchedBy(Grid $grid): bool
-    {
-        $hashItems = [];
-
-        foreach ($this->expectedLocations as $location) {
-            $cell = $grid->getCellAt($location);
-            $hashItems[] = $this->generateHashItem($cell);
-        }
-
-        return $this->expectedHash === $this->generateHash($hashItems);
-    }
-
-    private function generateHashItem(Cell $cell): string
-    {
-        return sprintf('[%s=%s]', $cell->location()->toString(), $cell->value());
-    }
-
-    private function generateHash(array $hashItems): string
-    {
-        sort($hashItems);
-        return implode('', $hashItems);
+        return new Grid(...$cells);
     }
 }

@@ -4,33 +4,17 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Grid\Pattern;
 
-use Advent\Shared\Grid\Cell;
-use Advent\Shared\Grid\Location;
-
-/**
- * @template-implements Cell<string>
- */
-final readonly class PatternCell implements Cell
+final class PatternCell
 {
     public function __construct(
-        private int $x,
-        private int $y,
-        private string $value
+        public int $x,
+        public int $y,
+        public string $value
     ) {
     }
 
-    public function location(): Location
+    public function mustMatch(): bool
     {
-        return new Location($this->x, $this->y);
-    }
-
-    public function value(): string
-    {
-        return $this->value;
-    }
-
-    public function canBeAny(): bool
-    {
-        return $this->value === '.';
+        return $this->value !== '.';
     }
 }

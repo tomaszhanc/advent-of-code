@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Advent\Shared\Grid;
 
 use Advent\Shared\Grid\Cell\StringCell;
-use Advent\Shared\Grid\Cell\SubGridCell;
 use Advent\Shared\Grid\Pattern\PatternCell;
 use Advent\Shared\InvalidArgumentException;
-use Advent\Shared\RuntimeException;
 
 /**
  * @template T implements Cell
@@ -49,19 +47,6 @@ final readonly class Grid
         return new self(...$cells);
     }
 
-    public static function fromPattern(array $pattern): self
-    {
-        $cells = [];
-
-        foreach ($pattern as $y => $row) {
-            foreach ($row as $x => $value) {
-                $cells[] = new PatternCell($x, $y, $value);
-            }
-        }
-
-        return new self(...$cells);
-    }
-
     public function height(): int
     {
         return $this->height;
@@ -81,7 +66,7 @@ final readonly class Grid
     /** @return T */
     public function getCellAt(Location $location): Cell
     {
-        return $this->findCellAt($location) ?? throw InvalidArgumentException::because(
+        return $this->rows[$location->y][$location->x] ?? throw InvalidArgumentException::because(
             'No cell at location [%s]',
             $location->toString()
         );
@@ -89,7 +74,7 @@ final readonly class Grid
 
     public function hasCellAt(Location $location): bool
     {
-        return $this->findCellAt($location) !== null;
+        return $this->rows[$location->y][$location->x] !== null;
     }
 
     /** @return array<T & Cell[]> */
@@ -139,39 +124,5 @@ final readonly class Grid
                 yield $cell;
             }
         }
-    }
-
-    public function subGrids(int $sizeX, int $sizeY): iterable
-    {
-        foreach ($this->allCells() as $cell) {
-            if ($cell->location()->x + $sizeX > $this->width()) {
-                continue;
-            }
-
-            if ($cell->location()->y + $sizeY > $this->height()) {
-                continue;
-            }
-
-            yield $this->subGrid($cell->location(), $sizeX, $sizeY);
-        }
-    }
-
-    public function subGrid(Location $start, int $sizeX, int $sizeY): Grid
-    {
-        $cells = [];
-
-        for ($x = $start->x, $newX = 0; $x < $start->x + $sizeX; $x++, $newX++) {
-            for ($y = $start->y, $newY = 0; $y < $start->y + $sizeY; $y++, $newY++) {
-                $cell = $this->rows[$y][$x] ?? null;
-
-                if ($cell === null) {
-                    throw RuntimeException::because('Cannot create subgrid [%dx%d] starting from cell %s', $sizeX, $sizeY, $start->toString());
-                }
-
-                $cells[] = new SubGridCell($newX, $newY, $cell);
-            }
-        }
-
-        return new Grid(...$cells);
     }
 }

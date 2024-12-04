@@ -36,7 +36,7 @@ final class PuzzleSolverTest extends TestCase
             'MXMXAXMASX'
         );
 
-        $this->assertEquals(18, $this->solver->numberOfOccurrences('XMAS', $input));
+        $this->assertEquals(18, $this->solver->occurrences('XMAS', $input));
     }
 
     #[Test]
@@ -55,18 +55,18 @@ final class PuzzleSolverTest extends TestCase
             'MXMXAXMASX'
         );
 
-        $this->assertEquals(9, $this->solver->numberOfOccurrencesX($input));
+        $this->assertEquals(9, $this->solver->xmasPatternOccurrences($input));
     }
 
     #[Test]
     public function it_solves_day_4_part_1(): void
     {
-        $this->assertEquals(2639, $this->solver->numberOfOccurrences('XMAS', PuzzleInputs::day4_crossword()));
+        $this->assertEquals(2639, $this->solver->occurrences('XMAS', PuzzleInputs::day4_crossword()));
     }
 
     #[Test]
     public function it_solves_day_4_part_2(): void
     {
-        $this->assertEquals(2005, $this->solver->numberOfOccurrencesX(PuzzleInputs::day4_crossword()));
+        $this->assertEquals(2005, $this->solver->xmasPatternOccurrences(PuzzleInputs::day4_crossword()));
     }
 }

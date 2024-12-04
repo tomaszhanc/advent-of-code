@@ -6,10 +6,7 @@ namespace Advent\Tests\Shared\Unit\Grid;
 
 use Advent\Shared\Grid\Cell;
 use Advent\Shared\Grid\Cell\StringCell;
-use Advent\Shared\Grid\Cell\SubGridCell;
 use Advent\Shared\Grid\Grid;
-use Advent\Shared\Grid\Location;
-use Advent\Shared\Grid\Pattern\PatternCell;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -45,29 +42,6 @@ final class GridTest extends TestCase
             ['D', 'E', 'F'],
             ['G', 'H', 'I'],
         ]);
-    }
-
-    #[Test]
-    public function it_creates_grid_from_array(): void
-    {
-        $this->assertEquals(
-            new Grid(
-                new PatternCell(x: 0, y: 0, value: 'M'),
-                new PatternCell(x: 1, y: 0, value: '.'),
-                new PatternCell(x: 2, y: 0, value: 'S'),
-                new PatternCell(x: 0, y: 1, value: '.'),
-                new PatternCell(x: 1, y: 1, value: 'A'),
-                new PatternCell(x: 2, y: 1, value: '.'),
-                new PatternCell(x: 0, y: 2, value: 'M'),
-                new PatternCell(x: 1, y: 2, value: '.'),
-                new PatternCell(x: 2, y: 2, value: 'S'),
-            ),
-            Grid::fromPattern([
-                ['M', '.', 'S'],
-                ['.', 'A', '.'],
-                ['M', '.', 'S'],
-            ])
-        );
     }
 
     #[Test]
@@ -139,40 +113,6 @@ final class GridTest extends TestCase
                 [$this->cellI],
             ],
             iterator_to_array($this->grid->allDiagonals())
-        );
-    }
-
-    #[Test]
-    public function it_iterates_over_all_sub_grids_of_a_given_size(): void
-    {
-        $this->assertEqualsCanonicalizing(
-            [
-                new Grid(
-                    new SubGridCell(x: 0, y: 0, cell: $this->cellA),
-                    new SubGridCell(x: 1, y: 0, cell: $this->cellB),
-                    new SubGridCell(x: 0, y: 1, cell: $this->cellD),
-                    new SubGridCell(x: 1, y: 1, cell: $this->cellE)
-                ),
-                new Grid(
-                    new SubGridCell(x: 0, y: 0, cell: $this->cellB),
-                    new SubGridCell(x: 1, y: 0, cell: $this->cellC),
-                    new SubGridCell(x: 0, y: 1, cell: $this->cellE),
-                    new SubGridCell(x: 1, y: 1, cell: $this->cellF)
-                ),
-                new Grid(
-                    new SubGridCell(x: 0, y: 0, cell: $this->cellD),
-                    new SubGridCell(x: 1, y: 0, cell: $this->cellE),
-                    new SubGridCell(x: 0, y: 1, cell: $this->cellG),
-                    new SubGridCell(x: 1, y: 1, cell: $this->cellH)
-                ),
-                new Grid(
-                    new SubGridCell(x: 0, y: 0, cell: $this->cellE),
-                    new SubGridCell(x: 1, y: 0, cell: $this->cellF),
-                    new SubGridCell(x: 0, y: 1, cell: $this->cellH),
-                    new SubGridCell(x: 1, y: 1, cell: $this->cellI)
-                ),
-            ],
-            iterator_to_array($this->grid->subGrids(2, 2))
         );
     }
 }
