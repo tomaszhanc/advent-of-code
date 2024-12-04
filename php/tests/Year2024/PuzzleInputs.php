@@ -23,4 +23,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day3.txt');
     }
+
+    public static function day4_crossword(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day4.txt');
+    }
 }

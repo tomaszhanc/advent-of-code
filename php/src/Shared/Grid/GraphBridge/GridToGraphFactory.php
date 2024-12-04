@@ -14,7 +14,7 @@ final readonly class GridToGraphFactory
     {
         $edges = [];
 
-        foreach ($grid as $cell) {
+        foreach ($grid->allCells() as $cell) {
             foreach ($cell->possibleDirections() as $direction) {
                 $neighbourLocation = $cell->location()->neighbourAt($direction);
 

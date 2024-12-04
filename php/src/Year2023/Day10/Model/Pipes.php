@@ -41,7 +41,7 @@ final readonly class Pipes implements \IteratorAggregate
         return $bfs->search(
             new GridCellNode($this->startingPoint()),
             new GridToGraphFactory()->createGraph(new Grid(...$this->pipes))
-        )->maxDistance();
+        )->path()->distance();
     }
 
     private function startingPoint(): Pipe

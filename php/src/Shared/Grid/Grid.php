@@ -5,39 +5,40 @@ declare(strict_types=1);
 namespace Advent\Shared\Grid;
 
 use Advent\Shared\InvalidArgumentException;
-use Traversable;
 
 /**
  * @template T implements Cell
- * @implements \IteratorAggregate<T>
  */
-final readonly class Grid implements \IteratorAggregate
+final readonly class Grid
 {
     /** @var T[] */
-    private array $cells;
+    private array $rows;
 
     /** @param T ...$cells */
     public function __construct(Cell ...$cells)
     {
-        $this->cells = array_combine(
-            array_map(fn (Cell $cell) => $this->key($cell->location()), $cells),
-            $cells
-        );
-    }
+        $rows = [];
 
-    /** @return T */
-    public function getCellAt(Location $location): Cell
-    {
-        return $this->cells[$this->key($location)] ?? throw InvalidArgumentException::because(
-            'No cell at location [%s]',
-            $location->toString()
-        );
+        foreach ($cells as $cell) {
+            $rows[$cell->location()->y][$cell->location()->x] = $cell;
+        }
+
+        $this->rows = $rows;
     }
 
     /** @return ?T */
     public function findCellAt(Location $location): ?Cell
     {
-        return $this->cells[$this->key($location)] ?? null;
+        return $this->rows[$location->y][$location->x] ?? null;
+    }
+
+    /** @return T */
+    public function getCellAt(Location $location): Cell
+    {
+        return $this->findCellAt($location) ?? throw InvalidArgumentException::because(
+            'No cell at location [%s]',
+            $location->toString()
+        );
     }
 
     public function hasCellAt(Location $location): bool
@@ -45,14 +46,54 @@ final readonly class Grid implements \IteratorAggregate
         return $this->findCellAt($location) !== null;
     }
 
-    /** @return Traversable<T & Cell> */
-    public function getIterator(): Traversable
+    /** @return array<T[]> */
+    public function allRows(): iterable
     {
-        return new \ArrayIterator($this->cells);
+        foreach ($this->rows as $row) {
+            yield $row;
+        }
     }
 
-    private function key(Location $location): string
+    /** @return array<T[]> */
+    public function allColumns(): iterable
     {
-        return $location->toString();
+        $columns = [];
+
+        foreach ($this->rows as $row) {
+            foreach ($row as $x => $cell) {
+                $columns[$x][] = $cell;
+            }
+        }
+
+        return $columns;
+    }
+
+    /** @return T[] */
+    public function allDiagonals(): iterable
+    {
+        $leftToRightDiagonals = [];
+        $rightToLeftDiagonals = [];
+
+        foreach ($this->allCells() as $cell) {
+            $x = $cell->location()->x;
+            $y = $cell->location()->y;
+
+            $leftToRightDiagonals[$x - $y][] = $cell;
+            $rightToLeftDiagonals[$x + $y][] = $cell;
+        }
+
+        // TODO sort diagonals
+
+        return array_values([...$leftToRightDiagonals, ...$rightToLeftDiagonals]);
+    }
+
+    /** @return T[] */
+    public function allCells(): iterable
+    {
+        foreach ($this->rows as $row) {
+            foreach ($row as $cell) {
+                yield $cell;
+            }
+        }
     }
 }
