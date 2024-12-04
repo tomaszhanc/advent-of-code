@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Advent\Year2024\Day4\Model;
 
+use Advent\Shared\Grid\Cell\StringCell;
 use Advent\Shared\Grid\Grid;
 use Advent\Shared\Grid\Pattern;
 use Advent\Shared\Grid\Pattern\PatternMatcher;
 
 final readonly class Crossword
 {
-    /** @var Square[] */
-    public array $squares;
+    /** @var StringCell[] */
+    public array $cells;
 
-    public function __construct(Square ...$squares)
+    public function __construct(StringCell ...$cells)
     {
-        $this->squares = $squares;
+        $this->cells = $cells;
     }
 
     public function numberOfOccurrences(string $key): int
     {
         $result = 0;
 
-        $grid = new Grid(...$this->squares);
+        $grid = new Grid(...$this->cells);
         $crosswordLines = [
             ...$grid->allRows(),
             ...$grid->allColumns(),
@@ -38,7 +39,7 @@ final readonly class Crossword
         return $result;
     }
 
-    public function xmasPatternOccurences(): int
+    public function xmasPatternOccurrences(): int
     {
         $patternMatcher = new PatternMatcher(
             Pattern::fromArray([
@@ -63,13 +64,13 @@ final readonly class Crossword
             ])
         );
 
-        $matchedSubGrids = $patternMatcher->matchIn(new Grid(...$this->squares));
+        $matchedSubGrids = $patternMatcher->matchIn(new Grid(...$this->cells));
 
         return count(iterator_to_array($matchedSubGrids));
     }
 
-    private function crosswordLineToString(Square ...$squares): string
+    private function crosswordLineToString(StringCell ...$squares): string
     {
-        return implode('', array_map(fn (Square $square) => $square->letter, $squares));
+        return implode('', array_map(fn (StringCell $square) => $square->value(), $squares));
     }
 }

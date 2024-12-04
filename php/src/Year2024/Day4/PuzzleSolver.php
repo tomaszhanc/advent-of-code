@@ -25,6 +25,6 @@ final readonly class PuzzleSolver
     {
         $crossword = $this->parser->parse($input);
 
-        return $crossword->xmasPatternOccurences();
+        return $crossword->xmasPatternOccurrences();
     }
 }
