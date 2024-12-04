@@ -15,6 +15,11 @@ final readonly class Location
     ) {
     }
 
+    public static function roundUp(int|float $x, int|float $y): self
+    {
+        return new self((int) ceil($x), (int) ceil($y));
+    }
+
     public function equalsTo(self $location): bool
     {
         return $this->x === $location->x && $this->y === $location->y;

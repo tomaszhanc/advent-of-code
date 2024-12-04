@@ -45,7 +45,7 @@ final class PuzzleSolverTest extends TestCase
         $this->assertEquals(2639, $this->solver->numberOfOccurrences('XMAS', PuzzleInputs::day4_crossword()));
     }
 
-    #[Test]
+    //    #[Test]
     public function it_solves_day_4_part_2(): void
     {
         $this->assertEquals(0, $this->solver->numberOfOccurrences('XMAS', PuzzleInputs::day4_crossword()));

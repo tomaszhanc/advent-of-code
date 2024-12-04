@@ -9,7 +9,7 @@ use Advent\Shared\Grid\Grid;
 final readonly class Crossword
 {
     /** @var Square[] */
-    private array $squares;
+    public array $squares;
 
     public function __construct(Square ...$squares)
     {
@@ -37,8 +37,8 @@ final readonly class Crossword
         return $result;
     }
 
-    public function crosswordLineToString(Square ...$squares): string
+    private function crosswordLineToString(Square ...$squares): string
     {
-        return implode('', array_map(fn (Square $square) => $square->value, $squares));
+        return implode('', array_map(fn (Square $square) => $square->letter, $squares));
     }
 }
