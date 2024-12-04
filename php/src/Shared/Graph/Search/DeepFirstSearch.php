@@ -18,15 +18,16 @@ final readonly class DeepFirstSearch
 
     public function search(Node $startingNode, Graph $graph): SearchResult
     {
-        $longestPath = Path::startFrom($startingNode);
+        $resultPath = Path::startFrom($startingNode);
 
         $stack = new Stack();
-        $stack->push($longestPath);
+        $stack->push($resultPath);
 
         while (!$stack->isEmpty()) {
             $currentPath = $stack->pop();
             $currentNeighbours = $graph->neighboursFor($currentPath->lastNode());
-            $longestPath = $this->resultEvaluator->evaluate($longestPath, $currentPath);
+
+            $resultPath = $this->resultEvaluator->evaluate($resultPath, $currentPath);
 
             foreach ($currentNeighbours as $neighbour) {
                 if ($currentPath->contains($neighbour->node)) {
@@ -37,6 +38,6 @@ final readonly class DeepFirstSearch
             }
         }
 
-        return new SearchResult($longestPath);
+        return new SearchResult($resultPath);
     }
 }

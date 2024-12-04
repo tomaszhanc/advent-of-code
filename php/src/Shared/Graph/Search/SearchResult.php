@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Shared\Graph\Search;
 
+use Advent\Shared\RuntimeException;
+
 final readonly class SearchResult
 {
     /** @var Path[] */
@@ -16,16 +18,10 @@ final readonly class SearchResult
 
     public function path(): Path
     {
-        return $this->paths[0];
-    }
+        if (count($this->paths) > 1) {
+            throw new RuntimeException('More than one path found');
+        }
 
-    public function maxDistance(): int
-    {
-        return max(
-            array_map(
-                fn (Path $path) => $path->distance(),
-                $this->paths
-            )
-        );
+        return $this->paths[0];
     }
 }
