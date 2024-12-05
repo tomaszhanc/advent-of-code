@@ -31,10 +31,10 @@ final readonly class GridToGraphFactory
                 $neighbourDirections = $this->allowedDirections->for($neighbour);
 
                 if ($neighbourDirections->has($direction->opposite())) {
-                    $edges[] = new Edge(
+                    $edges[] = Edge::undirected(
                         new GridCellNode($cell),
                         new GridCellNode($neighbour),
-                        1
+                        weight: 1
                     );
                 }
             }

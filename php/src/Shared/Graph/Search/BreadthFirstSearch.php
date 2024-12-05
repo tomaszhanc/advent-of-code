@@ -9,14 +9,7 @@ use Advent\Shared\Graph\Node;
 
 final readonly class BreadthFirstSearch
 {
-    private ResultEvaluator $resultEvaluator;
-
-    public function __construct(ResultEvaluator $resultEvaluator)
-    {
-        $this->resultEvaluator = $resultEvaluator;
-    }
-
-    public function search(Node $startingNode, Graph $graph): SearchResult
+    public function search(Node $startingNode, Graph $graph, ResultEvaluator $resultEvaluator): ?SearchResult
     {
         $resultPath = Path::startFrom($startingNode);
 
@@ -29,8 +22,11 @@ final readonly class BreadthFirstSearch
         while (!$queue->isEmpty()) {
             $currentPath = $queue->dequeue();
             $currentNeighbours = $graph->neighboursFor($currentPath->lastNode());
+            $resultPath = $resultEvaluator->evaluate($resultPath, $currentPath);
 
-            $resultPath = $this->resultEvaluator->evaluate($resultPath, $currentPath);
+            if ($resultEvaluator->searchCompleted($resultPath)) {
+                break;
+            }
 
             foreach ($currentNeighbours as $neighbour) {
                 if ($visitorLog->isVisited($neighbour->node)) {
@@ -42,6 +38,6 @@ final readonly class BreadthFirstSearch
             }
         }
 
-        return new SearchResult($resultPath);
+        return $resultEvaluator->validResult($resultPath) ? new SearchResult($resultPath) : null;
     }
 }

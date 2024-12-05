@@ -27,21 +27,23 @@ final readonly class Pipes implements \IteratorAggregate
 
     public function longestPath(): Path
     {
-        $dfs = new DeepFirstSearch(new FindFarthestPoint());
+        $dfs = new DeepFirstSearch();
 
         return $dfs->search(
             new GridCellNode($this->startingPoint()),
-            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes))
+            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes)),
+            new FindFarthestPoint()
         )->path();
     }
 
     public function numberOfStepsToFarthestPoint(): int
     {
-        $bfs = new BreadthFirstSearch(new FindFarthestPoint());
+        $bfs = new BreadthFirstSearch();
 
         return $bfs->search(
             new GridCellNode($this->startingPoint()),
-            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes))
+            new GridToGraphFactory(new PipeAllowedDirections())->createGraph(new Grid(...$this->pipes)),
+            new FindFarthestPoint()
         )->path()->distance();
     }
 

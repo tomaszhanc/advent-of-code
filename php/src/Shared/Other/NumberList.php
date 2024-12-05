@@ -13,7 +13,22 @@ final readonly class NumberList implements \IteratorAggregate
 
     public function __construct(int ...$numbers)
     {
-        $this->numbers = $numbers;
+        $this->numbers = array_values($numbers);
+    }
+
+    public function occurrenceOf(int $number): int
+    {
+        return array_count_values($this->numbers)[$number] ?? 0;
+    }
+
+    public function indexOf(int $number): int
+    {
+        return array_search($number, $this->numbers, true);
+    }
+
+    public function middleNumber(): int
+    {
+        return $this->numbers[array_key_last($this->numbers) / 2];
     }
 
     public function sortedAscending(): array
@@ -24,13 +39,36 @@ final readonly class NumberList implements \IteratorAggregate
         return $numbers;
     }
 
-    public function occurrenceOf(int $number): int
+    public function sort(callable $compare): array
     {
-        return array_count_values($this->numbers)[$number] ?? 0;
+        $numbers = $this->numbers;
+        usort($numbers, $compare);
+
+        return $numbers;
+    }
+
+    public function equals(NumberList $list): bool
+    {
+        return $this->numbers === $list->numbers;
+    }
+
+    /**
+     * @template T
+     * @param callable(int) : T $mapper
+     * @return T[]
+     */
+    public function map(callable $mapper): array
+    {
+        return array_map($mapper, $this->numbers);
     }
 
     public function getIterator(): Traversable
     {
         return new \ArrayIterator($this->numbers);
+    }
+
+    public function toArray(): array
+    {
+        return $this->numbers;
     }
 }

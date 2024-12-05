@@ -9,14 +9,7 @@ use Advent\Shared\Graph\Node;
 
 final readonly class DeepFirstSearch
 {
-    private ResultEvaluator $resultEvaluator;
-
-    public function __construct(ResultEvaluator $resultEvaluator)
-    {
-        $this->resultEvaluator = $resultEvaluator;
-    }
-
-    public function search(Node $startingNode, Graph $graph): SearchResult
+    public function search(Node $startingNode, Graph $graph, ResultEvaluator $resultEvaluator): ?SearchResult
     {
         $resultPath = Path::startFrom($startingNode);
 
@@ -26,8 +19,11 @@ final readonly class DeepFirstSearch
         while (!$stack->isEmpty()) {
             $currentPath = $stack->pop();
             $currentNeighbours = $graph->neighboursFor($currentPath->lastNode());
+            $resultPath = $resultEvaluator->evaluate($resultPath, $currentPath);
 
-            $resultPath = $this->resultEvaluator->evaluate($resultPath, $currentPath);
+            if ($resultEvaluator->searchCompleted($resultPath)) {
+                break;
+            }
 
             foreach ($currentNeighbours as $neighbour) {
                 if ($currentPath->contains($neighbour->node)) {
@@ -38,6 +34,6 @@ final readonly class DeepFirstSearch
             }
         }
 
-        return new SearchResult($resultPath);
+        return $resultEvaluator->validResult($resultPath) ? new SearchResult($resultPath) : null;
     }
 }

@@ -28,4 +28,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day4.txt');
     }
+
+    public static function day5_page_updates(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day5.txt');
+    }
 }
