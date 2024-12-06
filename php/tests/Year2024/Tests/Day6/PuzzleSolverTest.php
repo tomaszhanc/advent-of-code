@@ -44,14 +44,33 @@ final class PuzzleSolverTest extends TestCase
     }
 
     #[Test]
-    public function it_solves_day_X_part_1(): void
+    public function it_returns_number_of_possible_obstacles_to_loop_the_guard(): void
+    {
+        $input = new InMemoryInput(
+            '....#.....',
+            '.........#',
+            '..........',
+            '..#.......',
+            '.......#..',
+            '..........',
+            '.#..^.....',
+            '........#.',
+            '#.........',
+            '......#...',
+        );
+
+        $this->assertEquals(6, $this->solver->numberOfPossibleObstaclesToLoopTheGuard($input));
+    }
+
+    #[Test]
+    public function it_solves_day_6_part_1(): void
     {
         $this->assertEquals(4982, $this->solver->numberOfPositionsVisitedByGuard(PuzzleInputs::day6_guard()));
     }
 
     #[Test]
-    public function it_solves_day_X_part_2(): void
+    public function it_solves_day_6_part_2(): void
     {
-        $this->assertEquals(0, $this->solver->bar(PuzzleInputs::Day6_()));
+        $this->assertEquals(0, $this->solver->numberOfPossibleObstaclesToLoopTheGuard(PuzzleInputs::day6_guard()));
     }
 }
