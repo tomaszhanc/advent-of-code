@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Advent\Tests\Shared\Unit\Grid;
 
-use Advent\Shared\Grid\Pattern;
-use Advent\Shared\Grid\Pattern\PatternCell;
+use Advent\Shared\Grid\PatternMatching\Pattern;
+use Advent\Shared\Grid\PatternMatching\PatternCell;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

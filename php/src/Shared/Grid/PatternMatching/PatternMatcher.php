@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid\Pattern;
+namespace Advent\Shared\Grid\PatternMatching;
 
 use Advent\Shared\Grid\Grid;
 use Advent\Shared\Grid\Location;
-use Advent\Shared\Grid\Pattern;
 
 final readonly class PatternMatcher
 {

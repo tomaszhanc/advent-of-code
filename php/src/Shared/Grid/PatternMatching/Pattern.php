@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Advent\Shared\Grid;
-
-use Advent\Shared\Grid\Pattern\PatternCell;
+namespace Advent\Shared\Grid\PatternMatching;
 
 final readonly class Pattern
 {

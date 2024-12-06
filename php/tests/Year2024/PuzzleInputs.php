@@ -33,4 +33,9 @@ final readonly class PuzzleInputs
     {
         return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day5.txt');
     }
+
+    public static function day6_guard(): Input
+    {
+        return FileInput::fromLocal(__DIR__ . '/../../resources/2024/day6.txt');
+    }
 }

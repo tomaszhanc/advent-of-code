@@ -6,8 +6,8 @@ namespace Advent\Year2024\Day4\Model;
 
 use Advent\Shared\Grid\Cell\StringCell;
 use Advent\Shared\Grid\Grid;
-use Advent\Shared\Grid\Pattern;
-use Advent\Shared\Grid\Pattern\PatternMatcher;
+use Advent\Shared\Grid\PatternMatching\Pattern;
+use Advent\Shared\Grid\PatternMatching\PatternMatcher;
 
 final readonly class Crossword
 {
