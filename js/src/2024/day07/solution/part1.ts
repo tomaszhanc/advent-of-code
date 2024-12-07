@@ -1,7 +1,10 @@
-import {Equation} from "../model/Equation";
+import {Input} from "../../../shared/Input";
 import {generateAllCombinations} from "../../../shared/utils/generator.utils";
+import {parsePuzzleInput} from "./parsePuzzleInput";
 
-export function totalCalibrationValues(equations: Equation[]): number {
+export function totalCalibrationValues(input: Input): number {
+    const equations = parsePuzzleInput(input);
+
     let total = 0;
 
     for (let i = 0; i < equations.length; i++) {
