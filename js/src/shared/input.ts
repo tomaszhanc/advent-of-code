@@ -15,8 +15,8 @@ export class Input {
     }
 }
 
-export const readPuzzleInput = (year: number, day: number): Input => {
-    const filePath = path.resolve(__dirname, `../../../resources/${year}/day${day.toString()}.txt`);
+export const readPuzzleInput = (relativePath: string): Input => {
+    const filePath = path.resolve(__dirname, `../../../resources/${relativePath}`);
 
     return new Input(fs.readFileSync(filePath, 'utf-8').trim());
 };
