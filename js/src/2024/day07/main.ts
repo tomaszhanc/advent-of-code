@@ -1,7 +1,7 @@
 import {Input, readPuzzleInput} from "../../shared/Input";
 import {parsePuzzleInput} from "./solution/parsePuzzleInput";
 import {totalCalibrationValues} from "./solution/part1";
-import {part2} from "./solution/part2";
+import {totalCalibrationValuesFor3operators} from "./solution/part2";
 import {Stopwatch} from "../../shared/Stopwatch";
 
 const stopwatch = new Stopwatch();
@@ -22,6 +22,6 @@ stopwatch.stop('part-1');
 console.log('Time: ', stopwatch.result('part-1').toFixed(2), 'ms\n');
 
 stopwatch.start('part-2')
-console.log('Part 2: ', part2());
+console.log('Part 2: ', totalCalibrationValuesFor3operators(equations));
 stopwatch.stop('part-2');
 console.log('Time: ', stopwatch.result('part-2').toFixed(2), 'ms');

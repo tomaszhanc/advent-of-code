@@ -8,10 +8,16 @@ export class Equation {
         let total = this.numbers[0];
 
         for (let i = 1; i < this.numbers.length; i++) {
-            if (operators[i] === '+') {
-                total += this.numbers[i];
-            } else {
-                total *= this.numbers[i];
+            switch (operators[i]) {
+                case '+':
+                    total += this.numbers[i];
+                    break;
+                case '*':
+                    total *= this.numbers[i];
+                    break;
+                case '||':
+                    total = parseInt(total.toString() + this.numbers[i].toString());
+                    break;
             }
         }
 

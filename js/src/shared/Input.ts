@@ -2,9 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 export class Input {
-    constructor (
-        private readonly data: string
-    ) {}
+    private readonly data: string
+
+    constructor (data: string) {
+        this.data = data.trim();
+    }
 
     lines(): string[] {
         return this.data.split('\n');

@@ -3,7 +3,7 @@ import {Grid} from "../../../shared/grid/Grid";
 
 export function tilesVisitedByGuard(guardPosition: GuardPosition, map : Grid<string>): number {
     const visited = new Set<string>();
-    let currentGuardPosition = guardPosition.nextMove(map);
+    let currentGuardPosition : GuardPosition | null = guardPosition;
 
     while (currentGuardPosition !== null) {
         visited.add(currentGuardPosition.position.toString());
