@@ -6,6 +6,14 @@ export class Grid<T extends string | number> {
     ) {
     }
 
+    public get height() : number {
+        return this.grid.length;
+    }
+
+    public get width() : number {
+        return this.grid[0].length;
+    }
+
     public locationOf(value: T) : Location | null {
         for (let y = 0; y < this.grid.length; y++) {
             const x = this.grid[y].indexOf(value);
@@ -32,5 +40,12 @@ export class Grid<T extends string | number> {
         }
 
         return this.grid[location.y][location.x];
+    }
+
+    public setValue(value : T, location : Location) : Grid<T> {
+        let newGrid = this.grid.map(row => row.slice());
+        newGrid[location.y][location.x] = value;
+
+        return new Grid(newGrid);
     }
 }

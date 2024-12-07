@@ -9,7 +9,7 @@ export class GuardPosition {
     ) {
     }
 
-    public nextPosition(map: Grid<string>): GuardPosition | null {
+    public nextMove(map: Grid<string>): GuardPosition | null {
         let currentDirection = this.direction;
 
         for (let i = 0; i < 3; i++) {
@@ -21,7 +21,7 @@ export class GuardPosition {
             }
 
             if (isObstacle(nextPositionType)) {
-                currentDirection = Direction.rotateClockwise(this.direction);
+                currentDirection = Direction.rotateClockwise(currentDirection);
                 continue;
             }
 
@@ -29,6 +29,10 @@ export class GuardPosition {
         }
 
         throw new Error('Guard is stuck');
+    }
+
+    public toString() : string {
+        return this.position.toString() + '-d' + this.direction;
     }
 }
 

@@ -1,8 +1,8 @@
 export enum Direction {
     UP = 1,
-    DOWN = 2,
-    LEFT = 4,
-    RIGHT = 8,
+    RIGHT = 2,
+    DOWN = 4,
+    LEFT = 8,
     UP_LEFT = UP | LEFT,
     UP_RIGHT = UP | RIGHT,
     DOWN_LEFT = DOWN | LEFT,
