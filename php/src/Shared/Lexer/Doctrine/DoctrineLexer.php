@@ -12,7 +12,7 @@ use Doctrine\Common\Lexer\AbstractLexer;
  */
 final class DoctrineLexer extends AbstractLexer
 {
-    // FIXME object dla patterns!!!
+    // FIXME it requires a refactor
     public function __construct(
         private readonly array $patterns
     ) {

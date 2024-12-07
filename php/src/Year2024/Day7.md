@@ -1,0 +1,1 @@
+Part two of Day 6, Day 7, and the remaining days for 2024 are implemented in [TypeScript](../../../js/src/2024).
