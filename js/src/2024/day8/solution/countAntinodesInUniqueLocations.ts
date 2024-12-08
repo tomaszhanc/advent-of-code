@@ -1,12 +1,11 @@
-import {Input} from "../../../shared/Input";
-import {parsePuzzleInput} from "./parsePuzzleInput";
 import {Location} from "../../../shared/grid/Location";
 import {Distance} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
+import {parsePuzzleInput} from "./parsePuzzleInput";
 
 export function countAntinodesInUniqueLocations(
     findAntinodes: (location: Location, distance: Distance, map: Grid<string>) => Iterable<Location>,
-    input: Input,
+    input: string,
 ): number {
     const map = parsePuzzleInput(input);
     const frequencies = map.groupByValue();

@@ -1,9 +1,9 @@
-import {Input} from "../../../shared/Input";
+import {readByLine} from "../../../shared/Input";
 import {Grid} from "../../../shared/grid/Grid";
 
-export function parsePuzzleInput(input: Input) {
+export function parsePuzzleInput(input: string) {
     return Grid.fromArray(
-        input.lines().map(line => line.split('')),
+        readByLine(input).map(line => line.split('')),
         '.'
     );
 }

@@ -1,11 +1,11 @@
-import {Input} from "../../../shared/Input";
 import {GuardPosition} from "../model/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
+import {readByLine} from "../../../shared/Input";
 
-export function parsePuzzleInput(input: Input): [GuardPosition, Grid<string>] {
+export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
     const map = Grid.fromArray(
-        input.lines().map(line => line.split('')),
+        readByLine(input).map(line => line.split('')),
         '.'
     );
     const guardLocation = map.locationOf('^');

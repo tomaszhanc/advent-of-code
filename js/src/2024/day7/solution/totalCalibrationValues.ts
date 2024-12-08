@@ -1,8 +1,7 @@
-import {Input} from "../../../shared/Input";
 import {combinations} from "../../../shared/utils/generator.utils";
 import {parsePuzzleInput} from "./parsePuzzleInput";
 
-export function totalCalibrationValues(input: Input, operators: string[]): number {
+export function totalCalibrationValues(input: string, operators: string[]): number {
     const equations = parsePuzzleInput(input);
 
     let total = 0;

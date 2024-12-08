@@ -1,24 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-export class Input {
-    private readonly data: string
-
-    constructor (data: string) {
-        this.data = data.trim();
-    }
-
-    lines(): string[] {
-        return this.data.split('\n');
-    }
-
-    content(): string {
-        return this.data;
-    }
+export function readPuzzleInput(relativePath: string): string {
+    const filePath = path.resolve(__dirname, `../../../resources/${relativePath}`);
+    return fs.readFileSync(filePath, 'utf-8').trim();
 }
 
-export const readPuzzleInput = (relativePath: string): Input => {
-    const filePath = path.resolve(__dirname, `../../../resources/${relativePath}`);
-
-    return new Input(fs.readFileSync(filePath, 'utf-8').trim());
-};
+export function readByLine(data: string) : string[] {
+    return data.trim().split('\n');
+}

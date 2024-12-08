@@ -1,11 +1,10 @@
 import {GuardPosition} from "../model/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Location} from "../../../shared/grid/Location";
-import {Input} from "../../../shared/Input";
 import {GuardMovement} from "../model/GuardMovement";
 import {parsePuzzleInput} from "./parsePuzzleInput";
 
-export function obstaclesToLoopTheGuard(input: Input): number {
+export function obstaclesToLoopTheGuard(input: string): number {
     const [guardPosition, map] = parsePuzzleInput(input);
     let obstacles = 0;
 

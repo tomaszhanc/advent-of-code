@@ -1,10 +1,9 @@
-import {Input} from "../../../src/shared/Input";
 import {findAntinodes} from "../../../src/2024/day8/solution/findAntinodes";
 import {findResonantHarmonicAntinodes} from "../../../src/2024/day8/solution/findResonantHarmonicAntinodes";
 import {countAntinodesInUniqueLocations} from "../../../src/2024/day8/solution/countAntinodesInUniqueLocations";
 import {describe, expect, it} from 'vitest'
 
-const input = new Input(`
+const input = `
 ............
 ........a...
 .....a......
@@ -17,7 +16,7 @@ const input = new Input(`
 .........A..
 ............
 ............
-`);
+`;
 
 describe('AoC 2024, Day 8, Example', () => {
     it('detects unique locations with antinodes', () => {

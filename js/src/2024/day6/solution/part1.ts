@@ -1,9 +1,8 @@
 import {GuardPosition} from "../model/GuardPosition";
-import {Input} from "../../../shared/Input";
 import {GuardMovement} from "../model/GuardMovement";
 import {parsePuzzleInput} from "./parsePuzzleInput";
 
-export function tilesVisitedByGuard(input: Input): number {
+export function tilesVisitedByGuard(input: string): number {
     const [guardPosition, map] = parsePuzzleInput(input);
     const visited = new Set<string>();
     let currentGuardPosition : GuardPosition | null = guardPosition;
