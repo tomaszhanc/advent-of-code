@@ -10,7 +10,7 @@ export function obstaclesToLoopTheGuard(input: string): number {
 
     for (let y = 0; y < map.height; y++) {
         for (let x = 0; x < map.width; x++) {
-            let modifiedMap = plantObstacle(new Location(x, y), map);
+            let modifiedMap = plantObstacle(Location.create(x, y), map);
             let currentGuardPosition = GuardMovement.nextMove(guardPosition, modifiedMap);
             const visited = new Set<string>();
 

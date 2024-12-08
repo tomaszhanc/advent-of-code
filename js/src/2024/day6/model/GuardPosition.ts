@@ -10,7 +10,7 @@ export class GuardPosition {
 
     public next(): GuardPosition {
         return new GuardPosition(
-            this.location.nextIn(this.direction),
+            Location.nextInDirection(this.location, this.direction),
             this.direction
         );
     }
@@ -23,6 +23,6 @@ export class GuardPosition {
     }
 
     public toString() : string {
-        return this.location.toString() + '-d' + this.direction;
+        return Location.asString(this.location) + '-d' + this.direction;
     }
 }

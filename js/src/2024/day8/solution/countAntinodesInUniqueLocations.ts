@@ -14,7 +14,7 @@ export function countAntinodesInUniqueLocations(
     for (const locations of frequencies.values()) {
         for (let i = 0; i < locations.length; i++) {
             for (let j = i + 1; j < locations.length; j++) {
-                const distance = locations[j].distanceTo(locations[i]);
+                const distance = Location.distanceBetween(locations[j], (locations[i]));
 
                 let antinodes = [
                     ...findAntinodes(locations[i], distance, map),
@@ -22,7 +22,7 @@ export function countAntinodesInUniqueLocations(
                 ];
 
                 for (const antinode of antinodes) {
-                    uniqueAntinodes.add(antinode.toString());
+                    uniqueAntinodes.add(Location.asString(antinode));
                 }
             }
         }
