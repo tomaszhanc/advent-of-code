@@ -1,5 +1,5 @@
-import {readByLine} from "../../../shared/read.input";
 import {Grid} from "../../../shared/grid/Grid";
+import {readByLine} from "../../../shared/read.input";
 
 export function parsePuzzleInput(input: string) {
     return Grid.fromArray(

@@ -1,6 +1,6 @@
-import {GuardPosition} from "../types/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
+import {GuardPosition} from "../types/GuardPosition";
 import {readByLine} from "../../../shared/read.input";
 
 export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
