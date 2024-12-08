@@ -1,6 +1,6 @@
-import {GuardPosition} from "../model/GuardPosition";
-import {GuardMovement} from "../model/GuardMovement";
-import {parsePuzzleInput} from "./parsePuzzleInput";
+import {GuardPosition} from "../types/GuardPosition";
+import {GuardMovement} from "../types/GuardMovement";
+import {parsePuzzleInput} from "./_parsePuzzleInput";
 import {Location} from "../../../shared/grid/Location";
 
 export function tilesVisitedByGuard(input: string): number {

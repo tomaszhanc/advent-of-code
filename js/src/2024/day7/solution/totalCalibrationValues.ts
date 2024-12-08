@@ -1,5 +1,6 @@
 import {combinations} from "../../../shared/utils/generator.utils";
-import {parsePuzzleInput} from "./parsePuzzleInput";
+import {parsePuzzleInput} from "./_parsePuzzleInput";
+import {Equation} from "../types/Equation";
 
 export function totalCalibrationValues(input: string, operators: string[]): number {
     const equations = parsePuzzleInput(input);
@@ -10,7 +11,7 @@ export function totalCalibrationValues(input: string, operators: string[]): numb
         const combos = combinations(operators, equations[i].numbers.length);
 
         for (let j = 0; j < combos.length; j++) {
-            if (equations[i].isValid(combos[j])) {
+            if (Equation.isValid(equations[i], combos[j])) {
                 total += equations[i].testValue;
                 break;
             }

@@ -6,14 +6,14 @@ export const GuardMovement = {
         let guardPosition = position;
 
         for (let i = 0; i < 3; i++) {
-            const nextPosition = guardPosition.next();
+            const nextPosition = GuardPosition.next(guardPosition);
 
             if (!map.hasInBounds(nextPosition.location)) {
                 return null;
             }
 
             if (isObstacle(map.valueOf(nextPosition.location))) {
-                guardPosition = guardPosition.turnRight()
+                guardPosition = GuardPosition.turnRight(guardPosition)
                 continue;
             }
 

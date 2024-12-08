@@ -1,7 +1,7 @@
 import {Stopwatch} from "../../shared/utils/Stopwatch";
 import {readPuzzleInput} from "../../shared/read.input";
-import {tilesVisitedByGuard} from "./solution/part1";
-import {obstaclesToLoopTheGuard} from "./solution/part2";
+import {tilesVisitedByGuard} from "./solution/tilesVisitedByGuard";
+import {obstaclesToLoopTheGuard} from "./solution/obstaclesToLoopTheGuard";
 
 const stopwatch = new Stopwatch();
 const input = readPuzzleInput('2024/day6.txt');

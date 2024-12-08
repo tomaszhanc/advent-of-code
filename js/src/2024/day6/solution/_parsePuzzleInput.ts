@@ -1,4 +1,4 @@
-import {GuardPosition} from "../model/GuardPosition";
+import {GuardPosition} from "../types/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
 import {readByLine} from "../../../shared/read.input";
@@ -14,7 +14,7 @@ export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
         throw new Error('Guard not found');
     }
 
-    const guardPosition = new GuardPosition(guardLocation, Direction.UP);
+    const guardPosition = GuardPosition.create(guardLocation, Direction.UP);
 
     return [guardPosition, map];
 }

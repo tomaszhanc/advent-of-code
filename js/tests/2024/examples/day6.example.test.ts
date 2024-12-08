@@ -1,5 +1,5 @@
-import {tilesVisitedByGuard} from "../../../src/2024/day6/solution/part1";
-import {obstaclesToLoopTheGuard} from "../../../src/2024/day6/solution/part2";
+import {tilesVisitedByGuard} from "../../../src/2024/day6/solution/tilesVisitedByGuard";
+import {obstaclesToLoopTheGuard} from "../../../src/2024/day6/solution/obstaclesToLoopTheGuard";
 import {describe, expect, it} from 'vitest'
 
 const input = `

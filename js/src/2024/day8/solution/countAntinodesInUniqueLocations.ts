@@ -1,7 +1,7 @@
 import {Location} from "../../../shared/grid/Location";
 import {Distance} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
-import {parsePuzzleInput} from "./parsePuzzleInput";
+import {parsePuzzleInput} from "./_parsePuzzleInput";
 
 export function countAntinodesInUniqueLocations(
     findAntinodes: (location: Location, distance: Distance, map: Grid<string>) => Iterable<Location>,
