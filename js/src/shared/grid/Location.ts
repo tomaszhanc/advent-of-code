@@ -1,4 +1,5 @@
 import {Direction} from "./Direction";
+import {Distance} from "./Distance";
 
 export class Location {
     constructor(
@@ -10,6 +11,14 @@ export class Location {
     static fromString(location: string): Location {
         const [x, y] = location.split(',').map(Number);
         return new Location(x, y);
+    }
+
+    public distanceTo(location: Location) : Distance {
+        return new Distance(this.x - location.x, this.y - location.y);
+    }
+
+    public nextBy(distance: Distance): Location {
+        return new Location(this.x - distance.diffX, this.y - distance.diffY);
     }
 
     public nextIn(direction: Direction): Location {

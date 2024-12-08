@@ -11,6 +11,10 @@ export class Grid<T extends GridType> {
     ) {
     }
 
+    public static empty<T extends GridType>(width: number, height: number, emptyCell: T = '.' as T): Grid<T> {
+        return new Grid(width, height, new Map<string, T>(), emptyCell);
+    }
+
     public static fromArray<T extends GridType>(grid: T[][], emptyCell: T): Grid<T> {
         let cells = new Map<string, T>();
 
@@ -36,7 +40,7 @@ export class Grid<T extends GridType> {
     }
 
     public valueOf(location: Location): T {
-        if (!this.contains(location)) {
+        if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
@@ -44,7 +48,7 @@ export class Grid<T extends GridType> {
     }
 
     public setValue(value: T, location: Location): Grid<T> {
-        if (!this.contains(location)) {
+        if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
@@ -54,9 +58,23 @@ export class Grid<T extends GridType> {
         return new Grid(this.width, this.height, newGrid, this.emptyCell);
     }
 
-    public contains(location: Location): boolean {
+    public hasInBounds(location: Location): boolean {
         return location.x >= 0 && location.x < this.width
             && location.y >= 0 && location.y < this.height
+    }
+
+    public groupByValue() : Map<T, Location[]>{
+        const groups = new Map<T, Location[]>();
+
+        for (const [cellKey, cellValue] of this.cells.entries()) {
+            if (!groups.has(cellValue)) {
+                groups.set(cellValue, []);
+            }
+
+            groups.get(cellValue)!.push(Location.fromString(cellKey));
+        }
+
+        return groups;
     }
 
     public toString(): string {

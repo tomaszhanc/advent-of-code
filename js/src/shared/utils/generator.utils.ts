@@ -1,11 +1,11 @@
-export function generateAllCombinations<T extends string | number>(length: number, allowedValues: T[]): T[][] {
+export function combinations<T>(values: Iterable<T>, length: number): T[][] {
     if (length === 0) {
         return [[]];
     }
 
-    const combinations = generateAllCombinations(length - 1, allowedValues);
+    const combos = combinations(values, length - 1);
 
-    return allowedValues.flatMap(
-        allowedValue => combinations.map(combination => [...combination, allowedValue])
+    return Array.from(values).flatMap(
+        allowedValue => combos.map(combo => [...combo, allowedValue])
     );
 }

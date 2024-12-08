@@ -8,7 +8,7 @@ export const GuardMovement = {
         for (let i = 0; i < 3; i++) {
             const nextPosition = guardPosition.next();
 
-            if (!map.contains(nextPosition.location)) {
+            if (!map.hasInBounds(nextPosition.location)) {
                 return null;
             }
 

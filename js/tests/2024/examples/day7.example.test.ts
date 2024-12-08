@@ -1,6 +1,6 @@
 import {Input} from "../../../src/shared/Input";
 import {totalCalibrationValues} from "../../../src/2024/day7/solution/part1";
-import { describe, expect, it } from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 const input = new Input(`
 190: 10 19
@@ -15,11 +15,11 @@ const input = new Input(`
 `);
 
 describe('AoC 2024, Day 7, Example', () => {
-  it('sums all valid test values that are possible to calculate using operators "+" and "*"', () => {
-    expect(totalCalibrationValues(input, ['+', '*'])).toBe(3749)
-  })
+    it('sums all valid test values that are possible to calculate using operators "+" and "*"', () => {
+        expect(totalCalibrationValues(input, ['+', '*'])).toBe(3749)
+    })
 
-  it('sums all valid test values that are possible to calculate using operators "+", "*" and "||"', () => {
-    expect(totalCalibrationValues(input, ['+', '*', '||'])).toBe(11387)
-  })
+    it('sums all valid test values that are possible to calculate using operators "+", "*" and "||"', () => {
+        expect(totalCalibrationValues(input, ['+', '*', '||'])).toBe(11387)
+    })
 });
