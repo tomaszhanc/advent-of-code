@@ -1,5 +1,5 @@
-import {Stopwatch} from "../../shared/Stopwatch";
-import {readPuzzleInput} from "../../shared/Input";
+import {Stopwatch} from "../../shared/utils/Stopwatch";
+import {readPuzzleInput} from "../../shared/read.input";
 import {totalCalibrationValues} from "./solution/totalCalibrationValues";
 
 const stopwatch = new Stopwatch();

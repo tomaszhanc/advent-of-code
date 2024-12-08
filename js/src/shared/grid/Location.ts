@@ -14,7 +14,7 @@ export class Location {
     }
 
     public distanceTo(location: Location) : Distance {
-        return new Distance(this.x - location.x, this.y - location.y);
+        return Distance.create(this.x - location.x, this.y - location.y);
     }
 
     public nextBy(distance: Distance): Location {

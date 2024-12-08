@@ -1,4 +1,4 @@
-import {readByLine} from "../../../shared/Input";
+import {readByLine} from "../../../shared/read.input";
 import {Grid} from "../../../shared/grid/Grid";
 
 export function parsePuzzleInput(input: string) {

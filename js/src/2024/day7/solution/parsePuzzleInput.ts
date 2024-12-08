@@ -1,5 +1,5 @@
 import {Equation} from "../model/Equation";
-import {readByLine} from "../../../shared/Input";
+import {readByLine} from "../../../shared/read.input";
 
 export function parsePuzzleInput(input: string) : Equation[] {
     return readByLine(input).map(line => {

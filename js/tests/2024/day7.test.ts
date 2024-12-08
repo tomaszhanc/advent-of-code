@@ -1,4 +1,4 @@
-import {readPuzzleInput} from "../../src/shared/Input";
+import {readPuzzleInput} from "../../src/shared/read.input";
 import {totalCalibrationValues} from "../../src/2024/day7/solution/totalCalibrationValues";
 import {describe, expect, it} from 'vitest'
 

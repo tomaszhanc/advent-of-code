@@ -18,7 +18,7 @@ export function countAntinodesInUniqueLocations(
 
                 let antinodes = [
                     ...findAntinodes(locations[i], distance, map),
-                    ...findAntinodes(locations[j], distance.revert(), map)
+                    ...findAntinodes(locations[j], Distance.revert(distance), map)
                 ];
 
                 for (const antinode of antinodes) {

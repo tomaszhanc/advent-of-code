@@ -1,7 +1,7 @@
 import {GuardPosition} from "../model/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
-import {readByLine} from "../../../shared/Input";
+import {readByLine} from "../../../shared/read.input";
 
 export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
     const map = Grid.fromArray(

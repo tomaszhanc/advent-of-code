@@ -1,4 +1,4 @@
-import {readPuzzleInput} from "../../src/shared/Input";
+import {readPuzzleInput} from "../../src/shared/read.input";
 import {findAntinodes} from "../../src/2024/day8/solution/findAntinodes";
 import {findResonantHarmonicAntinodes} from "../../src/2024/day8/solution/findResonantHarmonicAntinodes";
 import {countAntinodesInUniqueLocations} from "../../src/2024/day8/solution/countAntinodesInUniqueLocations";
