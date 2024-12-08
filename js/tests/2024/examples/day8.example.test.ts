@@ -1,6 +1,7 @@
 import {Input} from "../../../src/shared/Input";
-import {uniqueLocationsWithAntinodes} from "../../../src/2024/day8/solution/part1";
-import {part2} from "../../../src/2024/day8/solution/part2";
+import {findAntinodes} from "../../../src/2024/day8/solution/findAntinodes";
+import {findResonantHarmonicAntinodes} from "../../../src/2024/day8/solution/findResonantHarmonicAntinodes";
+import {countAntinodesInUniqueLocations} from "../../../src/2024/day8/solution/countAntinodesInUniqueLocations";
 import {describe, expect, it} from 'vitest'
 
 const input = new Input(`
@@ -20,10 +21,10 @@ const input = new Input(`
 
 describe('AoC 2024, Day 8, Example', () => {
     it('detects unique locations with antinodes', () => {
-        expect(uniqueLocationsWithAntinodes(input)).toBe(14)
+        expect(countAntinodesInUniqueLocations(findAntinodes, input)).toBe(14);
     })
 
     it('detects unique locations of antinodes with resonant harmonic effects', () => {
-        expect(part2(input)).toBe(34)
+        expect(countAntinodesInUniqueLocations(findResonantHarmonicAntinodes, input)).toBe(34)
     })
 });

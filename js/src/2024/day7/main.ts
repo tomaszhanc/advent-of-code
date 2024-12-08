@@ -1,6 +1,6 @@
 import {Stopwatch} from "../../shared/Stopwatch";
 import {readPuzzleInput} from "../../shared/Input";
-import {totalCalibrationValues} from "./solution/part1";
+import {totalCalibrationValues} from "./solution/totalCalibrationValues";
 
 const stopwatch = new Stopwatch();
 const input = readPuzzleInput('2024/day7.txt');
