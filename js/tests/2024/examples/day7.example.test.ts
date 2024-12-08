@@ -1,5 +1,5 @@
-import {Input} from "../../src/shared/Input";
-import {totalCalibrationValues} from "../../src/2024/day7/solution/part1";
+import {Input} from "../../../src/shared/Input";
+import {totalCalibrationValues} from "../../../src/2024/day7/solution/part1";
 import { describe, expect, it } from 'vitest'
 
 const input = new Input(`

@@ -1,39 +1,28 @@
 import {Location} from "../../../shared/grid/Location";
 import {Direction} from "../../../shared/grid/Direction";
-import {Grid} from "../../../shared/grid/Grid";
 
 export class GuardPosition {
     constructor(
-        public readonly position: Location,
-        public readonly direction: Direction
+        public readonly location: Location,
+        private readonly direction: Direction
     ) {
     }
 
-    public nextMove(map: Grid<string>): GuardPosition | null {
-        let currentDirection = this.direction;
+    public next(): GuardPosition {
+        return new GuardPosition(
+            this.location.nextIn(this.direction),
+            this.direction
+        );
+    }
 
-        for (let i = 0; i < 3; i++) {
-            const nextPosition = this.position.next(currentDirection);
-            const nextPositionType = map.valueOf(nextPosition);
-
-            if (nextPositionType === null) {
-                return null;
-            }
-
-            if (isObstacle(nextPositionType)) {
-                currentDirection = Direction.rotateClockwise(currentDirection);
-                continue;
-            }
-
-            return new GuardPosition(nextPosition, currentDirection);
-        }
-
-        throw new Error('Guard is stuck');
+    public turnRight() : GuardPosition {
+        return new GuardPosition(
+            this.location,
+            Direction.rotateClockwise(this.direction),
+        );
     }
 
     public toString() : string {
-        return this.position.toString() + '-d' + this.direction;
+        return this.location.toString() + '-d' + this.direction;
     }
 }
-
-const isObstacle = (value: string) => value === '#';

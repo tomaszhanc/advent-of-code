@@ -7,7 +7,12 @@ export class Location {
     ) {
     }
 
-    public next(direction: Direction): Location {
+    static fromString(location: string): Location {
+        const [x, y] = location.split(',').map(Number);
+        return new Location(x, y);
+    }
+
+    public nextIn(direction: Direction): Location {
         switch (direction) {
             case Direction.UP:
                 return new Location(this.x, this.y - 1);
@@ -28,7 +33,7 @@ export class Location {
         }
     }
 
-    public toString() {
-        return `(${this.x}, ${this.y})`;
+    public toString() : string {
+        return `${this.x},${this.y}`
     }
 }

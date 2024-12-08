@@ -4,7 +4,10 @@ import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
 
 export function parsePuzzleInput(input: Input): [GuardPosition, Grid<string>] {
-    let map = new Grid(input.lines().map(line => line.split('')));
+    let map = Grid.fromArray(
+        input.lines().map(line => line.split('')),
+        '.'
+    );
     const guardLocation = map.locationOf('^');
 
     if (guardLocation === null) {

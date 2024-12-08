@@ -2,27 +2,27 @@ import {GuardPosition} from "../model/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Location} from "../../../shared/grid/Location";
 import {Input} from "../../../shared/Input";
+import {GuardMovement} from "../model/GuardMovement";
 import {parsePuzzleInput} from "./parsePuzzleInput";
 
 export function obstaclesToLoopTheGuard(input: Input): number {
     const [guardPosition, map] = parsePuzzleInput(input);
-
     let obstacles = 0;
 
     for (let y = 0; y < map.height; y++) {
         for (let x = 0; x < map.width; x++) {
             let modifiedMap = plantObstacle(new Location(x, y), map);
-            let currentGuardPosition = guardPosition.nextMove(modifiedMap);
+            let currentGuardPosition = GuardMovement.nextMove(guardPosition, modifiedMap);
             const visited = new Set<string>();
 
             while (currentGuardPosition !== null) {
-                if (isGuardStackedInTheLoop(visited, currentGuardPosition)) {
+                if (isGuardStackedInTheLoop(currentGuardPosition, visited)) {
                     obstacles++;
                     break;
                 }
 
                 visited.add(currentGuardPosition.toString());
-                currentGuardPosition = currentGuardPosition.nextMove(modifiedMap);
+                currentGuardPosition = GuardMovement.nextMove(currentGuardPosition, modifiedMap);
             }
         }
     }
@@ -31,4 +31,4 @@ export function obstaclesToLoopTheGuard(input: Input): number {
 }
 
 const plantObstacle = (location: Location, map: Grid<string>) => map.setValue('#', location);
-const isGuardStackedInTheLoop = (visited: Set<string>, currentGuardPosition: GuardPosition) => visited.has(currentGuardPosition.toString());
+const isGuardStackedInTheLoop = (guardPosition: GuardPosition, visited: Set<string>) => visited.has(guardPosition.toString());
