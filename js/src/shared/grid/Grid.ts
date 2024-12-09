@@ -1,4 +1,4 @@
-import {Location} from "./Location";
+import {locationAsString, Location} from "./Location";
 
 type GridType = string | number;
 
@@ -21,7 +21,7 @@ export class Grid<T extends GridType> {
         for (let y = 0; y < grid.length; y++) {
             for (let x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] !== emptyCell) {
-                    cells.set(Location.asString({x, y}), grid[y][x]);
+                    cells.set(locationAsString({x, y}), grid[y][x]);
                 }
             }
         }
@@ -44,7 +44,7 @@ export class Grid<T extends GridType> {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
-        return this.cells.get(Location.asString(location)) ?? this.emptyCell;
+        return this.cells.get(locationAsString(location)) ?? this.emptyCell;
     }
 
     public setValue(value: T, location: Location): Grid<T> {
@@ -53,7 +53,7 @@ export class Grid<T extends GridType> {
         }
 
         let newGrid = new Map<string, T>(this.cells.entries());
-        newGrid.set(Location.asString(location), value);
+        newGrid.set(locationAsString(location), value);
 
         return new Grid(this.width, this.height, newGrid, this.emptyCell);
     }
@@ -82,7 +82,7 @@ export class Grid<T extends GridType> {
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
-                result += this.valueOf(Location.create(x, y));
+                result += this.valueOf({ x, y });
             }
             result += '\n';
         }

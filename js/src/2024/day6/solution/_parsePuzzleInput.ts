@@ -14,7 +14,5 @@ export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
         throw new Error('Guard not found');
     }
 
-    const guardPosition = GuardPosition.create(guardLocation, Direction.UP);
-
-    return [guardPosition, map];
+    return [{ location: guardLocation, direction: Direction.UP }, map];
 }
