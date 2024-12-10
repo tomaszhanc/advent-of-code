@@ -1,5 +1,5 @@
-import {locationAsString, distanceBetween, Location} from "../../../shared/grid/Location";
-import {Distance, invert} from "../../../shared/grid/Distance";
+import {Location} from "../../../shared/grid/Location";
+import {Distance} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
 
@@ -14,15 +14,15 @@ export function countAntinodesInUniqueLocations(
     for (const locations of frequencies.values()) {
         for (let i = 0; i < locations.length; i++) {
             for (let j = i + 1; j < locations.length; j++) {
-                const distance = distanceBetween(locations[i], (locations[j]));
+                const distance = Location.distanceBetween(locations[j], (locations[i]));
 
                 let antinodes = [
                     ...findAntinodes(locations[i], distance, map),
-                    ...findAntinodes(locations[j], invert(distance), map)
+                    ...findAntinodes(locations[j], Distance.revert(distance), map)
                 ];
 
                 for (const antinode of antinodes) {
-                    uniqueAntinodes.add(locationAsString(antinode));
+                    uniqueAntinodes.add(Location.asString(antinode));
                 }
             }
         }

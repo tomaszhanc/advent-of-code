@@ -1,8 +1,10 @@
 export type Distance = {
-    readonly dX: number,
-    readonly dY: number
+    readonly diffX: number,
+    readonly diffY: number
 }
 
-export function invert(distance: Distance): Distance {
-    return { dX: -distance.dX, dY: -distance.dY };
+export const Distance = {
+    create: (diffX: number, diffY: number): Distance => ({diffX, diffY}),
+
+    revert: (distance: Distance): Distance => Distance.create(-distance.diffX, -distance.diffY)
 }

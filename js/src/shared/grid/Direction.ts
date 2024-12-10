@@ -9,17 +9,15 @@ export enum Direction {
     DOWN_RIGHT = DOWN | RIGHT,
 }
 
-export function rotateClockwise(direction : Direction) : Direction {
-    const directionMap = {
-        [Direction.UP_LEFT]:    Direction.UP_RIGHT,
-        [Direction.UP]:         Direction.RIGHT,
-        [Direction.UP_RIGHT]:   Direction.DOWN_RIGHT,
-        [Direction.RIGHT]:      Direction.DOWN,
-        [Direction.DOWN_RIGHT]: Direction.DOWN_LEFT,
-        [Direction.DOWN]:       Direction.LEFT,
-        [Direction.DOWN_LEFT]:  Direction.UP_LEFT,
-        [Direction.LEFT]:       Direction.UP,
-    };
+export namespace Direction {
+    export function rotateClockwise(direction : Direction) : Direction {
+        switch (direction) {
+            case Direction.UP: return Direction.RIGHT;
+            case Direction.RIGHT: return Direction.DOWN;
+            case Direction.DOWN: return Direction.LEFT;
+            case Direction.LEFT: return Direction.UP;
+        }
 
-    return directionMap[direction];
+        throw new Error(`Invalid direction: ${direction}`);
+    }
 }
