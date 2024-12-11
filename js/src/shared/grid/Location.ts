@@ -7,45 +7,35 @@ export type Location = {
 }
 
 export const Location = {
-    create(x: number, y: number): Location {
-        return {x, y};
-    },
-
-    asString(location: Location): string {
-        return `${location.x},${location.y}`;
-    },
-
     fromString(location: string): Location {
         const [x, y] = location.split(',').map(Number);
-        return Location.create(x, y);
+        return {x, y};
     },
+}
 
-    distanceBetween(location: Location, other: Location): Distance {
-        return Distance.create(location.x - other.x, location.y - other.y);
-    },
+export function locationAsString(location: Location): string {
+    return `${location.x},${location.y}`;
+}
 
-    nextByDistance(location: Location, distance: Distance): Location {
-        return Location.create(location.x - distance.diffX, location.y - distance.diffY);
-    },
+export function distanceBetween(location: Location, other: Location): Distance {
+    return { dX: location.x - other.x, dY: location.y - other.y };
+}
 
-    nextInDirection(location: Location, direction: Direction): Location {
-        switch (direction) {
-            case Direction.UP:
-                return Location.create(location.x, location.y - 1);
-            case Direction.DOWN:
-                return Location.create(location.x, location.y + 1);
-            case Direction.LEFT:
-                return Location.create(location.x - 1, location.y);
-            case Direction.RIGHT:
-                return Location.create(location.x + 1, location.y);
-            case Direction.UP_LEFT:
-                return Location.create(location.x - 1, location.y - 1);
-            case Direction.UP_RIGHT:
-                return Location.create(location.x + 1, location.y - 1);
-            case Direction.DOWN_LEFT:
-                return Location.create(location.x - 1, location.y + 1);
-            case Direction.DOWN_RIGHT:
-                return Location.create(location.x + 1, location.y + 1);
-        }
-    }
+export function nextByDistance(location: Location, distance: Distance): Location {
+    return { x: location.x + distance.dX, y: location.y + distance.dY };
+}
+
+export function nextByDirection(location: Location, direction: Direction): Location {
+    const directionMap = {
+        [Direction.UP_LEFT]:    {dX: -1, dY: -1},
+        [Direction.UP]:         {dX: 0,  dY: -1},
+        [Direction.UP_RIGHT]:   {dX: 1,  dY: -1},
+        [Direction.RIGHT]:      {dX: 1,  dY:  0},
+        [Direction.DOWN_RIGHT]: {dX: 1,  dY:  1},
+        [Direction.DOWN]:       {dX: 0,  dY:  1},
+        [Direction.DOWN_LEFT]:  {dX: -1, dY:  1},
+        [Direction.LEFT]:       {dX: -1, dY:  0},
+    };
+
+    return nextByDistance(location, directionMap[direction]);
 }

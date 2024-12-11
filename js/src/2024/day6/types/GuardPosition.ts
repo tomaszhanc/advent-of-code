@@ -1,5 +1,5 @@
-import {Location} from "../../../shared/grid/Location";
-import {Direction} from "../../../shared/grid/Direction";
+import {Location, locationAsString, nextByDirection} from "../../../shared/grid/Location";
+import {Direction, rotateClockwise} from "../../../shared/grid/Direction";
 
 export type GuardPosition = {
     readonly location: Location,
@@ -13,7 +13,7 @@ export const GuardPosition = {
 
     next(position: GuardPosition): GuardPosition {
         return GuardPosition.create(
-            Location.nextInDirection(position.location, position.direction),
+            nextByDirection(position.location, position.direction),
             position.direction
         );
     },
@@ -21,11 +21,11 @@ export const GuardPosition = {
     turnRight(position: GuardPosition): GuardPosition {
         return GuardPosition.create(
             position.location,
-            Direction.rotateClockwise(position.direction),
+            rotateClockwise(position.direction),
         );
     },
 
     asString(position: GuardPosition): string {
-        return Location.asString(position.location) + '-d' + position.direction;
+        return locationAsString(position.location) + '-d' + position.direction;
     }
 }

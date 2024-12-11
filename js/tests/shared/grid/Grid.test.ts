@@ -6,15 +6,9 @@ describe('Grid Tests', () => {
     const grid = Grid.empty(3, 3);
 
     const validLocations = [
-        Location.create(0, 0),
-        Location.create(1, 0),
-        Location.create(2, 0),
-        Location.create(0, 1),
-        Location.create(1, 1),
-        Location.create(2, 1),
-        Location.create(0, 2),
-        Location.create(1, 2),
-        Location.create(2, 2),
+        {x: 0, y: 0}, {x: 1, y: 0}, {x: 2, y: 0},
+        {x: 0, y: 1}, {x: 1, y: 1}, {x: 2, y: 1},
+        {x: 0, y: 2}, {x: 1, y: 2}, {x: 2, y: 2}
     ];
 
     it.each(validLocations)('checks if %s is within bounds', (location: Location) => {
@@ -22,25 +16,15 @@ describe('Grid Tests', () => {
     });
 
     const inValidLocations = [
-        Location.create(-1, -1),
-        Location.create(-1,  0),
-        Location.create(-1,  1),
-        Location.create(-1,  2),
-        Location.create(-1,  3),
+        { x: 0, y: -1}, { x: 1, y: -1}, { x: 2, y: -1},
 
-        Location.create(3, -1),
-        Location.create(3,  0),
-        Location.create(3,  1),
-        Location.create(3,  2),
-        Location.create(3,  3),
+        {x: -1, y: -1}, { x: 3, y: -1},
+        {x: -1, y:  0}, { x: 3, y:  0},
+        {x: -1, y:  1}, { x: 3, y:  1},
+        {x: -1, y:  2}, { x: 3, y:  2},
+        {x: -1, y:  3}, { x: 3, y:  3},
 
-        Location.create(0, -1),
-        Location.create(1, -1),
-        Location.create(2, -1),
-
-        Location.create(0, 3),
-        Location.create(1, 3),
-        Location.create(2, 3),
+        { x: 0, y: 3}, { x: 1, y: 3}, { x: 2, y: 3},
     ];
 
     it.each(inValidLocations)('checks if %s is out of bounds', (location: Location) => {

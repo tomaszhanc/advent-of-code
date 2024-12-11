@@ -1,7 +1,7 @@
 import {GuardPosition} from "../types/GuardPosition";
 import {GuardMovement} from "../types/GuardMovement";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
-import {Location} from "../../../shared/grid/Location";
+import {locationAsString} from "../../../shared/grid/Location";
 
 export function tilesVisitedByGuard(input: string): number {
     const [guardPosition, map] = parsePuzzleInput(input);
@@ -9,7 +9,7 @@ export function tilesVisitedByGuard(input: string): number {
     let currentGuardPosition : GuardPosition | null = guardPosition;
 
     while (currentGuardPosition !== null) {
-        visited.add(Location.asString(currentGuardPosition.location));
+        visited.add(locationAsString(currentGuardPosition.location));
         currentGuardPosition = GuardMovement.nextMove(currentGuardPosition, map);
     }
 
