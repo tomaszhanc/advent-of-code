@@ -1,5 +1,5 @@
-import {readPuzzleInput} from "../../src/shared/read.input";
-import {totalCalibrationValues} from "../../src/2024/day7/solution/totalCalibrationValues";
+import {readPuzzleInput} from "../../../src/shared/read.input";
+import {totalCalibrationValues} from "../../../src/2024/day7/solution/totalCalibrationValues";
 import {describe, expect, it} from 'vitest'
 
 const input = readPuzzleInput('2024/day7.txt')

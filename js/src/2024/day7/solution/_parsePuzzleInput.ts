@@ -5,9 +5,9 @@ export function parsePuzzleInput(input: string) : Equation[] {
     return readByLine(input).map(line => {
         const [testValue, numbers] = line.split(':');
 
-        return Equation.create(
-            +testValue.trim(),
-            numbers.trim().split(' ').map(Number)
-        );
+        return {
+            testValue: +testValue.trim(),
+            numbers: numbers.trim().split(' ').map(Number)
+        };
     });
 }
