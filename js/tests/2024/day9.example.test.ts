@@ -1,6 +1,6 @@
-import {calculateCheckSumOfCompactedByBlockMemory, calculateCheckSumOfCompactedByBlockFile} from "../../../src/2024/day9/solution/solution";
+import {calculateCheckSumOfCompactedByBlockMemory, calculateCheckSumOfCompactedByBlockFile} from "../../src/2024/day9/solution/solution";
 import {describe, expect, it} from "vitest";
-import {diskMapToMemory} from "../../../src/2024/day9/solution/disk";
+import {diskMapToMemory} from "../../src/2024/day9/solution/disk";
 
 const input = `2333133121414131402`;
 

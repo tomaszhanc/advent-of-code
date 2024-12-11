@@ -1,7 +1,6 @@
 import {GuardPosition, guardPositionAsString, nextGuardPositionOnMap} from "../types/GuardPosition";
 import {Grid} from "../../../shared/grid/Grid";
 import {Location} from "../../../shared/grid/Location";
-import {GuardMovement} from "../types/GuardMovement";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
 
 export function obstaclesToLoopTheGuard(input: string): number {

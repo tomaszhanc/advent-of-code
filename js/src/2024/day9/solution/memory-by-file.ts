@@ -34,15 +34,18 @@ function groupByFiles(memory: string[]) : [Map<number, number[]>, number[][]] {
     let currentFreeSpaceSlot = [];
     for (let i = memory.length - 1; i >= 0; i--) {
         if (memory[i] === '.') {
+            // Collect index of free memory block to the current consecutively slot
             currentFreeSpaceSlot.push(i);
             continue;
         }
 
         if (currentFreeSpaceSlot.length > 0) {
+            // Close the current consecutively free memory slot
             freeSpace.push(currentFreeSpaceSlot.reverse());
             currentFreeSpaceSlot = [];
         }
 
+        // Group by fileId
         files.get(+memory[i])?.push(i) || files.set(+memory[i], [i]);
     }
 

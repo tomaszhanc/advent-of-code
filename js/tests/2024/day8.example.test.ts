@@ -1,6 +1,6 @@
-import {findAntinodes} from "../../../src/2024/day8/solution/findAntinodes";
-import {findResonantHarmonicAntinodes} from "../../../src/2024/day8/solution/findResonantHarmonicAntinodes";
-import {countAntinodesInUniqueLocations} from "../../../src/2024/day8/solution/countAntinodesInUniqueLocations";
+import {findAntinodes} from "../../src/2024/day8/solution/findAntinodes";
+import {findResonantHarmonicAntinodes} from "../../src/2024/day8/solution/findResonantHarmonicAntinodes";
+import {countAntinodesInUniqueLocations} from "../../src/2024/day8/solution/countAntinodesInUniqueLocations";
 import {describe, expect, it} from 'vitest'
 
 const input = `
