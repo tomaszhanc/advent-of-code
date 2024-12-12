@@ -1,4 +1,4 @@
-import {numberOfStonesAfterBlinks} from "../../src/2024/day11/solution/numberOfStonesAfterBlinks";
+import {numberOfStonesAfterBlinks} from "../../src/2024/day11/numberOfStonesAfterBlinks";
 import { describe, expect, it } from "vitest";
 
 const input = `125 17`;

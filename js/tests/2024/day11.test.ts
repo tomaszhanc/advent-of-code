@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {numberOfStonesAfterBlinks} from "../../src/2024/day11/solution/numberOfStonesAfterBlinks";
+import {numberOfStonesAfterBlinks} from "../../src/2024/day11/numberOfStonesAfterBlinks";
 
 const input = `9694820 93 54276 1304 314 664481 0 4`;
 
