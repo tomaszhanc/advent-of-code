@@ -46,6 +46,7 @@ function countTrailheadPaths<T>(start: Step, topographicMap: Grid<number>, resul
 
         if (reachedThePeak(currentStep)) {
             results.add(resultItemFor(currentPath));
+            continue;
         }
 
         for (const nextStep of allNextSteps(currentStep, topographicMap)) {
