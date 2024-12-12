@@ -9,15 +9,15 @@ export function numberOfStonesAfterBlinks(blinks: number, input: string): number
         let newStones = new Map();
 
         for (let [stone, numberOfStones] of stones.entries()) {
-            for (let x of blink(stone)) {
-                newStones.set(x, numberOfStones + (newStones?.get(x) ?? 0));
+            for (let newStone of blink(stone)) {
+                newStones.set(newStone, numberOfStones + (newStones?.get(newStone) ?? 0));
             }
         }
 
         stones = newStones;
     }
 
-    return Array.from(stones.values()).reduce((acc, stone) => acc + stone, 0);
+    return Array.from(stones.values()).reduce((sum, numberOfStones) => sum + numberOfStones, 0);
 }
 
 function blink(stone: Stone): Stone[] {
