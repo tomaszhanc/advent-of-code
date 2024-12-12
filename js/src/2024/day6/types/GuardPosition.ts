@@ -1,4 +1,4 @@
-import {Location, locationAsString, nextByDirection} from "../../../shared/grid/Location";
+import {Location, locationAsString, nextInDirection} from "../../../shared/grid/Location";
 import {Direction, rotateClockwise} from "../../../shared/grid/Direction";
 import {Grid} from "../../../shared/grid/Grid";
 
@@ -26,7 +26,7 @@ export function turnRight(position: GuardPosition): GuardPosition {
 
 export function nextGuardPosition(position: GuardPosition): GuardPosition {
     return {
-        location: nextByDirection(position.location, position.direction),
+        location: nextInDirection(position.location, position.direction),
         direction: position.direction
     };
 }
@@ -52,4 +52,4 @@ export function nextGuardPositionOnMap(position: GuardPosition, map: Grid<string
     throw new Error('Guard is stuck');
 }
 
-const isObstacle = (value: string) => value === '#';
+const isObstacle = (value: string | null) => value === '#';

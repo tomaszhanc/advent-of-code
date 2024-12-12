@@ -25,7 +25,7 @@ export function nextByDistance(location: Location, distance: Distance): Location
     return { x: location.x + distance.dX, y: location.y + distance.dY };
 }
 
-export function nextByDirection(location: Location, direction: Direction): Location {
+export function nextInDirection(location: Location, direction: Direction): Location {
     const directionMap = {
         [Direction.UP_LEFT]:    {dX: -1, dY: -1},
         [Direction.UP]:         {dX: 0,  dY: -1},
@@ -38,4 +38,8 @@ export function nextByDirection(location: Location, direction: Direction): Locat
     };
 
     return nextByDistance(location, directionMap[direction]);
+}
+
+export function nextInDirections(location: Location, ...directions: Direction[]) : Location[] {
+    return directions.map(direction => nextInDirection(location, direction));
 }

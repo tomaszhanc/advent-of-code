@@ -6,16 +6,15 @@ export class Grid<T extends GridType> {
     private constructor(
         public readonly width: number,
         public readonly height: number,
-        private readonly cells: Map<string, T>,
-        private readonly emptyCell: T
+        public readonly cells: Map<string, T>
     ) {
     }
 
-    public static empty<T extends GridType>(width: number, height: number, emptyCell: T = '.' as T): Grid<T> {
-        return new Grid(width, height, new Map<string, T>(), emptyCell);
+    public static empty<T extends GridType>(width: number, height: number): Grid<T> {
+        return new Grid(width, height, new Map<string, T>());
     }
 
-    public static fromArray<T extends GridType>(grid: T[][], emptyCell: T): Grid<T> {
+    public static fromArray<T extends GridType>(grid: T[][], emptyCell: T | null = null): Grid<T> {
         let cells = new Map<string, T>();
 
         for (let y = 0; y < grid.length; y++) {
@@ -26,7 +25,7 @@ export class Grid<T extends GridType> {
             }
         }
 
-        return new Grid(grid[0].length, grid.length, cells, emptyCell);
+        return new Grid(grid[0].length, grid.length, cells);
     }
 
     public locationOf(value: T): Location | null {
@@ -39,12 +38,12 @@ export class Grid<T extends GridType> {
         return null;
     }
 
-    public valueOf(location: Location): T {
+    public valueOf(location: Location): T | null {
         if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
-        return this.cells.get(locationAsString(location)) ?? this.emptyCell;
+        return this.cells.get(locationAsString(location)) ?? null;
     }
 
     public setValue(value: T, location: Location): Grid<T> {
@@ -55,7 +54,7 @@ export class Grid<T extends GridType> {
         let newGrid = new Map<string, T>(this.cells.entries());
         newGrid.set(locationAsString(location), value);
 
-        return new Grid(this.width, this.height, newGrid, this.emptyCell);
+        return new Grid(this.width, this.height, newGrid);
     }
 
     public hasInBounds(location: Location): boolean {
@@ -75,18 +74,5 @@ export class Grid<T extends GridType> {
         }
 
         return groups;
-    }
-
-    public toString(): string {
-        let result = '';
-
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                result += this.valueOf({x, y});
-            }
-            result += '\n';
-        }
-
-        return result;
     }
 }
