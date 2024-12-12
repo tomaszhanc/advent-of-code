@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {sumScoresOfAllTrailheads} from "../../src/2024/day10/solution/sumScoresOfAllTrailheads";
-import {part2} from "../../src/2024/day10/solution/part2";
+import { sumRanksOfAllTrailheads, sumScoreOfAllTrailheads } from "../../src/2024/day10/solution/trails";
 
 const input = `
 89010123
@@ -15,10 +14,10 @@ const input = `
 
 describe('AoC 2024, Day 10, Example', () => {
   it('sums the scores of all trailheads', () => {
-    expect(sumScoresOfAllTrailheads(input)).toBe(36)
+    expect(sumScoreOfAllTrailheads(input)).toBe(36)
   })
 
-  it('part2', () => {
-    expect(part2(input)).toBe(-1)
+  it('sums the ranks of all trailheads', () => {
+    expect(sumRanksOfAllTrailheads(input)).toBe(81)
   })
 });

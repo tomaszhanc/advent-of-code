@@ -5,19 +5,39 @@ import {Location, locationAsString, nextInDirections} from "../../../shared/grid
 import {Direction} from "../../../shared/grid/Direction";
 import {lastItem} from "../../../shared/utils/collection.utils";
 
-export function sumScoresOfAllTrailheads(input: string): number {
+type Step = {
+    readonly location: Location,
+    readonly height: number
+};
+
+type Path = Step[];
+
+export function sumScoreOfAllTrailheads(input: string): number {
     const topographicMap = parsePuzzleInput(input);
 
     return findAllTrailHeads(topographicMap)
-        .reduce((sum, trailhead) => sum + countReachablePeaks(trailhead, topographicMap), 0);
+        .reduce((sum, trailhead) => sum + getTrailheadScore(trailhead, topographicMap), 0);
 }
 
-type Step = { readonly location: Location, readonly height: number };
+export function sumRanksOfAllTrailheads(input: string): number {
+    const topographicMap = parsePuzzleInput(input);
 
-export function countReachablePeaks(start: Step, topographicMap: Grid<number>) {
-    const reachablePeaks = new Set<string>();
+    return findAllTrailHeads(topographicMap)
+        .reduce((sum, trailhead) => sum + getTrailheadRating(trailhead, topographicMap), 0);
+}
 
-    const stack = new Stack<Step[]>();
+function getTrailheadScore(trailhead: Step, topographicMap: Grid<number>) : number {
+    return countTrailheadPaths(trailhead, topographicMap, (completedPath: Path) => locationAsString(lastItem(completedPath).location));
+}
+
+function getTrailheadRating(trailhead: Step, topographicMap: Grid<number>) : number {
+    return countTrailheadPaths(trailhead, topographicMap, (completedPath: Path) => completedPath);
+}
+
+function countTrailheadPaths<T>(start: Step, topographicMap: Grid<number>, resultItemFor: (completedPath: Path) => T ) {
+    let results = new Set<T>();
+
+    const stack = new Stack<Path>();
     stack.push([start]);
 
     while (!stack.isEmpty()) {
@@ -25,7 +45,7 @@ export function countReachablePeaks(start: Step, topographicMap: Grid<number>) {
         const currentStep = lastItem(currentPath);
 
         if (reachedThePeak(currentStep)) {
-            reachablePeaks.add(locationAsString(currentStep.location));
+            results.add(resultItemFor(currentPath));
         }
 
         for (const nextStep of allNextSteps(currentStep, topographicMap)) {
@@ -38,7 +58,7 @@ export function countReachablePeaks(start: Step, topographicMap: Grid<number>) {
         }
     }
 
-    return reachablePeaks.size;
+    return results.size;
 }
 
 function findAllTrailHeads(topographicMap: Grid<number>) : Step[] {
