@@ -41,7 +41,7 @@ export function nextGuardPositionOnMap(position: GuardPosition, map: Grid<string
             return null;
         }
 
-        if (isObstacle(map.valueOf(nextPosition.location))) {
+        if (isObstacle(map.valueAt(nextPosition.location))) {
             guardPosition = turnRight(guardPosition)
             continue;
         }

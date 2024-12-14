@@ -5,7 +5,7 @@ export function gridToString<T extends number | string>(grid: Grid<T>) : string 
 
     for (let y = 0; y < grid.height; y++) {
         for (let x = 0; x < grid.width; x++) {
-            result += grid.valueOf({x, y}) ?? '.';
+            result += grid.valueAt({x, y}) ?? '.';
         }
         result += '\n';
     }
@@ -18,7 +18,7 @@ export function gridToExcelString<T extends number | string>(grid: Grid<T>) : st
 
     for (let y = 0; y < grid.height; y++) {
         for (let x = 0; x < grid.width; x++) {
-            result += grid.valueOf({x, y}) + "\t";
+            result += grid.valueAt({x, y}) + "\t";
         }
         result += '\n';
     }

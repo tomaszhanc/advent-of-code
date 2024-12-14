@@ -1,6 +1,6 @@
 import {Location, locationAsString} from "./Location";
 
-type GridType = string | number;
+export type GridType = string | number;
 
 export class Grid<T extends GridType> {
     private constructor(
@@ -28,7 +28,7 @@ export class Grid<T extends GridType> {
         return new Grid(grid[0].length, grid.length, cells);
     }
 
-    public locationOf(value: T): Location | null {
+    public firstLocationOf(value: T): Location | null {
         for (const [key, cell] of this.cells.entries()) {
             if (value === cell) {
                 return Location.fromString(key);
@@ -38,7 +38,13 @@ export class Grid<T extends GridType> {
         return null;
     }
 
-    public valueOf(location: Location): T | null {
+    public allLocationsOf(value: T): Location[] {
+        return Array.from(this.cells)
+            .filter(([key, cell]) => cell === value)
+            .map(([key, cell]) => Location.fromString(key));
+    }
+
+    public valueAt(location: Location): T | null {
         if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }

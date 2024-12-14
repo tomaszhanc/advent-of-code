@@ -13,6 +13,10 @@ export const Location = {
     },
 }
 
+export function isEqual(location: Location, other: Location) : boolean {
+    return location.x === other.x && location.y === other.y;
+}
+
 export function locationAsString(location: Location): string {
     return `${location.x},${location.y}`;
 }

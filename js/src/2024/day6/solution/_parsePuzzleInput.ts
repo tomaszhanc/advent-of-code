@@ -8,7 +8,7 @@ export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
         readByLine(input).map(line => line.split('')),
         '.'
     );
-    const guardLocation = map.locationOf('^');
+    const guardLocation = map.firstLocationOf('^');
 
     if (guardLocation === null) {
         throw new Error('Guard not found');
