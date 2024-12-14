@@ -2,23 +2,24 @@ import {distanceBetween, Location, locationAsString} from "../../../shared/grid/
 import {Distance, invert} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
+import {groupByValue} from "../../../shared/grid/Group";
 
 export function countAntinodesInUniqueLocations(
     findAntinodes: (location: Location, distance: Distance, map: Grid<string>) => Iterable<Location>,
     input: string,
 ): number {
     const map = parsePuzzleInput(input);
-    const frequencies = map.groupByValue();
+    const frequencies = groupByValue(map);
     const uniqueAntinodes = new Set<string>();
 
-    for (const locations of frequencies.values()) {
-        for (let i = 0; i < locations.length; i++) {
-            for (let j = i + 1; j < locations.length; j++) {
-                const distance = distanceBetween(locations[i], (locations[j]));
+    for (const frequency of frequencies) {
+        for (let i = 0; i < frequency.locations.length; i++) {
+            for (let j = i + 1; j < frequency.locations.length; j++) {
+                const distance = distanceBetween(frequency.locations[i], (frequency.locations[j]));
 
                 let antinodes = [
-                    ...findAntinodes(locations[i], distance, map),
-                    ...findAntinodes(locations[j], invert(distance), map)
+                    ...findAntinodes(frequency.locations[i], distance, map),
+                    ...findAntinodes(frequency.locations[j], invert(distance), map)
                 ];
 
                 for (const antinode of antinodes) {

@@ -67,18 +67,4 @@ export class Grid<T extends GridType> {
         return location.x >= 0 && location.x < this.width
             && location.y >= 0 && location.y < this.height
     }
-
-    public groupByValue() : Map<T, Location[]>{
-        const groups = new Map<T, Location[]>();
-
-        for (const [cellKey, cellValue] of this.cells.entries()) {
-            if (!groups.has(cellValue)) {
-                groups.set(cellValue, []);
-            }
-
-            groups.get(cellValue)!.push(Location.fromString(cellKey));
-        }
-
-        return groups;
-    }
 }

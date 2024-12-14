@@ -1,7 +1,8 @@
-import {parsePuzzleInput} from "./_parsePuzzleInput";
 import {Grid} from "../../shared/grid/Grid";
 import {Location, nextInDirections} from "../../shared/grid/Location";
 import {Direction} from "../../shared/grid/Direction";
+import {groupByAdjacentValues} from "../../shared/grid/Group";
+import {readByLine} from "../../shared/read.input";
 
 type Region = {
     readonly plant: string,
@@ -10,14 +11,12 @@ type Region = {
 
 export function calculatePriceOfFence(input: string): number {
     const gardenMap = parsePuzzleInput(input);
-    const regions = gardenMap.groupByValue();
+    const groups = groupByAdjacentValues(gardenMap, Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT);
     let price = 0;
 
-    for (let [plant, locations] of regions) {
-        let area = calculateArea({plant, locations});
-        let perimeter = calculatePerimeter({plant, locations}, gardenMap);
-        let a = area * perimeter;
-        price += a;
+    for (let group of groups) {
+        let region = {plant: group.key, locations: group.locations};
+        price += calculatePrice(region, gardenMap);
     }
 
     return price;
@@ -27,7 +26,7 @@ const calculatePrice = (region: Region, map: Grid<string>) => calculateArea(regi
 
 const calculateArea = (region: Region) => region.locations.length
 
-const calculatePerimeter = (region: Region, map: Grid<string>) => {
+function calculatePerimeter(region: Region, map: Grid<string>) {
     let perimeter = 0;
 
     for (let regionLocation of region.locations) {
@@ -39,4 +38,8 @@ const calculatePerimeter = (region: Region, map: Grid<string>) => {
     }
 
     return perimeter;
+}
+
+function parsePuzzleInput(input: string) {
+    return Grid.fromArray(readByLine(input).map(line => line.split('')));
 }

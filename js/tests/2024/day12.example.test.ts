@@ -1,4 +1,4 @@
-import {calculatePriceOfFence} from "../../src/2024/day12/part1";
+import {calculatePriceOfFence} from "../../src/2024/day12/day12";
 import { describe, expect, it } from "vitest";
 
 const input1 = `

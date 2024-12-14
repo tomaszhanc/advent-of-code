@@ -19,7 +19,7 @@ export type Path<T> = Step<T>[];
 export function* traverseAllOnceFrom<T extends string | number>(
     start: Step<T>,
     getNeighbors: (step: Step<T>) => Step<T>[],
-    isTraverseCompleted: (step: Step<T>, path: Path<T>) => boolean = () => false
+    isTraverseCompleted: (step: Step<T>, path: Path<T>, neighbors: Step<T>[]) => boolean = (_,__,neighbors) => neighbors.length === 0
 ): Generator<Path<T>> {
     return yield* traverseAllFrom(
         start, getNeighbors, isTraverseCompleted,
@@ -39,41 +39,39 @@ export function* traverseAllOnceFrom<T extends string | number>(
 export function* traverseAllFrom<T extends string | number>(
     start: Step<T>,
     getNeighbors: (step: Step<T>) => Step<T>[],
-    isTraverseCompleted: (step: Step<T>, path: Path<T>) => boolean = () => false,
-    shouldTraverse: (step: Step<T>, visited: Set<string>) => boolean = () => true
+    isTraverseCompleted: (step: Step<T>, path: Path<T>, neighbors: Step<T>[]) => boolean = (_,__,neighbors) => neighbors.length === 0,
+    shouldVisit: (step: Step<T>, visited: Set<string>) => boolean = () => true
 ): Generator<Path<T>> {
     const visited = new Set<string>();
+    visited.add(locationAsString(start.location));
+
     const stack = new Stack<Path<T>>();
     stack.push([start]);
 
     while (!stack.isEmpty()) {
-        const currentPath = stack.pop();
-        const currentStep = lastItem(currentPath);
+        const path = stack.pop();
+        const step = lastItem(path);
+        const neighbors = getNeighbors(step)
+            .filter(neighbor => !isAlreadyInPath(neighbor, path))
+            .filter(neighbor => shouldVisit(neighbor, visited));
 
-        if (isTraverseCompleted(currentStep, currentPath)) {
-            yield currentPath;
+        if (isTraverseCompleted(step, path, neighbors)) {
+            yield path;
+            continue;
         }
 
-        for (const neighbor of getNeighbors(currentStep)) {
-            if (!shouldTraverse(neighbor, visited)) {
-                continue;
-            }
-
-            if (isAlreadyInPath(neighbor, currentPath)) {
-                continue;
-            }
-
+        for (const neighbor of neighbors) {
             visited.add(locationAsString(neighbor.location));
-            stack.push([...currentPath, neighbor]);
+            stack.push([...path, neighbor]);
         }
     }
 }
 
-export function forNeighbours<T extends GridType>(
+export function forNeighbors<T extends GridType>(
     topographicMap: Grid<T>,
-    getNeighbours: (step: Step<T>, topographicMap: Grid<T>) => Step<T>[]
+    getNeighbors: (step: Step<T>, topographicMap: Grid<T>) => Step<T>[]
 ) {
-    return (step: Step<T>): Step<T>[] => getNeighbours(step, topographicMap);
+    return (step: Step<T>): Step<T>[] => getNeighbors(step, topographicMap);
 }
 
 export function stopWhen<T>(isTraverseCompleted: (step: Step<T>, path: Path<T>) => boolean) {

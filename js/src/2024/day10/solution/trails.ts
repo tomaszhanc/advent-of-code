@@ -3,12 +3,12 @@ import {nextInDirections} from "../../../shared/grid/Location";
 import {Grid} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
 import {
-    forNeighbours,
+    forNeighbors,
     Step,
     stopWhen,
     traverseAllFrom,
     traverseAllOnceFrom
-} from "../../../shared/grid/search/deepFirstSearch";
+} from "../../../shared/grid/search/DFS";
 
 export function sumScoreOfAllTrailheads(input: string): number {
     const topographicMap = parsePuzzleInput(input);
@@ -26,13 +26,13 @@ export function sumRanksOfAllTrailheads(input: string): number {
 
 function getTrailheadScore(trailhead: Step<number>, topographicMap: Grid<number>): number {
     return Array.from(
-        traverseAllOnceFrom(trailhead, forNeighbours(topographicMap, allNeighbours), stopWhen(reachedThePeak))
+        traverseAllOnceFrom(trailhead, forNeighbors(topographicMap, allNeighbours), stopWhen(reachedThePeak))
     ).length;
 }
 
 function getTrailheadRating(trailhead: Step<number>, topographicMap: Grid<number>): number {
     return Array.from(
-        traverseAllFrom(trailhead, forNeighbours(topographicMap, allNeighbours), stopWhen(reachedThePeak))
+        traverseAllFrom(trailhead, forNeighbors(topographicMap, allNeighbours), stopWhen(reachedThePeak))
     ).length;
 }
 
