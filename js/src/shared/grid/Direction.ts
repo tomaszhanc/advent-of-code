@@ -9,6 +9,13 @@ export enum Direction {
     DOWN_RIGHT = DOWN | RIGHT,
 }
 
+export namespace Direction {
+    export function allOrthogonal() : Direction[] {
+        return [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT];
+
+    }
+}
+
 export function rotateClockwise(direction : Direction) : Direction {
     const directionMap = {
         [Direction.UP_LEFT]:    Direction.UP_RIGHT,

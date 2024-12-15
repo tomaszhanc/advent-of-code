@@ -1,5 +1,6 @@
 import {Direction} from "./Direction";
 import {Distance} from "./Distance";
+import exp from "node:constants";
 
 export type Location = {
     readonly x: number,
@@ -44,6 +45,20 @@ export function nextInDirection(location: Location, direction: Direction): Locat
     return nextByDistance(location, directionMap[direction]);
 }
 
-export function nextInDirections(location: Location, ...directions: Direction[]) : Location[] {
+export function nextInDirections(location: Location, directions: Direction[]) : Location[] {
     return directions.map(direction => nextInDirection(location, direction));
+}
+
+export function sort(locations: Location[]): Location[] {
+    const unsorted = Array.from(locations);
+
+    return unsorted.sort((a, b) => a.x - b.x || a.y - b.y);
+}
+
+export function unique(locations: Location[]) : Location[] {
+    return Array.from(new Set(locations.map(locationAsString))).map(Location.fromString);
+}
+
+export function isAdjacent(location: Location, other: Location): boolean {
+    return Math.abs(location.x - other.x) <= 1 && Math.abs(location.y - other.y) <= 1;
 }
