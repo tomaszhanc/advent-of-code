@@ -50,7 +50,7 @@ export function findAllEqualAdjacentCells<T>(
             .filter(cell => cell.value === step.value)
 
     const group = new Set<string>();
-    for (let path of findAllPathsVisitingOnceFrom(start, grid, neighbors)) {
+    for (let path of findAllPathsVisitingStepOnceFrom(start, grid, neighbors)) {
         path.forEach(step => group.add(JSON.stringify(step)));
     }
 
@@ -63,7 +63,7 @@ export function findAllEqualAdjacentCells<T>(
  * By default, it traverses until all neighbors are visited. You can pass a custom `isTraverseCompleted`
  * function to stop the traversal at a specific step.
  */
-export function* findAllPathsVisitingOnceFrom<T>(
+export function* findAllPathsVisitingStepOnceFrom<T>(
     start: Location,
     grid: Grid<T>,
     getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
