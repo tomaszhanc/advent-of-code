@@ -3,7 +3,7 @@ import {Direction} from "./Direction";
 
 export type Cell<T> = {
     readonly location: Location,
-    readonly value: T
+    readonly value: T | null
 };
 
 export class Grid<T> {
@@ -81,13 +81,9 @@ export class Grid<T> {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
-        if (this.valueAt(location) === null) {
-            throw new Error(`No value at location: ${location.x}, ${location.y}`);
-        }
-
         return {
             location,
-            value: this.valueAt(location)!
+            value: this.valueAt(location)
         };
     }
 
@@ -97,13 +93,20 @@ export class Grid<T> {
             .map(location => this.cellAt(location));
     }
 
-    public setValue(value: T, location: Location): Grid<T> {
-        if (!this.hasInBounds(location)) {
-            throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
+    public setValue(value: T, ...locations: Location[]): Grid<T> {
+        if (locations.length === 0) {
+            throw new Error('No locations provided');
         }
 
         let newGrid = new Map<string, T>(this.cells.entries());
-        newGrid.set(locationAsString(location), value);
+
+        locations.forEach(location => {
+            if (!this.hasInBounds(location)) {
+                throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
+            }
+
+            newGrid.set(locationAsString(location), value);
+        })
 
         return new Grid(this.width, this.height, newGrid);
     }

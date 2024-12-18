@@ -1,6 +1,6 @@
 import {Location, locationAsString} from "./Location";
 import {Grid} from "./Grid";
-import {findAllEqualAdjacentCells} from "./search/dfs";
+import {findAllSameValueAdjacentCells} from "./search/dfs";
 import {Direction} from "./Direction";
 
 export type Group<T> = {
@@ -35,7 +35,7 @@ export function* groupByAdjacentValues<T>(
 
         visited.add(location);
 
-        const group = findAllEqualAdjacentCells(Location.fromString(location), grid, directions);
+        const group = findAllSameValueAdjacentCells(Location.fromString(location), grid, directions);
 
         yield {
             key: value,

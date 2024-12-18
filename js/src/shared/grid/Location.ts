@@ -1,6 +1,5 @@
 import {Direction} from "./Direction";
 import {Distance} from "./Distance";
-import exp from "node:constants";
 
 export type Location = {
     readonly x: number,

@@ -12,7 +12,7 @@ import {groupByAdjacentValues} from "../../shared/grid/Group";
 import {readByLine} from "../../shared/read.input";
 import {first} from "../../shared/utils/collection.utils";
 import {insideBoundary} from "../../shared/grid/Boundary";
-import {findAllEqualAdjacentCells} from "../../shared/grid/search/dfs";
+import {findAllSameValueAdjacentCells} from "../../shared/grid/search/dfs";
 
 type Region = {
     readonly plant: string,
@@ -66,7 +66,7 @@ function numberOfSides(region : Region) : number {
             return;
         }
 
-        const hole = findAllEqualAdjacentCells(location, smallGrid, directions);
+        const hole = findAllSameValueAdjacentCells(location, smallGrid, directions);
         const holeSides = numberOfOuterSides({plant: '.', locations: hole.map(step => step.location)});
 
         innerSides += holeSides;

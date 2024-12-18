@@ -1,27 +1,10 @@
 import {Stack} from "../../struct/Stack";
-import {isEqual, Location, locationAsString, nextInDirections} from "../Location";
+import {isEqual, Location, locationAsString} from "../Location";
 import {lastItem} from "../../utils/collection.utils";
 import {Cell, Grid} from "../Grid";
 import {Direction} from "../Direction";
 
 export type Path<T> = Cell<T>[];
-
-export function findShortestPath<T>(
-    start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0
-) : Path<T> {
-    let shortestPath : Path<T> | null = null;
-
-    for (let path of findAllPaths(start, grid, getNeighbors, isTraverseCompleted)) {
-        if (shortestPath === null || path.length < shortestPath.length) {
-            shortestPath = path;
-        }
-    }
-
-    return shortestPath ?? [];
-}
 
 export function findLongestPath<T>(
     start: Location,
@@ -31,7 +14,7 @@ export function findLongestPath<T>(
 ) : Path<T> {
     let longestPath : Path<T> = [];
 
-    for (let path of findAllPaths(start, grid, getNeighbors, isTraverseCompleted)) {
+    for (let path of dfs(start, grid, getNeighbors, isTraverseCompleted)) {
         if (path.length > longestPath.length) {
             longestPath = path;
         }
@@ -40,7 +23,7 @@ export function findLongestPath<T>(
     return longestPath;
 }
 
-export function findAllEqualAdjacentCells<T>(
+export function findAllSameValueAdjacentCells<T>(
     start: Location,
     grid: Grid<T>,
     adjacencyDirections: Direction[] = Direction.allOrthogonal()
@@ -50,7 +33,7 @@ export function findAllEqualAdjacentCells<T>(
             .filter(cell => cell.value === step.value)
 
     const group = new Set<string>();
-    for (let path of findAllPathsVisitingStepOnceFrom(start, grid, neighbors)) {
+    for (let path of dfsVisitingOnce(start, grid, neighbors)) {
         path.forEach(step => group.add(JSON.stringify(step)));
     }
 
@@ -63,13 +46,13 @@ export function findAllEqualAdjacentCells<T>(
  * By default, it traverses until all neighbors are visited. You can pass a custom `isTraverseCompleted`
  * function to stop the traversal at a specific step.
  */
-export function* findAllPathsVisitingStepOnceFrom<T>(
+export function* dfsVisitingOnce<T>(
     start: Location,
     grid: Grid<T>,
     getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
     isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0
 ): Generator<Path<T>> {
-    return yield* findAllPaths(
+    return yield* dfs(
         start, grid, getNeighbors, isTraverseCompleted,
         (step, visited) => !visited.has(locationAsString(step.location))
     );
@@ -84,7 +67,7 @@ export function* findAllPathsVisitingStepOnceFrom<T>(
  *  - all steps, even if they were already visited. You can pass a custom `shouldTraverse` function
  *    to avoid visiting some steps.
  */
-export function* findAllPaths<T>(
+export function* dfs<T>(
     start: Location,
     grid: Grid<T>,
     getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],

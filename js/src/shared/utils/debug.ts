@@ -1,6 +1,6 @@
 import {Grid} from "../grid/Grid";
 
-export function gridToString<T extends number | string>(grid: Grid<T>) : string {
+export function gridToString<T>(grid: Grid<T>) : string {
     let result = '';
 
     for (let y = 0; y < grid.height; y++) {
@@ -13,7 +13,7 @@ export function gridToString<T extends number | string>(grid: Grid<T>) : string 
     return result;
 }
 
-export function gridToExcelString<T extends number | string>(grid: Grid<T>) : string {
+export function gridToExcelString<T>(grid: Grid<T>) : string {
     let result = '';
 
     for (let y = 0; y < grid.height; y++) {

@@ -2,7 +2,7 @@ import {parsePuzzleInput} from "./_parsePuzzleInput";
 import {Location} from "../../../shared/grid/Location";
 import {Grid, Cell} from "../../../shared/grid/Grid";
 import {Direction} from "../../../shared/grid/Direction";
-import {findAllPaths, findAllPathsVisitingStepOnceFrom} from "../../../shared/grid/search/dfs";
+import {dfs, dfsVisitingOnce} from "../../../shared/grid/search/dfs";
 
 export function sumScoreOfAllTrailheads(input: string): number {
     const topographicMap = parsePuzzleInput(input);
@@ -26,20 +26,20 @@ function getAllTrailHeads(topographicMap: Grid<number>): Location[] {
 
 function getTrailheadScore(trailhead: Location, topographicMap: Grid<number>): number {
     return Array.from(
-        findAllPathsVisitingStepOnceFrom(trailhead, topographicMap, neighbours, reachedThePeak)
+        dfsVisitingOnce(trailhead, topographicMap, neighbours, reachedThePeak)
     ).length;
 }
 
 function getTrailheadRating(trailhead: Location, topographicMap: Grid<number>): number {
     return Array.from(
-        findAllPaths(trailhead, topographicMap, neighbours, reachedThePeak)
+        dfs(trailhead, topographicMap, neighbours, reachedThePeak)
     ).length;
 }
 
 function neighbours(step: Cell<number>, topographicMap: Grid<number>): Cell<number>[] {
     return topographicMap
         .nextInDirections(step.location, [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT])
-        .filter(cell => cell.value - step.value === 1);
+        .filter(cell => cell.value! - step.value! === 1);
 }
 
 const reachedThePeak = (step: Cell<number>) : boolean => step.value === 9;
