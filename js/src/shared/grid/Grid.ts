@@ -1,4 +1,4 @@
-import {Location, locationAsString, nextInDirections} from "./Location";
+import {Location, locationToString, nextInDirections} from "./Location";
 import {Direction} from "./Direction";
 
 export type Cell<T> = {
@@ -30,7 +30,7 @@ export class Grid<T> {
         for (let y = 0; y < grid.length; y++) {
             for (let x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] !== emptyCell) {
-                    cells.set(locationAsString({x, y}), grid[y][x]);
+                    cells.set(locationToString({x, y}), grid[y][x]);
                 }
             }
         }
@@ -46,7 +46,7 @@ export class Grid<T> {
         for (let [location, value] of cells.entries()) {
             width = Math.max(width, location.x + 1);
             height = Math.max(height, location.y + 1);
-            gridCells.set(locationAsString(location), value);
+            gridCells.set(locationToString(location), value);
         }
 
         return new Grid<T>(width, height, gridCells);
@@ -73,7 +73,7 @@ export class Grid<T> {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
-        return this.cells.get(locationAsString(location)) ?? null;
+        return this.cells.get(locationToString(location)) ?? null;
     }
 
     public cellAt(location: Location) : Cell<T> {
@@ -105,7 +105,7 @@ export class Grid<T> {
                 throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
             }
 
-            newGrid.set(locationAsString(location), value);
+            newGrid.set(locationToString(location), value);
         })
 
         return new Grid(this.width, this.height, newGrid);

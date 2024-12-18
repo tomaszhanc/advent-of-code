@@ -1,5 +1,5 @@
 import {Stack} from "../../struct/Stack";
-import {isEqual, Location, locationAsString} from "../Location";
+import {isEqual, Location, locationToString} from "../Location";
 import {lastItem} from "../../utils/collection.utils";
 import {Cell, Grid} from "../Grid";
 import {Direction} from "../Direction";
@@ -54,7 +54,7 @@ export function* dfsVisitingOnce<T>(
 ): Generator<Path<T>> {
     return yield* dfs(
         start, grid, getNeighbors, isTraverseCompleted,
-        (step, visited) => !visited.has(locationAsString(step.location))
+        (step, visited) => !visited.has(locationToString(step.location))
     );
 }
 
@@ -75,7 +75,7 @@ export function* dfs<T>(
     shouldVisit: (step: Cell<T>, visited: Set<string>) => boolean = () => true
 ): Generator<Path<T>> {
     const visited = new Set<string>();
-    visited.add(locationAsString(start));
+    visited.add(locationToString(start));
 
     const stack = new Stack<Path<T>>();
     stack.push([grid.cellAt(start)]);
@@ -93,7 +93,7 @@ export function* dfs<T>(
         }
 
         for (const neighbor of neighbors) {
-            visited.add(locationAsString(neighbor.location));
+            visited.add(locationToString(neighbor.location));
             stack.push([...path, neighbor]);
         }
     }

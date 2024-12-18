@@ -1,7 +1,7 @@
 import {Grid} from "../../shared/grid/Grid";
 import {
     isAdjacent, isEqual,
-    Location, locationAsString,
+    Location, locationToString,
     nextByDistance,
     nextInDirection,
     nextInDirections,
@@ -86,7 +86,7 @@ function numberOfOuterSides(region : Region) : number {
 
     do {
         [current, nextDirection] = findNextCell(current, direction, region, outerBoundaryPath);
-        outerBoundaryPath.add(locationAsString(current));
+        outerBoundaryPath.add(locationToString(current));
 
         if (direction !== nextDirection) {
             direction = nextDirection;
@@ -112,7 +112,7 @@ function findNextCell(
             continue;
         }
 
-        if (visited.has(locationAsString(next))) {
+        if (visited.has(locationToString(next))) {
             direction = rotateClockwise(direction);
             continue;
         }

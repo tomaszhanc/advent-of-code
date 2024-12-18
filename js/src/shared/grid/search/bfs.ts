@@ -1,4 +1,4 @@
-import {isEqual, Location, locationAsString} from "../Location";
+import {isEqual, Location, locationToString} from "../Location";
 import {lastItem} from "../../utils/collection.utils";
 import {Cell, Grid} from "../Grid";
 import {Queue} from "../../struct/Queue";
@@ -27,10 +27,10 @@ export function* bfs<T>(
     grid: Grid<T>,
     getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
     isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0,
-    shouldVisit: (step: Cell<T>, visited: Set<string>) => boolean = (step, visited) => !visited.has(locationAsString(step.location))
+    shouldVisit: (step: Cell<T>, visited: Set<string>) => boolean = (step, visited) => !visited.has(locationToString(step.location))
 ): Generator<Path<T>> {
     const visited = new Set<string>();
-    visited.add(locationAsString(start));
+    visited.add(locationToString(start));
 
     const queue = new Queue<Path<T>>();
     queue.enqueue([grid.cellAt(start)]);
@@ -48,7 +48,7 @@ export function* bfs<T>(
         }
 
         for (const neighbor of neighbors) {
-            visited.add(locationAsString(neighbor.location));
+            visited.add(locationToString(neighbor.location));
             queue.enqueue([...path, neighbor]);
         }
     }

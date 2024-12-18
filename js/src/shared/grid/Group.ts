@@ -1,4 +1,4 @@
-import {Location, locationAsString} from "./Location";
+import {Location, locationToString} from "./Location";
 import {Grid} from "./Grid";
 import {findAllSameValueAdjacentCells} from "./search/dfs";
 import {Direction} from "./Direction";
@@ -42,6 +42,6 @@ export function* groupByAdjacentValues<T>(
             locations: group.map(step => step.location)
         }
 
-        group.forEach(step => visited.add(locationAsString(step.location)));
+        group.forEach(step => visited.add(locationToString(step.location)));
     }
 }

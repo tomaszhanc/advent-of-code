@@ -17,7 +17,7 @@ export function isEqual(location: Location, other: Location) : boolean {
     return location.x === other.x && location.y === other.y;
 }
 
-export function locationAsString(location: Location): string {
+export function locationToString(location: Location): string {
     return `${location.x},${location.y}`;
 }
 
@@ -55,7 +55,7 @@ export function sort(locations: Location[]): Location[] {
 }
 
 export function unique(locations: Location[]) : Location[] {
-    return Array.from(new Set(locations.map(locationAsString))).map(Location.fromString);
+    return Array.from(new Set(locations.map(locationToString))).map(Location.fromString);
 }
 
 export function isAdjacent(location: Location, other: Location): boolean {

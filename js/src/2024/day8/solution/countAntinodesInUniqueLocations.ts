@@ -1,4 +1,4 @@
-import {distanceBetween, Location, locationAsString} from "../../../shared/grid/Location";
+import {distanceBetween, Location, locationToString} from "../../../shared/grid/Location";
 import {Distance, invert} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
@@ -23,7 +23,7 @@ export function countAntinodesInUniqueLocations(
                 ];
 
                 for (const antinode of antinodes) {
-                    uniqueAntinodes.add(locationAsString(antinode));
+                    uniqueAntinodes.add(locationToString(antinode));
                 }
             }
         }
