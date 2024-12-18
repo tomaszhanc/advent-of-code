@@ -14,17 +14,28 @@ export function part1(input: string, memorySize: number, simulationSize : number
     return findShortestPath(memorySpace).length - 1;
 }
 
-export function part2(memorySize: number, input: string): number {
-    const _ = parsePuzzleInput(input);
+export function part2(input: string, memorySize: number, lastValidSimulationSize: number): string {
+    const listOfBytes = parsePuzzleInput(input);
+    let memorySpace = Grid
+        .empty<string>(memorySize, memorySize)
+        .setValue('#', ...listOfBytes.slice(0, lastValidSimulationSize));
 
-    return 0;
+    for (let byte of listOfBytes.slice(lastValidSimulationSize)) {
+        memorySpace = memorySpace.setValue('#', byte);
+
+        if (findShortestPath(memorySpace).length === 0) {
+            return locationToString(byte);
+        }
+    }
+
+    throw Error('All good.... or not?');
 }
 
 function parsePuzzleInput(input: string) {
     return readByLine(input).map(line => Location.fromString(line));
 }
 
-function findShortestPath(memorySpace: Grid<string>) : [] {
+function findShortestPath(memorySpace: Grid<string>) : Location[] {
     const start = { x:0, y:0 };
     const end = { x:memorySpace.width-1, y:memorySpace.height-1 };
 
@@ -50,4 +61,6 @@ function findShortestPath(memorySpace: Grid<string>) : [] {
             queue.enqueue([...currentPath, next.location]);
         }
     }
+
+    return [];
 }
