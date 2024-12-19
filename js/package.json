@@ -10,6 +10,7 @@
     "start": "tsc && node"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

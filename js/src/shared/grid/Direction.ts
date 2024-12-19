@@ -12,7 +12,6 @@ export enum Direction {
 export namespace Direction {
     export function allOrthogonal() : Direction[] {
         return [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT];
-
     }
 }
 
@@ -26,6 +25,21 @@ export function rotateClockwise(direction : Direction) : Direction {
         [Direction.DOWN]:       Direction.LEFT,
         [Direction.DOWN_LEFT]:  Direction.UP_LEFT,
         [Direction.LEFT]:       Direction.UP,
+    };
+
+    return directionMap[direction];
+}
+
+export function rotateCounterclockwise(direction : Direction) : Direction {
+    const directionMap = {
+        [Direction.UP_LEFT]:    Direction.DOWN_LEFT,
+        [Direction.LEFT]:       Direction.DOWN,
+        [Direction.DOWN_LEFT]:  Direction.DOWN_RIGHT,
+        [Direction.DOWN]:       Direction.RIGHT,
+        [Direction.DOWN_RIGHT]: Direction.UP_RIGHT,
+        [Direction.RIGHT]:      Direction.UP,
+        [Direction.UP_RIGHT]:   Direction.UP_LEFT,
+        [Direction.UP]:         Direction.LEFT,
     };
 
     return directionMap[direction];

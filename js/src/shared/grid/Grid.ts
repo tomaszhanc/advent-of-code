@@ -1,4 +1,4 @@
-import {Location, locationToString, nextInDirections} from "./Location";
+import {Location, locationToString, nextInDirection, nextInDirections} from "./Location";
 import {Direction} from "./Direction";
 
 export type Cell<T> = {
@@ -52,14 +52,14 @@ export class Grid<T> {
         return new Grid<T>(width, height, gridCells);
     }
 
-    public firstLocationOf(value: T): Location | null {
+    public firstLocationOf(value: T): Location {
         for (const [key, cell] of this.cells.entries()) {
             if (value === cell) {
                 return Location.fromString(key);
             }
         }
 
-        return null;
+        throw new Error(`Value not found: ${value}`);
     }
 
     public allLocationsOf(value: T): Location[] {
@@ -87,17 +87,23 @@ export class Grid<T> {
         };
     }
 
+    public nextInDirection(location: Location, direction: Direction) : Cell<T> | null {
+        const next = nextInDirection(location, direction);
+
+        if (this.hasInBounds(next)) {
+            return this.cellAt(next);
+        }
+
+        return null;
+    }
+
     public nextInDirections(location: Location, directions: Direction[]) : Cell<T>[] {
         return nextInDirections(location, directions)
-            .filter(location => this.hasInBounds(location))
-            .map(location => this.cellAt(location));
+            .filter(next => this.hasInBounds(next))
+            .map(next => this.cellAt(next));
     }
 
     public setValue(value: T, ...locations: Location[]): Grid<T> {
-        if (locations.length === 0) {
-            throw new Error('No locations provided');
-        }
-
         let newGrid = new Map<string, T>(this.cells.entries());
 
         locations.forEach(location => {
