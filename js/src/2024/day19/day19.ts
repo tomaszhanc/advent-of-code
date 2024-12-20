@@ -4,14 +4,15 @@ export function part1(input: string): number {
     const [availablePatterns, desiredDesigns] = parsePuzzleInput(input);
 
     return desiredDesigns
-        .filter(design => canBeMatched(design, availablePatterns))
+        .filter(design => canBeMatchedRecursive(design, availablePatterns) > 0)
         .length;
 }
 
 export function part2(input: string): number {
-    const _ = parsePuzzleInput(input);
+    const [availablePatterns, desiredDesigns] = parsePuzzleInput(input);
 
-    return 0;
+    return desiredDesigns
+        .reduce((sum, design) => sum + canBeMatchedRecursive(design, availablePatterns), 0)
 }
 
 function parsePuzzleInput(input: string) : [string[], string[]] {
@@ -20,24 +21,23 @@ function parsePuzzleInput(input: string) : [string[], string[]] {
     return [lines[0].split(', '), lines.slice(2)];
 }
 
-function canBeMatched(design: string, patterns: string[], memory = new Map<string, boolean>): boolean {
-    if (design.length === 0) {
-        return true;
+function canBeMatchedRecursive(design: string, patterns: string[], memory: Map<string, number> = new Map<string, number>()): number {
+    if (design === "") {
+        return 1;
     }
 
     if (memory.has(design)) {
         return memory.get(design)!;
     }
 
-    for (const pattern of patterns) {
+    let combinationCount = 0;
+
+    for (let pattern of patterns) {
         if (design.startsWith(pattern)) {
-            if (canBeMatched(design.slice(pattern.length), patterns, memory)) {
-                memory.set(design, true);
-                return true;
-            }
+            combinationCount += canBeMatchedRecursive(design.slice(pattern.length), patterns, memory);
         }
     }
 
-    memory.set(design, false);
-    return false;
+    memory.set(design, combinationCount);
+    return combinationCount;
 }
