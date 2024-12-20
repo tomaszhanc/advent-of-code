@@ -14,6 +14,7 @@ bwurrg
 brgr
 bbrgwb
 `;
+
 const input = readPuzzleInput('2024/day19.txt');
 
 describe('AoC 2024, Day 19, Part 1', () => {
@@ -32,6 +33,6 @@ describe('AoC 2024, Day 19, Part 2', () => {
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(16)
+        expect(part2(input)).toBe(616234236468263)
     })
 });
