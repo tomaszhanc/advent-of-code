@@ -15,8 +15,7 @@ export function part1(saveAtLeast: number, input: string): number {
     const raceCompleted = (location: Location) => isEqual(location, end);
 
     const fastestRouteTime = getTimeForFastestRouteWithoutCheating(start, racetrack, raceCompleted);
-
-    return findAllCheatPathsBetterThan(fastestRouteTime - saveAtLeast, start, racetrack, raceCompleted);
+    return findAllCheatPaths(fastestRouteTime, saveAtLeast, racetrack);
 }
 
 export function part2(input: string): number {
@@ -33,7 +32,7 @@ function getTimeForFastestRouteWithoutCheating(
     start: Location,
     racetrack: Grid<string>,
     raceCompleted: (location: Location) => boolean
-) : number {
+) : Location[] {
     const queue = new Queue<Location[]>();
     const visited = new Unique();
     queue.enqueue([start]);
@@ -44,7 +43,7 @@ function getTimeForFastestRouteWithoutCheating(
         const current = lastItem(currentPath);
 
         if (raceCompleted(current)) {
-            return currentPath.length - 1;
+            return currentPath;
         }
 
         for (const next of racetrack.nextInDirections(current, Direction.allOrthogonal())) {
@@ -60,66 +59,29 @@ function getTimeForFastestRouteWithoutCheating(
     throw new Error('No route found');
 }
 
-type RacePath = {
-    path: Location[],
-    cheated: boolean
-}
-
-function findAllCheatPathsBetterThan(
-    maxTime: number,
-    start: Location,
-    racetrack: Grid<string>,
-    raceCompleted: (location: Location) => boolean,
+function findAllCheatPaths(
+    fastestPath: Location[],
+    saveAtLeast: number,
+    racetrack: Grid<string>
 ) : number {
-    const stack = new Stack<RacePath>();
-    const allCheatPaths = new Unique<Location[]>();
+    let count = 0;
 
-    stack.push({ path: [start], cheated: false});
-
-    let i =0;
-
-    while (!stack.isEmpty()) {
-        i++;
-        const currentPath = stack.pop();
-        const current = lastItem(currentPath.path);
-
-        if (currentPath.path.length-1 > maxTime) {
-            continue;
-        }
-
-        if (raceCompleted(current)) {
-            if (currentPath.cheated) {
-                allCheatPaths.add(currentPath.path);
-            }
-            continue;
-        }
+    for (let i = 0; i < fastestPath.length; i++) {
+        const step = fastestPath[i];
 
         for (const direction of Direction.allOrthogonal()) {
-            const next = racetrack.nextInDirection(current, direction);
+            const cheatStart = racetrack.nextInDirection(step, direction);
+            if (cheatStart === null || !isWall(cheatStart)) continue;
 
-            if (next === null || alreadyVisited(next.location, currentPath.path)) {
-                continue;
-            }
+            const cheatEnd = racetrack.nextInDirection(cheatStart.location, direction);
+            if (cheatEnd === null || isWall(cheatEnd)) continue;
 
-            let alreadyCheated = currentPath.cheated;
-            if (isWall(next)) {
-                if (alreadyCheated || !isThereMoveAfter(next.location, direction, racetrack)) {
-                    continue;
-                }
+            const index = fastestPath.findIndex(location => isEqual(location, cheatEnd.location));
+            if (index - i <= saveAtLeast) continue;
 
-                alreadyCheated = true;
-            }
-
-            stack.push({path: [...currentPath.path, next.location], cheated: alreadyCheated });
+            count++;
         }
     }
 
-    return allCheatPaths.size();
-}
-
-
-function isThereMoveAfter(location: Location, direction: Direction, racetrack: Grid<string>) : boolean {
-    const next = racetrack.nextInDirection(location, direction);
-
-    return next !== null && !isWall(next);
+    return count;
 }

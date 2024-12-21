@@ -28,7 +28,7 @@ describe('AoC 2024, Day X, Part 1', () => {
     })
 
     it('check the input', () => {
-        expect(part1(100, input)).toBe(-1)
+        expect(part1(100, input)).toBe(1490)
     })
 });
 
