@@ -1,4 +1,4 @@
-import {Location} from "./Location";
+import {Location} from "./Location.js";
 
 export function insideBoundary(location: Location, boundary: Location[]) {
     const yLocations : Location[] = [];

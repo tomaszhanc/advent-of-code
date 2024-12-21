@@ -1,5 +1,5 @@
-import {Direction} from "./Direction";
-import {Distance} from "./Distance";
+import {Direction} from "./Direction.js";
+import {Distance} from "./Distance.js";
 
 export type Location = {
     readonly x: number,
@@ -19,6 +19,10 @@ export function isEqual(location: Location, other: Location) : boolean {
 
 export function locationToString(location: Location): string {
     return `${location.x},${location.y}`;
+}
+
+export function locationsToString(...locations: Location[]): string {
+    return locations.map(locationToString).join('->');
 }
 
 export function distanceBetween(location: Location, other: Location): Distance {
@@ -60,4 +64,8 @@ export function unique(locations: Location[]) : Location[] {
 
 export function isAdjacent(location: Location, other: Location): boolean {
     return Math.abs(location.x - other.x) <= 1 && Math.abs(location.y - other.y) <= 1;
+}
+
+export function alreadyVisited(location: Location, path: Location[]) : boolean {
+    return path.some(other => isEqual(location, other))
 }

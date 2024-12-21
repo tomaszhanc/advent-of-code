@@ -1,7 +1,7 @@
-import {Location, locationToString} from "./Location";
-import {Grid} from "./Grid";
-import {findAllSameValueAdjacentCells} from "./search/dfs";
-import {Direction} from "./Direction";
+import {Location, locationToString} from "./Location.js";
+import {Grid} from "./Grid.js";
+import {findAllSameValueAdjacentCells} from "./search/dfs.js";
+import {Direction} from "./Direction.js";
 
 export type Group<T> = {
     readonly key: T,

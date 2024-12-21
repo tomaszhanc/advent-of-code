@@ -1,6 +1,6 @@
-import {Grid} from "../grid/Grid";
+import {Grid} from "../grid/Grid.js";
 import chalk from 'chalk';
-import {Location} from "../grid/Location";
+import {Location} from "../grid/Location.js";
 
 export function printGrid<T>(grid: Grid<T>, path: Location[] = []): void {
     const colors = {

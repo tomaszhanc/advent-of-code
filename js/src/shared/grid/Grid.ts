@@ -1,10 +1,14 @@
-import {Location, locationToString, nextInDirection, nextInDirections} from "./Location";
-import {Direction} from "./Direction";
+import {Location, locationToString, nextInDirection, nextInDirections} from "./Location.js";
+import {Direction} from "./Direction.js";
 
 export type Cell<T> = {
     readonly location: Location,
     readonly value: T | null
 };
+
+export function isWall(cell: Cell<string>) {
+    return cell.value === '#';
+}
 
 export class Grid<T> {
     private constructor(

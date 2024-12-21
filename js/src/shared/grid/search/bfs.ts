@@ -1,7 +1,7 @@
-import {isEqual, Location, locationToString} from "../Location";
-import {lastItem} from "../../utils/collection.utils";
-import {Cell, Grid} from "../Grid";
-import {Queue} from "../../struct/Queue";
+import {isEqual, Location, locationToString} from "../Location.js";
+import {lastItem} from "../../utils/collection.utils.js";
+import {Cell, Grid} from "../Grid.js";
+import {Queue} from "../../struct/Queue.js";
 
 export type Path<T> = Cell<T>[];
 
