@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vitest";
 import {readPuzzleInput} from "../../src/shared/read.input";
-import {part1, part2} from "../../src/2024/day20/day20";
+import {part1} from "../../src/2024/day20/day20";
 
 const example = `
 ###############
@@ -46,6 +46,6 @@ describe('AoC 2024, Day X, Part 2', () => {
 
     it('checks the input', () => {
         const saveAtLeastPicoseconds = 100;
-        expect(part1(input, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(-1)
+        expect(part1(input, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(1011325)
     })
 });
