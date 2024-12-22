@@ -23,21 +23,29 @@ const example = `
 const input = readPuzzleInput('2024/day20.txt');
 
 describe('AoC 2024, Day X, Part 1', () => {
+    const cheatSpanPicoseconds = 2;
+
     it('checks the example', () => {
-        expect(part1(1, example)).toBe(44)
+        const saveAtLeastPicoseconds = 1;
+        expect(part1(example, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(44)
     })
 
     it('check the input', () => {
-        expect(part1(100, input)).toBe(1490)
+        const saveAtLeastPicoseconds = 100;
+        expect(part1(input, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(1490)
     })
 });
 
 describe('AoC 2024, Day X, Part 2', () => {
+    const cheatSpanPicoseconds = 20;
+
     it('checks the example', () => {
-        expect(part2(example)).toBe(-1)
+        const saveAtLeastPicoseconds = 50;
+        expect(part1(example, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(285)
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        const saveAtLeastPicoseconds = 100;
+        expect(part1(input, cheatSpanPicoseconds, saveAtLeastPicoseconds)).toBe(-1)
     })
 });

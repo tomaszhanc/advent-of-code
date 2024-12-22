@@ -8,13 +8,13 @@ import {lastItem} from "../../shared/utils/collection.utils.js";
 import {Unique} from "../../shared/grid/Unique.js";
 import {printGrid} from "../../shared/utils/debug.js";
 
-export function part1(saveAtLeast: number, input: string): number {
+export function part1(input: string, cheatSpan: number, saveAtLeast: number): number {
     const racetrack = parsePuzzleInput(input);
     const start = racetrack.firstLocationOf('S');
     const end = racetrack.firstLocationOf('E');
     const raceCompleted = (location: Location) => isEqual(location, end);
 
-    const fastestRouteTime = getTimeForFastestRouteWithoutCheating(start, racetrack, raceCompleted);
+    const fastestRouteTime = getFastestRouteWithoutCheating(start, racetrack, raceCompleted);
     return findAllCheatPaths(fastestRouteTime, saveAtLeast, racetrack);
 }
 
@@ -28,7 +28,7 @@ function parsePuzzleInput(input: string) {
     return Grid.fromArray(readByLine(input).map(line => line.split('')));
 }
 
-function getTimeForFastestRouteWithoutCheating(
+function getFastestRouteWithoutCheating(
     start: Location,
     racetrack: Grid<string>,
     raceCompleted: (location: Location) => boolean
