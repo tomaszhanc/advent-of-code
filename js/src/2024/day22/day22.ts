@@ -16,9 +16,36 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-    const _ = parsePuzzleInput(input);
+    const secretNumbers = parsePuzzleInput(input);
+    const priceChangeSequences = new Map<string, number>();
+    let maxPrice = 0;
 
-    return 0;
+    for (let secret of secretNumbers) {
+        const occurredSequences = new Set<string>;
+        const lastPriceChanges : number[] = [];
+        let previousPrice : number = getPrice(secret);
+
+        for (let i = 0; i < 2000; i++) {
+            secret = nextSecretNumber(secret);
+
+            let currentPrice = getPrice(secret);
+            lastPriceChanges.push(currentPrice - previousPrice);
+            previousPrice = currentPrice;
+
+            if (i < 3) continue;
+
+            const sequenceId = lastPriceChanges.join(',');
+            lastPriceChanges.shift();
+
+            if (occurredSequences.has(sequenceId)) continue;
+
+            occurredSequences.add(sequenceId);
+            priceChangeSequences.set(sequenceId, (priceChangeSequences.get(sequenceId) ?? 0) + currentPrice);
+            maxPrice = Math.max(maxPrice, priceChangeSequences.get(sequenceId)!);
+        }
+    }
+
+    return maxPrice;
 }
 
 function parsePuzzleInput(input: string) : number[] {
@@ -33,3 +60,5 @@ function nextSecretNumber(secret: number) : number {
     const part2 = prune(mix(part1, part1 >> 5));
     return prune(mix(part2, part2 << 11));
 }
+
+const getPrice = (secret: number) => secret < 10 ? secret : secret % 10;

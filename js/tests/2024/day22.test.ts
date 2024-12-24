@@ -32,6 +32,6 @@ describe('AoC 2024, Day 22, Part 2', () => {
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        expect(part2(input)).toBe(2218)
     })
 });
