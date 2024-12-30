@@ -17,3 +17,28 @@ export function splitEvenDigitNumber(number: number): [number, number] {
 export function modulo(dividend: number, divisor: number): number {
     return (dividend % divisor + divisor) % divisor;
 }
+
+export function lowestCommonMultiple(...numbers: number[]): number {
+    if (numbers.length === 0) {
+        return 0;
+    }
+
+    let a = numbers.shift() as number;
+    for (const b of numbers) {
+        a = Math.abs(a * b) / greatestCommonDivisor(a, b);
+    }
+
+    return a;
+}
+
+function greatestCommonDivisor(a: number, b: number): number {
+  let gcd = a;
+
+  while (b !== 0) {
+    const remainder = gcd % b;
+    gcd = b;
+    b = remainder;
+  }
+
+  return gcd;
+}
