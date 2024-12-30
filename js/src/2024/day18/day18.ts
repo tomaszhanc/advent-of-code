@@ -9,7 +9,7 @@ export function part1(input: string, memorySize: number, simulationSize : number
     const listOfBytes = parsePuzzleInput(input);
     const memorySpace = Grid
         .empty<string>(memorySize, memorySize)
-        .setValue('#', ...listOfBytes.slice(0, simulationSize));
+        .setValueAt('#', ...listOfBytes.slice(0, simulationSize));
 
     return findShortestPath(memorySpace).length - 1;
 }
@@ -18,10 +18,10 @@ export function part2(input: string, memorySize: number, lastValidSimulationSize
     const listOfBytes = parsePuzzleInput(input);
     let memorySpace = Grid
         .empty<string>(memorySize, memorySize)
-        .setValue('#', ...listOfBytes.slice(0, lastValidSimulationSize));
+        .setValueAt('#', ...listOfBytes.slice(0, lastValidSimulationSize));
 
     for (let byte of listOfBytes.slice(lastValidSimulationSize)) {
-        memorySpace = memorySpace.setValue('#', byte);
+        memorySpace = memorySpace.setValueAt('#', byte);
 
         if (findShortestPath(memorySpace).length === 0) {
             return locationToString(byte);

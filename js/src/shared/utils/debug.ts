@@ -12,7 +12,11 @@ export function printGrid<T>(grid: Grid<T>, path: Location[] = []): void {
         'o': chalk.red,
     };
 
-    const printCell = (value: string | null) : string => {
+    const printCell = (value: string | number | null) : string => {
+        if (typeof value === 'number') {
+            return chalk.green(value);
+        }
+
         value = value ?? '.';
         if (Object.prototype.hasOwnProperty.call(colors, value)) {
             return colors[value as keyof typeof colors](value);

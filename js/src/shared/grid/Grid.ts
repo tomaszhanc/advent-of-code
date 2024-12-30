@@ -1,4 +1,4 @@
-import {Location, locationToString, nextInDirection, nextInDirections} from "./Location.js";
+import {Location, locationToString, nextInDirections} from "./Location.js";
 import {Direction} from "./Direction.js";
 
 export type Cell<T> = {
@@ -42,16 +42,26 @@ export class Grid<T> {
         return new Grid(grid[0].length, grid.length, cells);
     }
 
-    public static fromMap<T>(cells : Map<Location, T>): Grid<T> {
+    public static withCells<T>(cells : Map<Location|string, T>, width: number | null = null, height: number | null = null): Grid<T> {
         const gridCells = new Map<string, T>();
-        let width = 0;
-        let height = 0;
+        let maxWidth = 0;
+        let maxHeight = 0;
 
         for (let [location, value] of cells.entries()) {
-            width = Math.max(width, location.x + 1);
-            height = Math.max(height, location.y + 1);
+            if (typeof location === 'string') {
+                location = Location.fromString(location);
+            }
+
+            maxWidth = Math.max(maxWidth, location.x + 1);
+            maxHeight = Math.max(maxHeight, location.y + 1);
             gridCells.set(locationToString(location), value);
         }
+
+        width = width ?? maxWidth;
+        height = height ?? maxHeight;
+
+        if (maxHeight > height) throw new Error(`At least on cell is out of bounds in the y-axis`);
+        if (maxWidth > width) throw new Error(`At least on cell is out of bounds in the x-axis`);
 
         return new Grid<T>(width, height, gridCells);
     }
@@ -92,13 +102,7 @@ export class Grid<T> {
     }
 
     public nextInDirection(location: Location, direction: Direction) : Cell<T> | null {
-        const next = nextInDirection(location, direction);
-
-        if (this.hasInBounds(next)) {
-            return this.cellAt(next);
-        }
-
-        return null;
+        return this.nextInDirections(location, [direction])[0] ?? null;
     }
 
     public nextInDirections(location: Location, directions: Direction[]) : Cell<T>[] {
@@ -107,7 +111,7 @@ export class Grid<T> {
             .map(next => this.cellAt(next));
     }
 
-    public setValue(value: T, ...locations: Location[]): Grid<T> {
+    public setValueAt(value: T, ...locations: Location[]): Grid<T> {
         let newGrid = new Map<string, T>(this.cells.entries());
 
         locations.forEach(location => {

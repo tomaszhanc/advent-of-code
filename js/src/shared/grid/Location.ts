@@ -1,3 +1,8 @@
+/**
+ * I'm experimenting with class Position and type Location
+ * for the same concept to see which one I like better.
+ */
+
 import {Direction} from "./Direction.js";
 import {Distance} from "./Distance.js";
 

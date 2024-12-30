@@ -1,4 +1,4 @@
-import {splitEvenDigitNumber} from "../../shared/utils/uncommon";
+import {splitEvenDigitNumber} from "../../shared/utils/utils";
 
 type Stone = number;
 

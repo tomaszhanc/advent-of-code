@@ -28,5 +28,5 @@ export function obstaclesToLoopTheGuard(input: string): number {
     return obstacles;
 }
 
-const plantObstacle = (location: Location, map: Grid<string>) => map.setValue('#', location);
+const plantObstacle = (location: Location, map: Grid<string>) => map.setValueAt('#', location);
 const isGuardStackedInTheLoop = (guardPosition: GuardPosition, visited: Set<string>) => visited.has(guardPositionAsString(guardPosition));

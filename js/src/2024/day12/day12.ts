@@ -51,7 +51,7 @@ const calculateArea = (region: Region) => region.locations.length
 
 function numberOfSides(region : Region) : number {
     const outerSides = numberOfOuterSides(region);
-    const smallGrid = Grid.fromMap(
+    const smallGrid = Grid.withCells(
         new Map(region.locations.map(location => [location, region.plant]))
     );
 
