@@ -1,15 +1,27 @@
 import {Location, locationToString, nextInDirections} from "./Location.js";
 import {Direction} from "./Direction.js";
 
-export type Cell<T> = {
-    readonly location: Location,
-    readonly value: T | null
-};
+export function createGrid(data: string) : Map<string, string> {
+    const grid = new Map<string, string>();
+    const rows = data.trim().split('\n');
+
+    for (let y = 0; y < rows.length; y++) {
+        for (let x = 0; x < rows[y].length; x++) {
+            grid.set(`${x},${y}`, rows[y][x]);
+        }
+    }
+
+    return grid;
+}
 
 export function isWall(cell: Cell<string>) {
     return cell.value === '#';
 }
 
+/**
+ * I'm experimenting with class Grid and
+ * just a Map<string, string> to see which one I like better.
+ */
 export class Grid<T> {
     private constructor(
         public readonly width: number,
@@ -139,3 +151,8 @@ export class Grid<T> {
             && location.y >= 0 && location.y < this.height
     }
 }
+
+export type Cell<T> = {
+    readonly location: Location,
+    readonly value: T | null
+};
