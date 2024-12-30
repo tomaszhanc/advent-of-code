@@ -38,6 +38,6 @@ describe('AoC 2024, Day 13, Part 2', () => {
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(84936226087330)
+        expect(part2(input)).toBe(83232379451012)
     })
 });

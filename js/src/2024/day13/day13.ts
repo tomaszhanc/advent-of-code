@@ -1,22 +1,12 @@
 export function part1(input: string): number {
-    return Number(numberOfTokens(parsePuzzleInput(input)));
+    return numberOfTokens(parsePuzzleInput(input));
 }
 
 export function part2(input: string): number {
-    return Number(numberOfTokens(
-        parsePuzzleInput(input).map(([buttonA, buttonB, prize]) => {
-            const offset = BigInt('10000000000000');
-
-            return [
-                buttonA,
-                buttonB,
-                { x: prize.x + offset, y: prize.y + offset }
-            ]}
-        )
-    ));
+    return numberOfTokens(parsePuzzleInput(input), 10_000_000_000_000);
 }
 
-type Position = {x: bigint, y: bigint};
+type Position = {x: number, y: number};
 type Machine = [Position, Position, Position];
 
 function parsePuzzleInput(input: string) : Machine[] {
@@ -31,28 +21,25 @@ function parsePuzzleInput(input: string) : Machine[] {
         }
 
         return [
-            { x: BigInt(buttonAMatch[1]), y: BigInt(buttonAMatch[2]) },
-            { x: BigInt(buttonBMatch[1]), y: BigInt(buttonBMatch[2]) },
-            { x: BigInt(prizeMatch[1]),   y: BigInt(prizeMatch[2]) }
+            { x: +buttonAMatch[1], y: +buttonAMatch[2] },
+            { x: +buttonBMatch[1], y: +buttonBMatch[2] },
+            { x: +prizeMatch[1],   y: +prizeMatch[2] }
         ]
     });
 }
 
-function numberOfTokens(machines: Machine[]) : bigint {
+function numberOfTokens(machines: Machine[], prizeOffset: number = 0) : number {
     return machines
         .map(([buttonA, buttonB, prize]) => {
-            const dividend = prize.x * buttonA.y - prize.y * buttonA.x;
-            const divisor  = buttonB.x * buttonA.y - buttonB.y * buttonA.x;
+            prize.x += prizeOffset;
+            prize.y += prizeOffset;
 
-            if (!Number.isInteger(Number(dividend)/Number(divisor))) {
-                return BigInt(0);
-            }
+            const b = (prize.x * buttonA.y - prize.y * buttonA.x) / (buttonB.x * buttonA.y - buttonB.y * buttonA.x);
+            const a = (prize.x - buttonB.x * b) / buttonA.x;
 
-            const buttonBPresses = dividend/divisor;
-            const buttonAPresses = (prize.x - buttonB.x * buttonBPresses) / buttonA.x;
-
-            return buttonAPresses * BigInt(3) + buttonBPresses;
+            return [a, b];
         })
-        .reduce((sum: bigint, cost: bigint) => sum + cost, BigInt(0))
-    ;
+        .filter(([a, b]) => Number.isInteger(a) && Number.isInteger(b))
+        .map(([a, b]) => a * 3 + b)
+        .reduce((sum: number, cost: number) => sum + cost, 0)
 }
