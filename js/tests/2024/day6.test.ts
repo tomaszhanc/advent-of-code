@@ -1,6 +1,6 @@
-import {readPuzzleInput} from "../../../src/shared/read.input";
-import {tilesVisitedByGuard} from "../../../src/2024/day6/solution/tilesVisitedByGuard";
-import {obstaclesToLoopTheGuard} from "../../../src/2024/day6/solution/obstaclesToLoopTheGuard";
+import {readPuzzleInput} from "../../src/shared/read.input.js";
+import {tilesVisitedByGuard} from "../../src/2024/day6/solution/tilesVisitedByGuard.js";
+import {obstaclesToLoopTheGuard} from "../../src/2024/day6/solution/obstaclesToLoopTheGuard.js";
 import {describe, expect, it} from 'vitest'
 
 const input = readPuzzleInput('2024/day6.txt');

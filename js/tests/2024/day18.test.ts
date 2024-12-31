@@ -41,10 +41,12 @@ describe('AoC 2024, Day 18, Example', () => {
     })
 });
 
-describe('AoC 2024, Day X', () => {
+describe('AoC 2024, Day 18', () => {
     it('part 1', () => {
         expect(part1(input, 71, 1024)).toBe(432)
     })
 
-    // @see long-running tests for part2
+    it('part 2', () => {
+        expect(part2(input, 71, 1024)).toBe('56,27')
+    })
 });

@@ -1,61 +1,41 @@
 import {Location, locationToString, nextInDirections} from "./Location.js";
 import {Direction} from "./Direction.js";
 
-export function createGrid(data: string) : Map<string, string> {
-    const grid = new Map<string, string>();
-    const rows = data.trim().split('\n');
-
-    for (let y = 0; y < rows.length; y++) {
-        for (let x = 0; x < rows[y].length; x++) {
-            grid.set(`${x},${y}`, rows[y][x]);
-        }
-    }
-
-    return grid;
-}
-
-export function isWall(cell: Cell<string>) {
-    return cell.value === '#';
-}
-
-/**
- * I'm experimenting with class Grid and
- * just a Map<string, string> to see which one I like better.
- */
-export class Grid<T> {
+export class Grid {
     private constructor(
+        public readonly cells: Map<string, string>,
         public readonly width: number,
-        public readonly height: number,
-        public readonly cells: Map<string, T>
+        public readonly height: number
     ) {
     }
 
-    public static empty<T>(width: number, height: number): Grid<T> {
-        return new Grid(width, height, new Map<string, T>());
+    public static empty(width: number, height: number): Grid {
+        return new Grid(new Map<string, string>, width, height);
     }
 
-    public static fromString<T>(data: string): Grid<T> {
-        return Grid.fromArray(
-            data.trim().split('\n').map(line => line.split('').map(cell => cell as T)),
-        );
+    public static fromString(data: string): Grid {
+        return Grid.fromArray(data.trim().split('\n').map(line => line.split('')));
     }
 
-    public static fromArray<T>(grid: T[][], emptyCell: T | null = null): Grid<T> {
-        const cells = new Map<string, T>();
+    // fixme remove 'emptyCell` parameter?
+    public static fromArray(rows: string[][], emptyCell: string | null = null): Grid {
+        const cells = new Map<string, string>();
+        let width = 0;
 
-        for (let y = 0; y < grid.length; y++) {
-            for (let x = 0; x < grid[y].length; x++) {
-                if (grid[y][x] !== emptyCell) {
-                    cells.set(locationToString({x, y}), grid[y][x]);
+        for (let y = 0; y < rows.length; y++) {
+            width = Math.max(width, rows[y].length);
+            for (let x = 0; x < rows[y].length; x++) {
+                if (rows[y][x] !== emptyCell) { // fixme remove this check?
+                    cells.set(locationToString({x, y}), rows[y][x]);
                 }
             }
         }
 
-        return new Grid(grid[0].length, grid.length, cells);
+        return new Grid(cells, width, rows.length);
     }
 
-    public static withCells<T>(cells : Map<Location|string, T>, width: number | null = null, height: number | null = null): Grid<T> {
-        const gridCells = new Map<string, T>();
+    public static create(cells: Map<Location|string, string>, width: number | null = null, height: number | null = null): Grid {
+        const gridCells = new Map<string, string>();
         let maxWidth = 0;
         let maxHeight = 0;
 
@@ -66,6 +46,7 @@ export class Grid<T> {
 
             maxWidth = Math.max(maxWidth, location.x + 1);
             maxHeight = Math.max(maxHeight, location.y + 1);
+
             gridCells.set(locationToString(location), value);
         }
 
@@ -75,10 +56,10 @@ export class Grid<T> {
         if (maxHeight > height) throw new Error(`At least on cell is out of bounds in the y-axis`);
         if (maxWidth > width) throw new Error(`At least on cell is out of bounds in the x-axis`);
 
-        return new Grid<T>(width, height, gridCells);
+        return new Grid(gridCells, width, height);
     }
 
-    public firstLocationOf(value: T): Location {
+    public firstLocationOf(value: string): Location {
         for (const [key, cell] of this.cells.entries()) {
             if (value === cell) {
                 return Location.fromString(key);
@@ -88,13 +69,13 @@ export class Grid<T> {
         throw new Error(`Value not found: ${value}`);
     }
 
-    public allLocationsOf(value: T): Location[] {
+    public allLocationsOf(value: string): Location[] {
         return Array.from(this.cells)
-            .filter(([key, cell]) => cell === value)
-            .map(([key, cell]) => Location.fromString(key));
+            .filter(([_, cell]) => cell === value)
+            .map(([key, _]) => Location.fromString(key));
     }
 
-    public valueAt(location: Location): T | null {
+    public valueAt(location: Location): string | null {
         if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
@@ -102,29 +83,26 @@ export class Grid<T> {
         return this.cells.get(locationToString(location)) ?? null;
     }
 
-    public cellAt(location: Location) : Cell<T> {
+    public cellAt(location: Location) : Cell {
         if (!this.hasInBounds(location)) {
             throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
         }
 
-        return {
-            location,
-            value: this.valueAt(location)
-        };
+        return { location, value: this.valueAt(location) };
     }
 
-    public nextInDirection(location: Location, direction: Direction) : Cell<T> | null {
+    public nextInDirection(location: Location, direction: Direction) : Cell | null {
         return this.nextInDirections(location, [direction])[0] ?? null;
     }
 
-    public nextInDirections(location: Location, directions: Direction[]) : Cell<T>[] {
+    public nextInDirections(location: Location, directions: Direction[]) : Cell[] {
         return nextInDirections(location, directions)
             .filter(next => this.hasInBounds(next))
             .map(next => this.cellAt(next));
     }
 
-    public setValueAt(value: T, ...locations: Location[]): Grid<T> {
-        let newGrid = new Map<string, T>(this.cells.entries());
+    public setValueAt(value: string, ...locations: Location[]): Grid {
+        let newGrid = new Map<string, string>(this.cells.entries());
 
         locations.forEach(location => {
             if (!this.hasInBounds(location)) {
@@ -134,10 +112,10 @@ export class Grid<T> {
             newGrid.set(locationToString(location), value);
         })
 
-        return new Grid(this.width, this.height, newGrid);
+        return new Grid(newGrid, this.width, this.height);
     }
 
-    public forEach(callback: (location: Location, value: T | null) => void): void {
+    public forEach(callback: (location: Location, value: string | null) => void): void {
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 const location = {x, y};
@@ -152,7 +130,11 @@ export class Grid<T> {
     }
 }
 
-export type Cell<T> = {
+export type Cell = {
     readonly location: Location,
-    readonly value: T | null
+    readonly value: string | null
 };
+
+export function isWall(cell: Cell) {
+    return cell.value === '#';
+}

@@ -51,7 +51,7 @@ const calculateArea = (region: Region) => region.locations.length
 
 function numberOfSides(region : Region) : number {
     const outerSides = numberOfOuterSides(region);
-    const smallGrid = Grid.withCells(
+    const smallGrid = Grid.create(
         new Map(region.locations.map(location => [location, region.plant]))
     );
 
@@ -139,7 +139,7 @@ function isAdjacentTo(location: Location, region: Region) : boolean {
     return false;
 }
 
-function calculatePerimeter(region: Region, map: Grid<string>) {
+function calculatePerimeter(region: Region, map: Grid) {
     let perimeter = 0;
 
     for (let regionLocation of region.locations) {

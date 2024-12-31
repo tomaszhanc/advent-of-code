@@ -19,7 +19,7 @@ function parsePuzzleInput(input: string) {
     return Grid.fromArray(readByLine(input).map(line => line.split('')));
 }
 
-function getFastestRouteWithoutCheating(start: Location, end: Location, racetrack: Grid<string>) : Location[] {
+function getFastestRouteWithoutCheating(start: Location, end: Location, racetrack: Grid) : Location[] {
     const queue = new Queue<Location[]>();
     const visited = new Unique();
     queue.enqueue([start]);
