@@ -3,9 +3,19 @@
  * for the same concept to see which one I like better.
  */
 
-type Location = {
+import {Direction} from "./Direction.js";
+import {Distance} from "./Distance.js";
+
+export type Location = {
     readonly x: number,
     readonly y: number
+}
+
+export const Location = {
+    fromString(location: string): Location {
+        const [x, y] = location.split(',').map(Number);
+        return {x, y};
+    },
 }
 
 export class Position {
@@ -15,9 +25,12 @@ export class Position {
     ) {
     }
 
+    public static from(location: Location): Position {
+        return new Position(location.x, location.y);
+    }
+
     public static fromString(location: string): Position {
-        const [x, y] = location.split(',').map(Number);
-        return new Position(x, y);
+        return Position.from(Location.fromString(location));
     }
 
     public inBounds(start: Location, end: Location) : boolean {
@@ -28,4 +41,61 @@ export class Position {
     public toString(): string {
         return `${this.x},${this.y}`;
     }
+}
+
+export function isEqual(location: Location, other: Location) : boolean {
+    return location.x === other.x && location.y === other.y;
+}
+
+export function locationToString(location: Location): string {
+    return `${location.x},${location.y}`;
+}
+
+export function locationsToString(...locations: Location[]): string {
+    return locations.map(locationToString).join('->');
+}
+
+export function distanceBetween(location: Location, other: Location): Distance {
+    return { dX: location.x - other.x, dY: location.y - other.y };
+}
+
+export function nextByDistance(location: Location, distance: Distance): Location {
+    return { x: location.x + distance.dX, y: location.y + distance.dY };
+}
+
+export function nextInDirection(location: Location, direction: Direction): Location {
+    const directionMap = {
+        [Direction.UP_LEFT]:    {dX: -1, dY: -1},
+        [Direction.UP]:         {dX: 0,  dY: -1},
+        [Direction.UP_RIGHT]:   {dX: 1,  dY: -1},
+        [Direction.RIGHT]:      {dX: 1,  dY:  0},
+        [Direction.DOWN_RIGHT]: {dX: 1,  dY:  1},
+        [Direction.DOWN]:       {dX: 0,  dY:  1},
+        [Direction.DOWN_LEFT]:  {dX: -1, dY:  1},
+        [Direction.LEFT]:       {dX: -1, dY:  0},
+    };
+
+    return nextByDistance(location, directionMap[direction]);
+}
+
+export function nextInDirections(location: Location, directions: Direction[]) : Location[] {
+    return directions.map(direction => nextInDirection(location, direction));
+}
+
+export function sort(locations: Location[]): Location[] {
+    const unsorted = Array.from(locations);
+
+    return unsorted.sort((a, b) => a.x - b.x || a.y - b.y);
+}
+
+export function unique(locations: Location[]) : Location[] {
+    return Array.from(new Set(locations.map(locationToString))).map(Location.fromString);
+}
+
+export function isAdjacent(location: Location, other: Location): boolean {
+    return Math.abs(location.x - other.x) <= 1 && Math.abs(location.y - other.y) <= 1;
+}
+
+export function alreadyVisited(location: Location, path: Location[]) : boolean {
+    return path.some(other => isEqual(location, other))
 }

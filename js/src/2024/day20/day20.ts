@@ -1,15 +1,15 @@
 import {Grid, isWall} from "../../shared/grid/Grid.js";
 import {readByLine} from "../../shared/read.input.js";
 import {Queue} from "../../shared/struct/Queue.js";
-import {distanceBetween, isEqual, Location} from "../../shared/grid/Location.js";
+import {distanceBetween, isEqual, Location} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction.js";
 import {lastItem} from "../../shared/utils/collection.utils.js";
 import {Unique} from "../../shared/grid/Unique.js";
 
 export function part1(input: string, cheatSpan: number, saveAtLeast: number): number {
     const racetrack = parsePuzzleInput(input);
-    const start = racetrack.firstLocationOf('S');
-    const end = racetrack.firstLocationOf('E');
+    const start = racetrack.firstPositionOf('S');
+    const end = racetrack.firstPositionOf('E');
 
     const fastestRouteTime = getFastestRouteWithoutCheating(start, end, racetrack);
     return findAllCheats(fastestRouteTime, cheatSpan, saveAtLeast);

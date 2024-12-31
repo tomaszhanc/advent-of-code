@@ -1,6 +1,6 @@
 import {Grid} from "../../shared/grid/Grid";
 import {readByLine} from "../../shared/read.input";
-import {isEqual, Location, locationToString} from "../../shared/grid/Location";
+import {isEqual, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise, rotateCounterclockwise} from "../../shared/grid/Direction";
 import {PriorityQueue} from "../../shared/struct/PriorityQueue";
 import {lastItem} from "../../shared/utils/collection.utils";
@@ -34,9 +34,9 @@ type ReindeerPath = {
     score: number,
 }
 
-function* findPathToEscapeTheMaze(maze: Grid<string>) : Generator<ReindeerPath> {
-    const start = maze.firstLocationOf('S');
-    const end = maze.firstLocationOf('E');
+function* findPathToEscapeTheMaze(maze: Grid) : Generator<ReindeerPath> {
+    const start = maze.firstPositionOf('S');
+    const end = maze.firstPositionOf('E');
     const startingPosition = { location: start, direction: Direction.RIGHT };
     const escapedTheMaze = (position: ReindeerPosition) => isEqual(position.location, end);
 
@@ -67,9 +67,9 @@ function* findPathToEscapeTheMaze(maze: Grid<string>) : Generator<ReindeerPath> 
     // throw new Error('Reindeer got stack in the maze!');
 }
 
-function* dfs(maze: Grid<string>) : Generator<ReindeerPath> {
-    const start = maze.firstLocationOf('S');
-    const end = maze.firstLocationOf('E');
+function* dfs(maze: Grid) : Generator<ReindeerPath> {
+    const start = maze.firstPositionOf('S');
+    const end = maze.firstPositionOf('E');
     const startingPosition = { location: start, direction: Direction.RIGHT };
     const escapedTheMaze = (position: ReindeerPosition) => isEqual(position.location, end);
 
@@ -100,7 +100,7 @@ function* dfs(maze: Grid<string>) : Generator<ReindeerPath> {
     // throw new Error('Reindeer got stack in the maze!');
 }
 
-function* possibleMoves(position: ReindeerPosition, maze: Grid<string>) : Generator<[ReindeerPosition, number]> {
+function* possibleMoves(position: ReindeerPosition, maze: Grid) : Generator<[ReindeerPosition, number]> {
     const rules = [
         { direction: position.direction, score: 1},
         { direction: rotateClockwise(position.direction), score: 1001},

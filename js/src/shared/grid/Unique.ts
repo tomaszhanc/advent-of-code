@@ -1,4 +1,4 @@
-import {Location, locationsToString, locationToString} from "./Location.js";
+import {Location, locationsToString, locationToString} from "./Position.js";
 
 export class Unique<T extends Location | Location[]> {
     private readonly visited = new Set<string>;

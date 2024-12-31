@@ -1,6 +1,6 @@
 import {Grid} from "../../shared/grid/Grid";
 import {readByLine} from "../../shared/read.input";
-import {isEqual, Location, locationToString} from "../../shared/grid/Location";
+import {isEqual, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction";
 import {Queue} from "../../shared/struct/Queue";
 import {lastItem} from "../../shared/utils/collection.utils";
@@ -35,7 +35,7 @@ function parsePuzzleInput(input: string) {
     return readByLine(input).map(line => Location.fromString(line));
 }
 
-function findShortestPath(memorySpace: Grid<string>) : Location[] {
+function findShortestPath(memorySpace: Grid) : Location[] {
     const start = { x:0, y:0 };
     const end = { x:memorySpace.width-1, y:memorySpace.height-1 };
 

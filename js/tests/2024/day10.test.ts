@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   sumRanksOfAllTrailheads,
   sumScoreOfAllTrailheads
-} from "../../src/2024/day10/solution/trails";
+} from "../../src/2024/day10/trails.js";
 
 const input = readPuzzleInput('2024/day10.txt')
 

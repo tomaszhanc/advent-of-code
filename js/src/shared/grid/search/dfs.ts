@@ -1,5 +1,5 @@
 import {Stack} from "../../struct/Stack.js";
-import {isEqual, Location, locationToString} from "../Location.js";
+import {isEqual, Location, locationToString} from "../Position.js";
 import {lastItem} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Direction} from "../Direction.js";

@@ -1,4 +1,4 @@
-import {Location, locationToString, nextInDirection} from "../../../shared/grid/Location";
+import {Location, locationToString, nextInDirection} from "../../../shared/grid/Position.js";
 import {Direction, rotateClockwise} from "../../../shared/grid/Direction";
 import {Grid} from "../../../shared/grid/Grid";
 
@@ -31,7 +31,7 @@ export function nextGuardPosition(position: GuardPosition): GuardPosition {
     };
 }
 
-export function nextGuardPositionOnMap(position: GuardPosition, map: Grid<string>): GuardPosition | null {
+export function nextGuardPositionOnMap(position: GuardPosition, map: Grid): GuardPosition | null {
     let guardPosition = position;
 
     for (let i = 0; i < 3; i++) {

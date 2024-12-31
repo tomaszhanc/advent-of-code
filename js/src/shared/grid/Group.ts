@@ -1,15 +1,15 @@
-import {Location, locationToString} from "./Location.js";
+import {Location, locationToString} from "./Position.js";
 import {Grid} from "./Grid.js";
 import {findAllSameValueAdjacentCells} from "./search/dfs.js";
 import {Direction} from "./Direction.js";
 
-export type Group<T> = {
-    readonly key: T,
+export type Group = {
+    readonly key: string,
     readonly locations: Location[]
 }
 
-export function groupByValue<T>(grid: Grid<T>): Group<T>[] {
-    const groups = new Map<T, Location[]>();
+export function groupByValue(grid: Grid): Group[] {
+    const groups = new Map<string, Location[]>();
 
     for (const [location, value] of grid.cells.entries()) {
         if (!groups.has(value)) {
@@ -22,10 +22,10 @@ export function groupByValue<T>(grid: Grid<T>): Group<T>[] {
     return Array.from(groups).map(([key, locations]) => ({key, locations}));
 }
 
-export function* groupByAdjacentValues<T>(
-    grid: Grid<T>,
+export function* groupByAdjacentValues(
+    grid: Grid,
     ...directions: Direction[]
-): Generator<Group<T>> {
+): Generator<Group> {
     const visited = new Set<string>();
 
     for (const [location, value] of grid.cells.entries()) {

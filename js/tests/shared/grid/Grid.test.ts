@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 import {Grid} from "../../../src/shared/grid/Grid";
-import {Location} from "../../../src/shared/grid/Location";
+import {Location} from "../../../src/shared/grid/Position.js";
 
 describe('Grid Tests', () => {
     const grid = Grid.empty(3, 3);

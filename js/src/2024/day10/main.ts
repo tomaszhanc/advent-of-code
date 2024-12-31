@@ -1,6 +1,6 @@
 import {Stopwatch} from "../../shared/utils/Stopwatch";
 import {readPuzzleInput} from "../../shared/read.input";
-import {sumRanksOfAllTrailheads, sumScoreOfAllTrailheads} from "./solution/trails";
+import {sumRanksOfAllTrailheads, sumScoreOfAllTrailheads} from "./trails.js";
 
 const stopwatch = new Stopwatch();
 const input = readPuzzleInput('2024/day10.txt');

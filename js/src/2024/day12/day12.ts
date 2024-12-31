@@ -6,7 +6,7 @@ import {
     nextInDirection,
     nextInDirections,
     sort
-} from "../../shared/grid/Location";
+} from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise} from "../../shared/grid/Direction";
 import {groupByAdjacentValues} from "../../shared/grid/Group";
 import {readByLine} from "../../shared/read.input";

@@ -1,8 +1,8 @@
 import {Grid} from "../grid/Grid.js";
 import chalk from 'chalk';
-import {Location} from "../grid/Location.js";
+import {Location} from "../grid/Position.js";
 
-export function printGrid<T>(grid: Grid<T>, path: Location[] = []): void {
+export function printGrid(grid: Grid, path: Location[] = []): void {
     const colors = {
         'S': chalk.green,
         'E': chalk.red,
@@ -51,12 +51,12 @@ export function printPath(path: Location[]) {
     process.stdout.write('\u001b[0;0H');
 }
 
-export function gridToExcelString<T>(grid: Grid<T>) : string {
+export function gridToExcelString(grid: Grid) : string {
     return gridToString(grid, (value) => value + "\t");
 }
 
-export function gridToString<T>(
-    grid: Grid<T>,
+export function gridToString(
+    grid: Grid,
     cellToString: (value: string | null) => string = (value) => value ?? '.'
 ) : string {
     let result = '';

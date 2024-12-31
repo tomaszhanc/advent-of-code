@@ -3,12 +3,12 @@ import {Direction} from "../../../shared/grid/Direction";
 import {GuardPosition} from "../types/GuardPosition";
 import {readByLine} from "../../../shared/read.input";
 
-export function parsePuzzleInput(input: string): [GuardPosition, Grid<string>] {
+export function parsePuzzleInput(input: string): [GuardPosition, Grid] {
     const map = Grid.fromArray(
         readByLine(input).map(line => line.split('')),
         '.'
     );
-    const guardLocation = map.firstLocationOf('^');
+    const guardLocation = map.firstPositionOf('^');
 
     if (guardLocation === null) {
         throw new Error('Guard not found');

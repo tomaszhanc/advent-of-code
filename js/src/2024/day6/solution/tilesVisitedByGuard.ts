@@ -1,6 +1,6 @@
 import {GuardPosition, nextGuardPositionOnMap} from "../types/GuardPosition";
 import {parsePuzzleInput} from "./_parsePuzzleInput";
-import {locationToString} from "../../../shared/grid/Location";
+import {locationToString} from "../../../shared/grid/Position.js";
 
 export function tilesVisitedByGuard(input: string): number {
     const [guardPosition, map] = parsePuzzleInput(input);

@@ -1,8 +1,8 @@
-import {Location, nextByDistance} from "../../../shared/grid/Location";
+import {Location, nextByDistance} from "../../../shared/grid/Position.js";
 import {Distance} from "../../../shared/grid/Distance";
 import {Grid} from "../../../shared/grid/Grid";
 
-export function* findAntinodes(location: Location, distance: Distance, map: Grid<string>): Generator<Location> {
+export function* findAntinodes(location: Location, distance: Distance, map: Grid): Generator<Location> {
     location = nextByDistance(location, distance);
 
     if (map.hasInBounds(location)) {

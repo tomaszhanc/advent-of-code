@@ -1,7 +1,7 @@
+import {Position} from "../../shared/grid/Position.js";
 import {readByLine} from "../../shared/read.input.js";
 import {Distance} from "../../shared/grid/Distance.js";
 import {modulo} from "../../shared/utils/utils.js";
-import {Position} from "../../shared/grid/Position.js";
 
 export function part1(width: number, height: number, input: string): number {
     const robots = parsePuzzleInput(input);

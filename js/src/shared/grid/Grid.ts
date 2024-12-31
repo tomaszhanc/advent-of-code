@@ -1,4 +1,4 @@
-import {Location, locationToString, nextInDirections} from "./Location.js";
+import {Location, locationToString, nextInDirections, Position} from "./Position.js";
 import {Direction} from "./Direction.js";
 
 export class Grid {
@@ -17,15 +17,14 @@ export class Grid {
         return Grid.fromArray(data.trim().split('\n').map(line => line.split('')));
     }
 
-    // fixme remove 'emptyCell` parameter?
-    public static fromArray(rows: string[][], emptyCell: string | null = null): Grid {
+    public static fromArray(rows: string[][]): Grid {
         const cells = new Map<string, string>();
         let width = 0;
 
         for (let y = 0; y < rows.length; y++) {
             width = Math.max(width, rows[y].length);
             for (let x = 0; x < rows[y].length; x++) {
-                if (rows[y][x] !== emptyCell) { // fixme remove this check?
+                if (rows[y][x] !== '.') {
                     cells.set(locationToString({x, y}), rows[y][x]);
                 }
             }
@@ -59,20 +58,20 @@ export class Grid {
         return new Grid(gridCells, width, height);
     }
 
-    public firstLocationOf(value: string): Location {
+    public firstPositionOf(value: string): Position {
         for (const [key, cell] of this.cells.entries()) {
             if (value === cell) {
-                return Location.fromString(key);
+                return Position.fromString(key);
             }
         }
 
         throw new Error(`Value not found: ${value}`);
     }
 
-    public allLocationsOf(value: string): Location[] {
+    public allPositionsOf(value: string): Position[] {
         return Array.from(this.cells)
             .filter(([_, cell]) => cell === value)
-            .map(([key, _]) => Location.fromString(key));
+            .map(([key, _]) => Position.fromString(key));
     }
 
     public valueAt(location: Location): string | null {
