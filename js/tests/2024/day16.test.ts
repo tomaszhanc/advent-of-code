@@ -56,6 +56,14 @@ describe('AoC 2024, Day 16, Part 1', () => {
 });
 
 describe('AoC 2024, Day 16, Part 2', () => {
+    it('checks the example 1', () => {
+        expect(part2(example1)).toBe(45)
+    })
+    it('checks the example 2', () => {
+        expect(part2(example2)).toBe(64)
+    })
 
-
+    it('checks the input', () => {
+        expect(part2(input)).toBe(551)
+    })
 });

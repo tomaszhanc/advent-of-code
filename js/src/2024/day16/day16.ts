@@ -7,13 +7,17 @@ import {lastItem} from "../../shared/utils/collection.utils";
 export function part1(input: string): number {
     const maze = Grid.fromString(input);
 
-    return findPathToEscapeTheMaze(maze).score;
+    return findAllBestPathsToEscapeTheMaze(maze)[0].score;
 }
 
 export function part2(input: string): number {
     const maze = Grid.fromString(input);
 
-    return 0;
+    const allBestPathLocations = new Set(
+        findAllBestPathsToEscapeTheMaze(maze).flatMap(path => path.path.map(p => locationToString(p.location)))
+    );
+
+    return allBestPathLocations.size;
 }
 
 type ReindeerPosition = {
@@ -26,16 +30,18 @@ type ReindeerPath = {
     score: number,
 }
 
-function findPathToEscapeTheMaze(maze: Grid) : ReindeerPath {
+function findAllBestPathsToEscapeTheMaze(maze: Grid) : ReindeerPath[] {
+    const allBestPaths = [];
+
     const start = maze.firstPositionOf('S');
     const end = maze.firstPositionOf('E');
     const startingPosition = { location: start, direction: Direction.RIGHT };
 
     const queue = new PriorityQueue<ReindeerPath>();
     queue.enqueue({ path: [startingPosition], score: 0 });
-
     const visited = new Set<string>();
     visited.add(toString(startingPosition));
+
 
     while (!queue.isEmpty()) {
         const currentPath = queue.dequeue();
@@ -43,7 +49,10 @@ function findPathToEscapeTheMaze(maze: Grid) : ReindeerPath {
         visited.add(toString(currentPosition));
 
         if (isEqual(currentPosition.location, end)) {
-            return currentPath;
+            if (allBestPaths.length === 0 || currentPath.score === allBestPaths[0].score) {
+                allBestPaths.push(currentPath);
+            }
+            continue;
         }
 
         for (let [nextPosition, score] of possibleMoves(currentPosition, maze)) {
@@ -55,7 +64,7 @@ function findPathToEscapeTheMaze(maze: Grid) : ReindeerPath {
         }
     }
 
-    throw new Error('Reindeer got stack in the maze!');
+    return allBestPaths;
 }
 
 function* possibleMoves(position: ReindeerPosition, maze: Grid) : Generator<[ReindeerPosition, number]> {
