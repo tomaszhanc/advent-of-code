@@ -37,13 +37,24 @@ vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v
 ^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>
 v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^
 `;
+const example3 = `
+#######
+#...#.#
+#.....#
+#..OO@#
+#..O..#
+#.....#
+#######
+
+<vv<<^^<<^^
+`;
 const input = readPuzzleInput('2024/day15.txt');
 
 describe('AoC 2024, Day 15, Part 1', () => {
-    it('checks the example', () => {
+    it('checks the example 1', () => {
         expect(part1(example1)).toBe(2028)
     })
-    it('checks the example', () => {
+    it('checks the example 2', () => {
         expect(part1(example2)).toBe(10092)
     })
 
@@ -53,11 +64,17 @@ describe('AoC 2024, Day 15, Part 1', () => {
 });
 
 describe('AoC 2024, Day 15, Part 2', () => {
-    it('checks the example', () => {
-        expect(part2(example1)).toBe(-1)
+    it('checks the example 1', () => {
+        expect(part2(example1)).toBe(1751)
+    })
+    it('checks the example 2', () => {
+        expect(part2(example2)).toBe(9021)
+    })
+    it('checks the example 3', () => {
+        expect(part2(example3)).toBe(618)
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        expect(part2(input)).toBe(1481392)
     })
 });
