@@ -46,9 +46,7 @@ function applyAllMoves(map: Grid, movements: Direction[]) : Grid {
 
         if (isBox(nextRobotPosition)) {
             map = moveBox(nextRobotPosition, movements[i], map);
-            if (isBox(map.cellAt(nextRobotPosition.location))) {
-                continue;
-            }
+            if (isStillABox(nextRobotPosition, map)) continue;
         }
 
         map = map.move(robotPosition, nextRobotPosition.location);
@@ -62,14 +60,13 @@ function moveBox(box: Cell, direction: Direction, map: Grid) : Grid {
     if (!isBox(box)) throw new Error('Not a box');
 
     const nextBoxPosition = map.nextInDirection(box.location, direction);
-
     if (nextBoxPosition === null || isWall(nextBoxPosition)) {
         return map;
     }
 
     if (isBox(nextBoxPosition)) {
         map = moveBox(nextBoxPosition, direction, map);
-        if (isBox(map.cellAt(nextBoxPosition.location))) {
+        if (isStillABox(nextBoxPosition, map)) {
             return map;
         }
     }
@@ -78,3 +75,4 @@ function moveBox(box: Cell, direction: Direction, map: Grid) : Grid {
 }
 
 const isBox = (cell: Cell) => cell.value === 'O';
+const isStillABox = (cell: Cell, map: Grid) => isBox(map.cellAt(cell.location));
