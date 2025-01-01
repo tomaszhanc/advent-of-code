@@ -1,3 +1,5 @@
+import exp from "node:constants";
+
 export enum Direction {
     UP = 1,
     RIGHT = 2,
@@ -40,6 +42,21 @@ export function rotateCounterclockwise(direction : Direction) : Direction {
         [Direction.RIGHT]:      Direction.UP,
         [Direction.UP_RIGHT]:   Direction.UP_LEFT,
         [Direction.UP]:         Direction.LEFT,
+    };
+
+    return directionMap[direction];
+}
+
+export function directionToString(direction : Direction) : string {
+    const directionMap = {
+        [Direction.UP_LEFT]:    '↖',
+        [Direction.UP]:         '↑',
+        [Direction.UP_RIGHT]:   '↗',
+        [Direction.RIGHT]:      '→',
+        [Direction.DOWN_RIGHT]: '↘',
+        [Direction.DOWN]:       '↓',
+        [Direction.DOWN_LEFT]:  '↙',
+        [Direction.LEFT]:       '←',
     };
 
     return directionMap[direction];

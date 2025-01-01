@@ -1,6 +1,8 @@
 import {Location, locationToString, nextInDirections, Position} from "./Position.js";
 import {Direction} from "./Direction.js";
 
+const EMPTY_CELL = '.';
+
 export class Grid {
     private constructor(
         public readonly cells: Map<string, string>,
@@ -24,7 +26,7 @@ export class Grid {
         for (let y = 0; y < rows.length; y++) {
             width = Math.max(width, rows[y].length);
             for (let x = 0; x < rows[y].length; x++) {
-                if (rows[y][x] !== '.') {
+                if (rows[y][x] !== EMPTY_CELL) {
                     cells.set(locationToString({x, y}), rows[y][x]);
                 }
             }
@@ -100,18 +102,37 @@ export class Grid {
             .map(next => this.cellAt(next));
     }
 
+    public move(currentLocation: Location, newLocation: Location) : Grid {
+        const newCells = new Map<string, string>(this.cells.entries());
+        const currentValue = this.valueAt(currentLocation);
+
+        if (currentValue === null) {
+            throw new Error(`Cannot move empty location: ${currentLocation.x}, ${currentLocation.y}`);
+        }
+
+        if (this.valueAt(newLocation) !== null && this.valueAt(newLocation) !== EMPTY_CELL) {
+            throw new Error(`Cannot move to an occupied location: ${newLocation.x}, ${newLocation.y}`);
+        }
+
+        newCells
+            .set(locationToString(currentLocation), EMPTY_CELL)
+            .set(locationToString(newLocation), currentValue)
+
+        return new Grid(newCells, this.width, this.height);
+    }
+
     public setValueAt(value: string, ...locations: Location[]): Grid {
-        let newGrid = new Map<string, string>(this.cells.entries());
+        const newCells = new Map<string, string>(this.cells.entries());
 
         locations.forEach(location => {
             if (!this.hasInBounds(location)) {
                 throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
             }
 
-            newGrid.set(locationToString(location), value);
+            newCells.set(locationToString(location), value);
         })
 
-        return new Grid(newGrid, this.width, this.height);
+        return new Grid(newCells, this.width, this.height);
     }
 
     public forEach(callback: (location: Location, value: string | null) => void): void {

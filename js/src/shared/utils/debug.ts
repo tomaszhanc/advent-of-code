@@ -57,13 +57,13 @@ export function gridToExcelString(grid: Grid) : string {
 
 export function gridToString(
     grid: Grid,
-    cellToString: (value: string | null) => string = (value) => value ?? '.'
+    cellToString: (value: string) => string = (value) => value
 ) : string {
     let result = '';
 
     for (let y = 0; y < grid.height; y++) {
         for (let x = 0; x < grid.width; x++) {
-            result += cellToString(grid.valueAt({x, y}) as string);
+            result += cellToString(grid.valueAt({x, y}) ?? '.');
         }
         result += '\n';
     }
