@@ -4,15 +4,15 @@ import {lastItem} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Direction} from "../Direction.js";
 
-export type Path<T> = Cell<T>[];
+export type Path = Cell[];
 
-export function findLongestPath<T>(
+export function findLongestPath(
     start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0
-) : Path<T> {
-    let longestPath : Path<T> = [];
+    grid: Grid,
+    getNeighbors: (step: Cell, grid: Grid) => Cell[],
+    isTraverseCompleted: (step: Cell, path: Path, neighbors: Cell[]) => boolean = (_, __, neighbors) => neighbors.length === 0
+) : Path {
+    let longestPath : Path = [];
 
     for (let path of dfs(start, grid, getNeighbors, isTraverseCompleted)) {
         if (path.length > longestPath.length) {
@@ -23,12 +23,12 @@ export function findLongestPath<T>(
     return longestPath;
 }
 
-export function findAllSameValueAdjacentCells<T>(
+export function findAllSameValueAdjacentCells(
     start: Location,
-    grid: Grid<T>,
+    grid: Grid,
     adjacencyDirections: Direction[] = Direction.allOrthogonal()
-) : Path<T> {
-    const neighbors = (step: Cell<T>, grid: Grid<T>): Cell<T>[] =>
+) : Path {
+    const neighbors = (step: Cell, grid: Grid): Cell[] =>
         grid.nextInDirections(step.location, adjacencyDirections)
             .filter(cell => cell.value === step.value)
 
@@ -46,12 +46,12 @@ export function findAllSameValueAdjacentCells<T>(
  * By default, it traverses until all neighbors are visited. You can pass a custom `isTraverseCompleted`
  * function to stop the traversal at a specific step.
  */
-export function* dfsVisitingOnce<T>(
+export function* dfsVisitingOnce(
     start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0
-): Generator<Path<T>> {
+    grid: Grid,
+    getNeighbors: (step: Cell, grid: Grid) => Cell[],
+    isTraverseCompleted: (step: Cell, path: Path, neighbors: Cell[]) => boolean = (_, __, neighbors) => neighbors.length === 0
+): Generator<Path> {
     return yield* dfs(
         start, grid, getNeighbors, isTraverseCompleted,
         (step, visited) => !visited.has(locationToString(step.location))
@@ -67,17 +67,17 @@ export function* dfsVisitingOnce<T>(
  *  - all steps, even if they were already visited. You can pass a custom `shouldTraverse` function
  *    to avoid visiting some steps.
  */
-export function* dfs<T>(
+export function* dfs(
     start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0,
-    shouldVisit: (step: Cell<T>, visited: Set<string>) => boolean = () => true
-): Generator<Path<T>> {
+    grid: Grid,
+    getNeighbors: (step: Cell, grid: Grid) => Cell[],
+    isTraverseCompleted: (step: Cell, path: Path, neighbors: Cell[]) => boolean = (_, __, neighbors) => neighbors.length === 0,
+    shouldVisit: (step: Cell, visited: Set<string>) => boolean = () => true
+): Generator<Path> {
     const visited = new Set<string>();
     visited.add(locationToString(start));
 
-    const stack = new Stack<Path<T>>();
+    const stack = new Stack<Path>();
     stack.push([grid.cellAt(start)]);
 
     while (!stack.isEmpty()) {
@@ -99,6 +99,6 @@ export function* dfs<T>(
     }
 }
 
-function isAlreadyInPath<T>(step: Cell<T>, path: Path<T>) {
+function isAlreadyInPath(step: Cell, path: Path) {
     return path.some(next => isEqual(next.location, step.location));
 }

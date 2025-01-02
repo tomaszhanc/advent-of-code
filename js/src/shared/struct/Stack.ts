@@ -1,8 +1,8 @@
 export class Stack<T> {
     private items: T[] = [];
 
-    public push(item: T): void {
-        this.items.push(item);
+    public push(...items: T[]): void {
+        this.items.push(...items);
     }
 
     public pop(): T {

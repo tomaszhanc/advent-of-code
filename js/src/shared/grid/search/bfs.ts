@@ -3,15 +3,15 @@ import {lastItem} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Queue} from "../../struct/Queue.js";
 
-export type Path<T> = Cell<T>[];
+export type Path = Cell[];
 
-export function findShortestPath<T>(
+export function findShortestPath(
     start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0
-) : Path<T> {
-    let shortestPath : Path<T> | null = null;
+    grid: Grid,
+    getNeighbors: (step: Cell, grid: Grid) => Cell[],
+    isTraverseCompleted: (step: Cell, path: Path, neighbors: Cell[]) => boolean = (_, __, neighbors) => neighbors.length === 0
+) : Path {
+    let shortestPath : Path | null = null;
 
     for (let path of bfs(start, grid, getNeighbors, isTraverseCompleted)) {
         if (shortestPath === null || path.length < shortestPath.length) {
@@ -22,17 +22,17 @@ export function findShortestPath<T>(
     return shortestPath ?? [];
 }
 
-export function* bfs<T>(
+export function* bfs(
     start: Location,
-    grid: Grid<T>,
-    getNeighbors: (step: Cell<T>, grid: Grid<T>) => Cell<T>[],
-    isTraverseCompleted: (step: Cell<T>, path: Path<T>, neighbors: Cell<T>[]) => boolean = (_, __, neighbors) => neighbors.length === 0,
-    shouldVisit: (step: Cell<T>, visited: Set<string>) => boolean = (step, visited) => !visited.has(locationToString(step.location))
-): Generator<Path<T>> {
+    grid: Grid,
+    getNeighbors: (step: Cell, grid: Grid) => Cell[],
+    isTraverseCompleted: (step: Cell, path: Path, neighbors: Cell[]) => boolean = (_, __, neighbors) => neighbors.length === 0,
+    shouldVisit: (step: Cell, visited: Set<string>) => boolean = (step, visited) => !visited.has(locationToString(step.location))
+): Generator<Path> {
     const visited = new Set<string>();
     visited.add(locationToString(start));
 
-    const queue = new Queue<Path<T>>();
+    const queue = new Queue<Path>();
     queue.enqueue([grid.cellAt(start)]);
 
     while (!queue.isEmpty()) {
@@ -54,6 +54,6 @@ export function* bfs<T>(
     }
 }
 
-function isAlreadyInPath<T>(step: Cell<T>, path: Path<T>) {
+function isAlreadyInPath(step: Cell, path: Path) {
     return path.some(next => isEqual(next.location, step.location));
 }
