@@ -11,6 +11,12 @@ export function lastItem<T>(iterable: Iterable<T>) : T {
     return array[array.length - 1];
 }
 
+export function* chunk<T>(array: T[], size: number) : Generator<T[]> {
+    for (let i = 0; i < array.length; i += size) {
+        yield array.slice(i, i + size);
+    }
+}
+
 export function groupBy(array: string[]) : Map<string, { index: number, value: string }[]> {
     const groups = new Map<string, { index: number, value: string }[]>();
 
