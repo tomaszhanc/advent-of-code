@@ -45,10 +45,15 @@ function parsePuzzleInput(input: string) : [string, Direction[]]{
     ]
 }
 
+type MoveResult = {
+    readonly canBeMoved: boolean;
+    readonly map: Grid;
+}
+
 function applyAllMoves(
     map: Grid,
     movements: Direction[],
-    moveBox: (box: Cell, direction: Direction, map: Grid) => Grid | null
+    moveBox: (box: Cell, direction: Direction, map: Grid) => MoveResult
 ) : Grid {
     let robotPosition : Location = map.firstPositionOf('@');
 
@@ -57,9 +62,9 @@ function applyAllMoves(
         if (nextRobotPosition === null || isWall(nextRobotPosition)) continue;
 
         if (isBox(nextRobotPosition)) {
-            const newMap  = moveBox(nextRobotPosition, movements[i], map);
-            if (newMap === null) continue;
-            map = newMap;
+            const result = moveBox(nextRobotPosition, movements[i], map);
+            if (!result.canBeMoved) continue;
+            map = result.map;
         }
 
         map = map.move(robotPosition, nextRobotPosition.location);
@@ -69,26 +74,26 @@ function applyAllMoves(
     return map;
 }
 
-function moveSingleCellBox(box: Cell, direction: Direction, map: Grid) : Grid | null {
+function moveSingleCellBox(box: Cell, direction: Direction, map: Grid) : MoveResult {
     if (!isBox(box)) throw new Error('Not a box');
 
     const nextBoxPosition = map.nextInDirection(box.location, direction);
     if (nextBoxPosition === null || isWall(nextBoxPosition)) {
-        return null;
+        return { canBeMoved: false, map };
     }
 
     if (isBox(nextBoxPosition)) {
-        const newMap = moveSingleCellBox(nextBoxPosition, direction, map);
-        if (newMap === null) {
-            return null;
-        }
-        map = newMap;
+        const result = moveSingleCellBox(nextBoxPosition, direction, map);
+        if (!result.canBeMoved) return result;
+        map = result.map;
     }
 
-    return map.move(box.location, nextBoxPosition.location);
+    map = map.move(box.location, nextBoxPosition.location);
+
+    return { canBeMoved: true, map };
 }
 
-function moveDoubleCellBox(halfBox: Cell, direction: Direction, map: Grid) : Grid | null {
+function moveDoubleCellBox(halfBox: Cell, direction: Direction, map: Grid) : MoveResult {
     if (!isBox(halfBox)) throw new Error('Not a box');
 
     if (direction === Direction.RIGHT || direction === Direction.LEFT) {
@@ -96,6 +101,7 @@ function moveDoubleCellBox(halfBox: Cell, direction: Direction, map: Grid) : Gri
     }
 
     // UP OR DOWN
+    // fixme refactor - interface na Box? ze moze byc Single and Double i inne reguly rpzesuwania
 
     const fullBoxPosition = getFullBox(halfBox);
     const nextFullBoxPosition = [
@@ -104,27 +110,23 @@ function moveDoubleCellBox(halfBox: Cell, direction: Direction, map: Grid) : Gri
     ];
 
     if (nextFullBoxPosition[0] === null || nextFullBoxPosition[1] === null) {
-        return null;
+        return {canBeMoved: false, map};
     }
 
     if (isWall(nextFullBoxPosition[0]) || isWall(nextFullBoxPosition[1])) {
-        return null;
+        return {canBeMoved: false, map};
     }
 
     if (isBox(nextFullBoxPosition[0])) {
-        const newMap = moveDoubleCellBox(nextFullBoxPosition[0], direction, map)
-        if (newMap === null) {
-            return null;
-        }
-        map = newMap;
+        const result = moveDoubleCellBox(nextFullBoxPosition[0], direction, map)
+        if (!result.canBeMoved) return result;
+        map = result.map;
     }
 
     if (nextFullBoxPosition[1].value === '[') {
-        const newMap = moveDoubleCellBox(nextFullBoxPosition[1], direction, map)
-        if (newMap === null) {
-            return null;
-        }
-        map = newMap;
+        const result = moveDoubleCellBox(nextFullBoxPosition[1], direction, map)
+        if (!result.canBeMoved) return result;
+        map = result.map;
     }
 
     try {
@@ -135,7 +137,7 @@ function moveDoubleCellBox(halfBox: Cell, direction: Direction, map: Grid) : Gri
         throw e;
     }
 
-    return map;
+    return { canBeMoved: true, map };
 }
 
 function getFullBox(box: Cell) : [Location, Location] {
