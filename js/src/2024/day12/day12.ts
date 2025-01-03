@@ -57,7 +57,7 @@ function numberOfSides(region : Region) : number {
 
     let innerSides = 0;
 
-    smallGrid.forEach((location, value) => {
+    smallGrid.forEach((value, location) => {
         if (!insideBoundary(location, region.locations)) {
             return;
         }

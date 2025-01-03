@@ -135,13 +135,28 @@ export class Grid {
         return new Grid(newCells, this.width, this.height);
     }
 
-    public forEach(callback: (location: Location, value: string | null) => void): void {
+    public forEach(callback: (value: string | null, location: Location) => void): void {
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 const location = {x, y};
-                callback(location, this.valueAt(location));
+                callback(this.valueAt(location), location);
             }
         }
+    }
+
+    public mapColumns<T>(callback: (column: Cell[]) => T): T[] {
+        const result = [];
+
+        for (let x = 0; x < this.width; x++) {
+            const column = [];
+            for (let y = 0; y < this.height; y++) {
+                column.push(this.cellAt({x, y}))
+            }
+
+            result.push(callback(column));
+        }
+
+        return result;
     }
 
     public hasInBounds(location: Location): boolean {
