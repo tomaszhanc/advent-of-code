@@ -79,11 +79,15 @@ describe('AoC 2024, Day 24, Part 1', () => {
 });
 
 describe('AoC 2024, Day 24, Part 2', () => {
-    it('checks the example 1', () => {
-        expect(part2(example1)).toBe(-1)
-    })
-
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        // puzzle answer: cqm,mps,vcv,vjv,vwp,z13,z19,z25
+        const swaps : [string, string][] = [
+            ['z13', 'vcv'],
+            ['z19', 'vwp'],
+            ['z25', 'mps'],
+            ['cqm', 'vjv']
+        ];
+
+        expect(part2(input, swaps)).toBe(42402077001446)
     })
 });
