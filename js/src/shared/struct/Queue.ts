@@ -1,8 +1,8 @@
 export class Queue<T> {
     private items: T[] = [];
 
-    public enqueue(item: T): void {
-        this.items.push(item);
+    public enqueue(...items: T[]): void {
+        this.items.push(...items);
     }
 
     public dequeue(): T {
