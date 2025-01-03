@@ -1,9 +1,9 @@
 import {Queue} from "../../shared/struct/Queue.js";
 
 export function part1(input: string): number {
-    const [inputs, gates] = parsePuzzleInput(input);
+    const [inputs, circuit] = parsePuzzleInput(input);
 
-    const binaryString = Array.from(getAllOutputs(inputs, gates).entries())
+    const binaryString = Array.from(getAllOutputs(inputs, circuit).entries())
         .filter(([wire, _]) => wire.startsWith('z'))
         .sort(([wireA, _], [wireB, __]) => wireB.localeCompare(wireA))
         .map(([_, value]) => value)
@@ -13,19 +13,21 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-    const _ = parsePuzzleInput(input);
+    const [inputs, circuit] = parsePuzzleInput(input);
 
     return 0;
 }
 
+type LogicCircuit = Map<string, Gate>;
+type Inputs = Map<string, number>;
 type Gate = {
     readonly type: string
-    readonly output: string;
     readonly inputA: string,
     readonly inputB: string,
 }
 
-function parsePuzzleInput(input: string) : [Map<string, number>, Gate[]] {
+
+function parsePuzzleInput(input: string) : [Inputs, LogicCircuit] {
     const [wiresData, gatesData] = input.trim().split('\n\n');
 
     const wires = new Map(wiresData.split('\n').map(wire => {
@@ -37,33 +39,33 @@ function parsePuzzleInput(input: string) : [Map<string, number>, Gate[]] {
         return [matches[1], +matches[2]];
     }));
 
-    const gates = gatesData.split('\n').map(gate => {
+    const gates = new Map(gatesData.split('\n').map(gate => {
         const matches = gate.match(/([a-z0-9]{3}) (AND|XOR|OR) ([a-z0-9]{3}) -> ([a-z0-9]{3})/);
         if (matches === null) {
             throw new Error('Invalid input');
         }
 
-        return {type: matches[2], output: matches[4], inputA: matches[1], inputB: matches[3]};
-    });
+        return [matches[4], {type: matches[2], inputA: matches[1], inputB: matches[3]}];
+    }));
 
     return [wires, gates];
 }
 
-function getAllOutputs(inputs: Map<string, number>, gates: Gate[]) : Map<string, number> {
+function getAllOutputs(inputs: Inputs, circuit: LogicCircuit) : Map<string, number> {
     const outputs = new Map(inputs);
 
-    const queue = new Queue<Gate>();
-    queue.enqueue(...gates);
+    const queue = new Queue<[string, Gate]>();
+    queue.enqueue(...circuit.entries());
 
     while (!queue.isEmpty()) {
-        const current = queue.dequeue();
+        const [output, current] = queue.dequeue();
 
         if (!knowAllInputs(current, outputs)) {
-            queue.enqueue(current);
+            queue.enqueue([output, current]);
             continue;
         }
 
-        outputs.set(current.output, getOutput(current, outputs));
+        outputs.set(output, getOutput(current, outputs));
     }
 
     return outputs;
