@@ -1,6 +1,6 @@
 import {Grid} from "../../shared/grid/Grid";
 import {readByLine} from "../../shared/read.input";
-import {isEqual, Location, locationToString} from "../../shared/grid/Position.js";
+import {equals, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction";
 import {Queue} from "../../shared/struct/Queue";
 import {lastItem} from "../../shared/utils/collection.utils";
@@ -49,7 +49,7 @@ function findShortestPath(memorySpace: Grid) : Location[] {
         const current = lastItem(currentPath);
 
         for (let next of memorySpace.nextInDirections(current, Direction.allOrthogonal())) {
-            if (isEqual(next.location, end)) {
+            if (equals(next.location, end)) {
                 return [...currentPath, next.location];
             }
 

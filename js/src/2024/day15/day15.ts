@@ -8,7 +8,7 @@ export function part1(input: string): number {
     const map = Grid.fromString(mapData);
 
     return applyAllMoves(map, movements)
-        .allPositionsOf('O')
+        .allLocationsOf('O')
         .map(location => 100 * location.y + location.x)
         .reduce((sum, boxGPS) => sum + boxGPS, 0);
 }
@@ -22,7 +22,7 @@ export function part2(input: string): number {
         .replaceAll('@', '@.'));
 
     return applyAllMoves(map, movements)
-        .allPositionsOf('[')
+        .allLocationsOf('[')
         .map(location => 100 * location.y + location.x)
         .reduce((sum, boxGPS) => sum + boxGPS, 0);
 }
@@ -47,7 +47,7 @@ function parsePuzzleInput(input: string) : [string, Direction[]]{
 
 function applyAllMoves(map: Grid, movements: Direction[]) : Grid {
     for (let i = 0; i < movements.length; i++) {
-        map = moveCell(map.firstPositionOf('@'), movements[i], map);
+        map = moveCell(map.firstLocationOf('@'), movements[i], map);
     }
 
     return map;

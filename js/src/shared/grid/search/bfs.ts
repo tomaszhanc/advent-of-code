@@ -1,4 +1,4 @@
-import {isEqual, Location, locationToString} from "../Position.js";
+import {equals, Location, locationToString} from "../Position.js";
 import {lastItem} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Queue} from "../../struct/Queue.js";
@@ -55,5 +55,5 @@ export function* bfs(
 }
 
 function isAlreadyInPath(step: Cell, path: Path) {
-    return path.some(next => isEqual(next.location, step.location));
+    return path.some(next => equals(next.location, step.location));
 }

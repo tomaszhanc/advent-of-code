@@ -1,6 +1,6 @@
 import {Grid} from "../../shared/grid/Grid";
 import {
-    isAdjacent, isEqual,
+    isAdjacent, equals,
     Location, locationToString,
     nextByDistance,
     nextInDirection,
@@ -125,7 +125,7 @@ function findNextCell(
 
 function isAdjacentTo(location: Location, region: Region) : boolean {
     for (let regionLocation of region.locations) {
-        if (isEqual(location, regionLocation)) {
+        if (equals(location, regionLocation)) {
             return false;
         }
     }

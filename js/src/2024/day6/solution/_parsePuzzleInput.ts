@@ -4,7 +4,7 @@ import {GuardPosition} from "../types/GuardPosition";
 
 export function parsePuzzleInput(input: string): [GuardPosition, Grid] {
     const map = Grid.fromString(input);
-    const guardLocation = map.firstPositionOf('^');
+    const guardLocation = map.firstLocationOf('^');
 
     if (guardLocation === null) {
         throw new Error('Guard not found');

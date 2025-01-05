@@ -31,6 +31,10 @@ export function lowestCommonMultiple(...numbers: number[]): number {
     return a;
 }
 
+export function asKey(...parts: string[]): string {
+    return parts.join(':');
+}
+
 function greatestCommonDivisor(a: number, b: number): number {
   let gcd = a;
 

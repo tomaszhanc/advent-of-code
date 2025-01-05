@@ -43,7 +43,7 @@ export class Position {
     }
 }
 
-export function isEqual(location: Location, other: Location) : boolean {
+export function equals(location: Location, other: Location) : boolean {
     return location.x === other.x && location.y === other.y;
 }
 
@@ -97,5 +97,5 @@ export function isAdjacent(location: Location, other: Location): boolean {
 }
 
 export function alreadyVisited(location: Location, path: Location[]) : boolean {
-    return path.some(other => isEqual(location, other))
+    return path.some(other => equals(location, other))
 }

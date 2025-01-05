@@ -30,3 +30,7 @@ export function groupBy(array: string[]) : Map<string, { index: number, value: s
 
     return groups;
 }
+
+export function push<K, V>(map: Map<K, V[]>, key: K, value: V) : void {
+    map.set(key, [...map.get(key) ?? [], value]);
+}

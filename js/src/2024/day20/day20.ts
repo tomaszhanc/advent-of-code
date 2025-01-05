@@ -1,15 +1,15 @@
 import {Grid, isWall} from "../../shared/grid/Grid.js";
 import {readByLine} from "../../shared/read.input.js";
 import {Queue} from "../../shared/struct/Queue.js";
-import {distanceBetween, isEqual, Location} from "../../shared/grid/Position.js";
+import {distanceBetween, equals, Location} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction.js";
 import {lastItem} from "../../shared/utils/collection.utils.js";
-import {Unique} from "../../shared/grid/Unique.js";
+import {Visited} from "../../shared/grid/Visited.js";
 
 export function part1(input: string, cheatSpan: number, saveAtLeast: number): number {
     const racetrack = parsePuzzleInput(input);
-    const start = racetrack.firstPositionOf('S');
-    const end = racetrack.firstPositionOf('E');
+    const start = racetrack.firstLocationOf('S');
+    const end = racetrack.firstLocationOf('E');
 
     const fastestRouteTime = getFastestRouteWithoutCheating(start, end, racetrack);
     return findAllCheats(fastestRouteTime, cheatSpan, saveAtLeast);
@@ -21,7 +21,7 @@ function parsePuzzleInput(input: string) {
 
 function getFastestRouteWithoutCheating(start: Location, end: Location, racetrack: Grid) : Location[] {
     const queue = new Queue<Location[]>();
-    const visited = new Unique();
+    const visited = new Visited();
     queue.enqueue([start]);
     visited.add(start);
 
@@ -29,7 +29,7 @@ function getFastestRouteWithoutCheating(start: Location, end: Location, racetrac
         const currentPath = queue.dequeue();
         const current = lastItem(currentPath);
 
-        if (isEqual(current, end)) {
+        if (equals(current, end)) {
             return currentPath;
         }
 

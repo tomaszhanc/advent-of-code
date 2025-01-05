@@ -20,7 +20,7 @@ export function sumRanksOfAllTrailheads(input: string): number {
 }
 
 function getAllTrailHeads(topographicMap: Grid): Location[] {
-    return topographicMap.allPositionsOf('0');
+    return topographicMap.allLocationsOf('0');
 }
 
 function getTrailheadScore(trailhead: Location, topographicMap: Grid): number {

@@ -1,5 +1,5 @@
 import {Grid, isWall} from "../../shared/grid/Grid";
-import {isEqual, Location, locationToString} from "../../shared/grid/Position.js";
+import {equals, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise, rotateCounterclockwise} from "../../shared/grid/Direction";
 import {PriorityQueue} from "../../shared/struct/PriorityQueue";
 import {lastItem} from "../../shared/utils/collection.utils";
@@ -33,8 +33,8 @@ type ReindeerPath = {
 function findAllBestPathsToEscapeTheMaze(maze: Grid) : ReindeerPath[] {
     const allBestPaths = [];
 
-    const start = maze.firstPositionOf('S');
-    const end = maze.firstPositionOf('E');
+    const start = maze.firstLocationOf('S');
+    const end = maze.firstLocationOf('E');
     const startingPosition = { location: start, direction: Direction.RIGHT };
 
     const queue = new PriorityQueue<ReindeerPath>();
@@ -48,7 +48,7 @@ function findAllBestPathsToEscapeTheMaze(maze: Grid) : ReindeerPath[] {
         const currentPosition = lastItem(currentPath.path);
         visited.add(toString(currentPosition));
 
-        if (isEqual(currentPosition.location, end)) {
+        if (equals(currentPosition.location, end)) {
             if (allBestPaths.length === 0 || currentPath.score === allBestPaths[0].score) {
                 allBestPaths.push(currentPath);
             }

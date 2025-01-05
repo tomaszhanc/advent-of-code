@@ -1,4 +1,4 @@
-import {Location, locationToString, nextInDirections, Position} from "./Position.js";
+import {Location, locationToString, nextInDirections} from "./Position.js";
 import {Direction} from "./Direction.js";
 
 const EMPTY_CELL = '.';
@@ -60,20 +60,20 @@ export class Grid {
         return new Grid(gridCells, width, height);
     }
 
-    public firstPositionOf(value: string): Position {
+    public firstLocationOf(value: string): Location {
         for (const [key, cell] of this.cells.entries()) {
             if (value === cell) {
-                return Position.fromString(key);
+                return Location.fromString(key);
             }
         }
 
         throw new Error(`Value not found: ${value}`);
     }
 
-    public allPositionsOf(value: string): Position[] {
+    public allLocationsOf(value: string): Location[] {
         return Array.from(this.cells)
             .filter(([_, cell]) => cell === value)
-            .map(([key, _]) => Position.fromString(key));
+            .map(([key, _]) => Location.fromString(key));
     }
 
     public valueAt(location: Location): string | null {

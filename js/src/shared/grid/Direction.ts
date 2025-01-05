@@ -1,5 +1,3 @@
-import exp from "node:constants";
-
 export enum Direction {
     UP = 1,
     RIGHT = 2,
