@@ -1,5 +1,5 @@
 import {Direction} from "../../shared/grid/Direction.js";
-import {Grid} from "../../shared/grid/Grid";
+import {Grid} from "../../shared/grid/Grid.js";
 import {alreadyVisited, equals, Location} from "../../shared/grid/Position.js";
 import {Queue} from "../../shared/struct/Queue.js";
 import {lastItem, push} from "../../shared/utils/collection.utils.js";
@@ -16,6 +16,7 @@ const directionKeypad = Grid.fromArray([
     ['#','^','A'],
     ['<','v','>'],
 ])
+const knownPaths = new Map<string, string[]>();
 
 export function part1(input: string): number {
     const codes = input.trim().split('\n');
@@ -23,7 +24,7 @@ export function part1(input: string): number {
     let sum = 0;
     for (const code of codes) {
         const number = Number.parseInt(code);
-        const path = findShortestPath(code);
+        const path = findTheShortestPath(code, 2);
 
         sum += (number * path.length);
     }
@@ -32,18 +33,38 @@ export function part1(input: string): number {
 }
 
 export function part2(input: string): number {
-    const _ = parsePuzzleInput(input);
+    const codes = input.trim().split('\n');
 
-    return 0;
+    let sum = 0;
+    for (const code of codes) {
+        const number = Number.parseInt(code);
+        const path = findTheShortestPath(code, 25);
+
+        sum += (number * path.length);
+    }
+
+    return sum;
 }
 
-function findShortestPath(code: string) : string {
-    const firstRobotPaths = findPaths([code], numericKeypad);
-    const secondRobotPaths = findPaths(firstRobotPaths, directionKeypad);
-    return findPaths(secondRobotPaths, directionKeypad)[0];
+function findTheShortestPath(code: string, numberOfRobots: number) : string {
+    const theShortestPath : string[] = [];
+    let from = 'A';
+
+    for (const to of code) {
+        let keyPaths = findAllShortestPathsBetweenKeys(from, to, numericKeypad);
+
+        for (let i = 0; i < numberOfRobots; i++) {
+            keyPaths = findAllShortestPaths(keyPaths, directionKeypad);
+        }
+
+        theShortestPath.push(keyPaths[0]);
+        from = to;
+    }
+
+    return theShortestPath.join('');
 }
 
-function findPaths(strings: string[], keypad: Grid) : string[] {
+function findAllShortestPaths(strings: string[], keypad: Grid) : string[] {
     const paths : string[] = [];
 
     for (const string of strings) {
@@ -51,24 +72,25 @@ function findPaths(strings: string[], keypad: Grid) : string[] {
         const pathsParts = [];
 
         for (const to of string) {
-            pathsParts.push(findAllShortestPaths(from, to, keypad));
+            let shortestPaths = knownPaths.get(asKey(from, to));
+            if (!shortestPaths) {
+                shortestPaths = findAllShortestPathsBetweenKeys(from, to, keypad);
+                knownPaths.set(asKey(from, to), shortestPaths);
+            }
+
+            pathsParts.push(shortestPaths);
             from = to;
         }
 
-        cartesianProduct(...pathsParts)
-            .map(path => path.join(''))
-            .forEach(path => paths.push(path));
+        for (const path of cartesianProduct(...pathsParts)) {
+            paths.push(path.join(''));
+        }
     }
 
     return onlyShortestPaths(paths);
 }
 
-const knownPaths = new Map<string, string[]>();
-function findAllShortestPaths(startKey: string, endKey: string, keypad: Grid) : string[] {
-    if (knownPaths.has(asKey(startKey, endKey))) {
-        return knownPaths.get(asKey(startKey, endKey))!;
-    }
-
+function findAllShortestPathsBetweenKeys(startKey: string, endKey: string, keypad: Grid) : string[] {
     const paths : string[] = [];
     const start = keypad.firstLocationOf(startKey);
     const end = keypad.firstLocationOf(endKey);
@@ -81,9 +103,7 @@ function findAllShortestPaths(startKey: string, endKey: string, keypad: Grid) : 
         const current = lastItem(currentPath);
 
         if (equals(current, end)) {
-            const moves = [...currentMoves, 'A'].join('');
-            paths.push(moves);
-            push(knownPaths, asKey(startKey, endKey), moves);
+            paths.push([...currentMoves, 'A'].join(''));
             continue;
         }
 
