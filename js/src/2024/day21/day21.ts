@@ -2,8 +2,9 @@ import {Direction} from "../../shared/grid/Direction.js";
 import {Grid} from "../../shared/grid/Grid";
 import {alreadyVisited, equals, Location} from "../../shared/grid/Position.js";
 import {Queue} from "../../shared/struct/Queue.js";
-import {lastItem} from "../../shared/utils/collection.utils.js";
+import {lastItem, push} from "../../shared/utils/collection.utils.js";
 import {cartesianProduct} from "../../shared/utils/generator.utils.js";
+import {asKey} from "../../shared/utils/utils.js";
 
 const numericKeypad = Grid.fromArray([
     ['7','8','9'],
@@ -22,7 +23,7 @@ export function part1(input: string): number {
     let sum = 0;
     for (const code of codes) {
         const number = Number.parseInt(code);
-        const path = findTheShortestPath(code);
+        const path = findShortestPath(code);
 
         sum += (number * path.length);
     }
@@ -36,15 +37,13 @@ export function part2(input: string): number {
     return 0;
 }
 
-function findTheShortestPath(code: string) : string {
-    const firstRobotPaths = findAllShortestPaths([code], numericKeypad);
-    const secondRobotPaths = findAllShortestPaths(firstRobotPaths, directionKeypad);
-    const finalPaths = findAllShortestPaths(secondRobotPaths, directionKeypad);
-    
-    return finalPaths[0];
+function findShortestPath(code: string) : string {
+    const firstRobotPaths = findPaths([code], numericKeypad);
+    const secondRobotPaths = findPaths(firstRobotPaths, directionKeypad);
+    return findPaths(secondRobotPaths, directionKeypad)[0];
 }
 
-function findAllShortestPaths(strings: string[], keypad: Grid) : string[] {
+function findPaths(strings: string[], keypad: Grid) : string[] {
     const paths : string[] = [];
 
     for (const string of strings) {
@@ -52,7 +51,7 @@ function findAllShortestPaths(strings: string[], keypad: Grid) : string[] {
         const pathsParts = [];
 
         for (const to of string) {
-            pathsParts.push(findAllShortestBetweenKeys(from, to, keypad));
+            pathsParts.push(findAllShortestPaths(from, to, keypad));
             from = to;
         }
 
@@ -64,7 +63,12 @@ function findAllShortestPaths(strings: string[], keypad: Grid) : string[] {
     return onlyShortestPaths(paths);
 }
 
-function findAllShortestBetweenKeys(startKey: string, endKey: string, keypad: Grid) : string[] {
+const knownPaths = new Map<string, string[]>();
+function findAllShortestPaths(startKey: string, endKey: string, keypad: Grid) : string[] {
+    if (knownPaths.has(asKey(startKey, endKey))) {
+        return knownPaths.get(asKey(startKey, endKey))!;
+    }
+
     const paths : string[] = [];
     const start = keypad.firstLocationOf(startKey);
     const end = keypad.firstLocationOf(endKey);
@@ -79,6 +83,7 @@ function findAllShortestBetweenKeys(startKey: string, endKey: string, keypad: Gr
         if (equals(current, end)) {
             const moves = [...currentMoves, 'A'].join('');
             paths.push(moves);
+            push(knownPaths, asKey(startKey, endKey), moves);
             continue;
         }
 
