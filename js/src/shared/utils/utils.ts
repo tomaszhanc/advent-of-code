@@ -32,7 +32,7 @@ export function lowestCommonMultiple(...numbers: number[]): number {
 }
 
 export function asKey(...parts: string[]): string {
-    return parts.join(':');
+    return parts.join('_');
 }
 
 function greatestCommonDivisor(a: number, b: number): number {

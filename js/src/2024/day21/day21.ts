@@ -1,4 +1,5 @@
 import path from "path";
+import {n} from "vitest/dist/chunks/reporters.D7Jzd9GS.js";
 import {Direction} from "../../shared/grid/Direction.js";
 import {Grid} from "../../shared/grid/Grid.js";
 import {alreadyVisited, equals, Location} from "../../shared/grid/Position.js";
@@ -17,15 +18,27 @@ const directionKeypad = Grid.fromArray([
     ['#','^','A'],
     ['<','v','>'],
 ])
-const knownPaths = new Map<string, string[]>();
 
 export function part1(input: string): number {
     const codes = input.trim().split('\n');
 
+    return calculateComplexity(codes, 2);
+}
+
+export function part2(input: string): number {
+    const codes = input.trim().split('\n');
+
+    return calculateComplexity(codes, 25);
+}
+
+function calculateComplexity(codes: string[], numberOfRobots : number) : number {
+    const knownMoves = precalculateMoves(directionKeypad);
+    const knownMovesLengths = precalculateMovesLengths(numberOfRobots, directionKeypad, knownMoves);
+
     let sum = 0;
     for (const code of codes) {
         const number = Number.parseInt(code);
-        const pathLength = findTheShortestPath(code, 2);
+        const pathLength = findTheShortestPath(code, knownMovesLengths);
 
         sum += (number * pathLength);
     }
@@ -33,71 +46,106 @@ export function part1(input: string): number {
     return sum;
 }
 
-export function part2(input: string): number {
-    const codes = input.trim().split('\n');
+function precalculateMoves(keypad: Grid) : Map<string, string[]> {
+    const moves = new Map<string, string[]>();
 
-    let sum = 0;
-    for (const code of codes) {
-        const number = Number.parseInt(code);
-        const pathLength = findTheShortestPath(code, 21);
-
-        sum += (number * pathLength);
+    for (const from of keypad.cells.values()) {
+        for (const to of keypad.cells.values()) {
+            if (from === '#' || to === '#') continue;
+            moves.set(asKey(from, to), findAllShortestPathsBetweenKeys(from, to, keypad));
+        }
     }
 
-    return sum; // 650 334 539 256
+    return moves;
 }
 
-function findTheShortestPath(code: string, numberOfRobots: number) : number {
-    const theShortestPath : string[] = [];
-    let from = 'A';
+function precalculateMovesLengths(numberOfRobots: number, keypad: Grid, knownMoves: Map<string, string[]>) : Map<string, number> {
+    const moveLengths = new Map<string, number>();
 
-    for (const to of code) {
-        // fixme pierwszy tez zmien na findAllShortestPaths?
-        const firstRobotPaths = findAllShortestPathsBetweenKeys(from, to, numericKeypad);
-        const otherRobotPaths = findAllShortestPaths(firstRobotPaths, directionKeypad, numberOfRobots);
+    for (const from of keypad.cells.values()) {
+        for (const to of keypad.cells.values()) {
+            if (from === '#' || to === '#') continue;
+            let moves = knownMoves.get(asKey(from, to));
+            if (moves === undefined) throw Error(`No move found from ${from} to ${to}`);
 
-        // <vA<AA>>^AvAA<^A>A <v<A>>^AvA^A <vA>^A<v<A>^A>AAvA^A <v<A>A>^AAAvA<^A>A
-        // v<<A>>^A           <A>A         vA<^AA>A             <vAAA>^A
-        // <A                 ^A           >^^A                 vvvA
-        // 0                  2            9                    A
-
-        theShortestPath.push(otherRobotPaths[0]);
-        from = to;
-
-        console.log('done', to, 'from', code)
+            moveLengths.set(
+                asKey(from, to),
+                shortestMovesLength(moves, numberOfRobots - 1, knownMoves)
+            );
+        }
     }
 
-    return theShortestPath.map(path => path.length).reduce((a, b) => a + b, 0);
+    return moveLengths;
 }
 
-function findAllShortestPaths(strings: string[], keypad: Grid, robotsLeft: number) : string[] {
-    const paths : string[] = [];
+const allLengths = new Map<string, number>();
+function shortestMovesLength(listOfMoves: string[], numberOfRobots: number, allShortestMoves: Map<string, string[]>) : number {
+    const lengths = [];
 
-    for (const string of strings) {
-        const theShortestPath = [];
+    for (const moves of listOfMoves) {
         let from = 'A';
+        let length = 0;
 
-        for (const to of string) {
-            let singleKeyPaths = knownPaths.get(asKey(robotsLeft.toString(), from, to));
+        for (const to of moves) {
+            let shortestLength = allLengths.get(asKey(numberOfRobots.toString(), from, to));
+            if (shortestLength === undefined) {
+                let shortestMoves = allShortestMoves.get(asKey(from, to));
+                if (shortestMoves === undefined) throw new Error(`No moves found from ${from} to ${to}`);
+                shortestLength = shortestMoves[0].length;
 
-            if (!singleKeyPaths) {
-                singleKeyPaths = findAllShortestPathsBetweenKeys(from, to, keypad);
-
-                if (robotsLeft > 1) {
-                    singleKeyPaths = findAllShortestPaths(singleKeyPaths, directionKeypad, robotsLeft - 1);
+                if (numberOfRobots > 1) {
+                    shortestLength = shortestMovesLength(shortestMoves, numberOfRobots - 1, allShortestMoves);
                 }
 
-                knownPaths.set(asKey(robotsLeft.toString(), from, to), singleKeyPaths);
+                allLengths.set(asKey(numberOfRobots.toString(), from, to), shortestLength);
             }
 
-            theShortestPath.push(singleKeyPaths[0]);
+            length += shortestLength;
             from = to;
         }
 
-        paths.push(theShortestPath.join(''));
+        lengths.push(length);
     }
 
-    return onlyShortestPaths(paths);
+    return Math.min(...lengths);
+}
+
+function findTheShortestPath(code: string, movesLengths: Map<string, number>) : number {
+    let totalLength : number = 0;
+    let codeFrom = 'A';
+
+    for (const codeTo of code) {
+        const firstRobotPaths = findAllShortestPathsBetweenKeys(codeFrom, codeTo, numericKeypad);
+
+        const lengths = [];
+        for (const path of firstRobotPaths) {
+            let from = 'A';
+            let length = 0;
+
+            for (const to of path) {
+                let minLength = movesLengths.get(asKey(from, to));
+                if (minLength === undefined) throw new Error(`No possible moves found from ${from} to ${to}`);
+
+                length += minLength;
+                from = to;
+            }
+
+            lengths.push(length);
+        }
+
+        codeFrom = codeTo;
+        totalLength += Math.min(...lengths);
+
+        // <vA<AA>>^A vAA<^A>A <v<A>>^AvA^A <vA>^A<v<A>^A>AAvA^A <v<A>A>^AAAvA<^A>A
+        // v<<A >>^A           <A>A         vA<^AA>A             <vAAA>^A
+        // <A                  ^A           >^^A                 vvvA
+        // 0                   2            9                    A
+
+        // 18 + 12 + 20 + 18 = 68
+        // console.log('done', to, 'from', code)
+    }
+
+    return totalLength;
 }
 
 function findAllShortestPathsBetweenKeys(startKey: string, endKey: string, keypad: Grid) : string[] {
@@ -146,14 +194,4 @@ function directionToString(direction: Direction) : string {
     }
 
     throw new Error(`Invalid direction: ${direction}`);
-}
-
-function onlyShortestPaths(paths: string[]) : string[] {
-    let minLength = Number.MAX_SAFE_INTEGER;
-
-    for (const path of paths) {
-        minLength = Math.min(minLength, path.length);
-    }
-
-    return paths.filter(path => path.length === minLength);
 }

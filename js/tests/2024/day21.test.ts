@@ -23,10 +23,10 @@ describe('AoC 2024, Day 21, Part 1', () => {
 
 describe('AoC 2024, Day 21, Part 2', () => {
     it('checks the example', () => {
-        expect(part2(example)).toBe(-1)
+        expect(part2(example)).toBe(154115708116294)
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        expect(part2(input)).toBe(263492840501566)
     })
 });
