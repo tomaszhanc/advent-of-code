@@ -8,35 +8,27 @@ import {
     sort
 } from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise} from "../../shared/grid/Direction";
-import {groupByAdjacentValues} from "../../shared/grid/Group";
-import {readByLine} from "../../shared/read.input";
+import {groupByRegions} from "../../shared/grid/Group";
 import {first} from "../../shared/utils/collection.utils";
 import {insideBoundary} from "../../shared/grid/Boundary";
 import {findAllSameValueAdjacentCells} from "../../shared/grid/search/dfs";
 
-type Region = {
-    readonly plant: string,
-    readonly locations: Location[];
-}
-
-const directions = [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT];
-
-export function calculatePriceOfFence(input: string): number {
-    const gardenMap = parsePuzzleInput(input);
-    const groups = groupByAdjacentValues(gardenMap, ...directions);
+export function part1(input: string): number {
+    const garden = Grid.fromString(input);
+    const groups = groupByRegions(garden);
     let price = 0;
 
     for (let group of groups) {
         let region = {plant: group.key, locations: group.locations};
-        price += calculateArea(region) * calculatePerimeter(region, gardenMap)
+        price += calculateArea(region) * calculatePerimeter(region, garden)
     }
 
     return price;
 }
 
-export function calculatePriceOfFenceWithDiscount(input: string): number {
-    const gardenMap = parsePuzzleInput(input);
-    const groups = groupByAdjacentValues(gardenMap, ...directions);
+export function part2(input: string): number {
+    const gardenMap = Grid.fromString(input);
+    const groups = groupByRegions(gardenMap);
     let price = 0;
 
     for (let group of groups) {
@@ -47,7 +39,10 @@ export function calculatePriceOfFenceWithDiscount(input: string): number {
     return price;
 }
 
-const calculateArea = (region: Region) => region.locations.length
+type Region = {
+    readonly plant: string,
+    readonly locations: Location[];
+}
 
 function numberOfSides(region : Region) : number {
     const outerSides = numberOfOuterSides(region);
@@ -139,6 +134,10 @@ function isAdjacentTo(location: Location, region: Region) : boolean {
     return false;
 }
 
+function calculateArea(region: Region) {
+    return region.locations.length
+}
+
 function calculatePerimeter(region: Region, map: Grid) {
     let perimeter = 0;
 
@@ -151,8 +150,4 @@ function calculatePerimeter(region: Region, map: Grid) {
     }
 
     return perimeter;
-}
-
-function parsePuzzleInput(input: string) {
-    return Grid.fromArray(readByLine(input).map(line => line.split('')));
 }

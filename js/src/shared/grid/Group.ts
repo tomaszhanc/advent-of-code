@@ -22,26 +22,19 @@ export function groupByValue(grid: Grid): Group[] {
     return Array.from(groups).map(([key, locations]) => ({key, locations}));
 }
 
-export function* groupByAdjacentValues(
-    grid: Grid,
-    ...directions: Direction[]
-): Generator<Group> {
+/**
+ * Groups adjacent cells with the same value.
+ */
+export function* groupByRegions(grid: Grid): Generator<Group> {
     const visited = new Set<string>();
 
     for (const [location, value] of grid.cells.entries()) {
-        if (visited.has(location)) {
-            continue;
-        }
+        if (visited.has(location)) continue;
 
+        const group = findAllSameValueAdjacentCells(Location.fromString(location), grid, Direction.allOrthogonal());
+        group.forEach(step => visited.add(locationToString(step.location)));
         visited.add(location);
 
-        const group = findAllSameValueAdjacentCells(Location.fromString(location), grid, directions);
-
-        yield {
-            key: value,
-            locations: group.map(step => step.location)
-        }
-
-        group.forEach(step => visited.add(locationToString(step.location)));
+        yield { key: value, locations: group.map(step => step.location) }
     }
 }
