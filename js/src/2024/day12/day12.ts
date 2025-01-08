@@ -4,7 +4,6 @@ import {
     Location, locationToString,
     nextByDistance,
     nextInDirection,
-    nextInDirections,
     sort
 } from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise} from "../../shared/grid/Direction";
@@ -42,6 +41,24 @@ export function part2(input: string): number {
 type Region = {
     readonly plant: string,
     readonly locations: Location[];
+}
+
+function calculateArea(region: Region) {
+    return region.locations.length
+}
+
+function calculatePerimeter(region: Region, map: Grid) {
+    let countOfNeighbours = 0;
+
+    for (let location of region.locations) {
+        for (let neighbour of map.nextInDirections(location, Direction.allOrthogonal())) {
+            if (neighbour.value === region.plant) {
+                countOfNeighbours++;
+            }
+        }
+    }
+
+    return calculateArea(region) * 4 - countOfNeighbours;
 }
 
 function numberOfSides(region : Region) : number {
@@ -132,22 +149,4 @@ function isAdjacentTo(location: Location, region: Region) : boolean {
     }
 
     return false;
-}
-
-function calculateArea(region: Region) {
-    return region.locations.length
-}
-
-function calculatePerimeter(region: Region, map: Grid) {
-    let perimeter = 0;
-
-    for (let regionLocation of region.locations) {
-        for (let neighbour of nextInDirections(regionLocation, [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT])) {
-            if (!map.hasInBounds(neighbour) || map.valueAt(neighbour) !== region.plant) {
-                perimeter++;
-            }
-        }
-    }
-
-    return perimeter;
 }
