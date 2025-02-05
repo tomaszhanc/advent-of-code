@@ -1,24 +1,27 @@
+import path from "path";
 import {Grid} from "../../shared/grid/Grid";
 import {
     isAdjacent, equals,
     Location, locationToString,
     nextByDistance,
     nextInDirection,
-    sort
+    sort, nextInDirections, distanceBetween, alreadyVisited
 } from "../../shared/grid/Position.js";
-import {Direction, rotateClockwise} from "../../shared/grid/Direction";
-import {groupByRegions} from "../../shared/grid/Group";
-import {first} from "../../shared/utils/collection.utils";
+import {Direction, directionToString, rotateClockwise} from "../../shared/grid/Direction";
+import {splitByConnectedComponents} from "../../shared/grid/Group";
+import {Queue} from "../../shared/struct/Queue.js";
+import {first, last} from "../../shared/utils/collection.utils";
 import {insideBoundary} from "../../shared/grid/Boundary";
 import {findAllSameValueAdjacentCells} from "../../shared/grid/search/dfs";
+import {gridToString} from "../../shared/utils/debug.js";
 
 export function part1(input: string): number {
     const garden = Grid.fromString(input);
-    const groups = groupByRegions(garden);
+    const components = splitByConnectedComponents(garden);
     let price = 0;
 
-    for (let group of groups) {
-        let region = {plant: group.key, locations: group.locations};
+    for (let component of components) {
+        let region = {plant: component.key, locations: component.locations};
         price += calculateArea(region) * calculatePerimeter(region, garden)
     }
 
@@ -27,12 +30,12 @@ export function part1(input: string): number {
 
 export function part2(input: string): number {
     const gardenMap = Grid.fromString(input);
-    const groups = groupByRegions(gardenMap);
+    const groups = splitByConnectedComponents(gardenMap);
     let price = 0;
 
     for (let group of groups) {
         let region = {plant: group.key, locations: group.locations};
-        price += calculateArea(region) * numberOfSides(region)
+        price += calculateArea(region) * numberOfSides(region, gardenMap)
     }
 
     return price;
@@ -61,92 +64,74 @@ function calculatePerimeter(region: Region, map: Grid) {
     return calculateArea(region) * 4 - countOfNeighbours;
 }
 
-function numberOfSides(region : Region) : number {
-    const outerSides = numberOfOuterSides(region);
-    const smallGrid = Grid.create(
-        new Map(region.locations.map(location => [location, region.plant]))
-    );
+function numberOfSides(region : Region, garden: Grid) : number {
+    // by policzyć "dziury" musze pogrubowac raz jeszcze? w sensie musz policzc side tych dziur jakoś i dodać do wyniku?
+    //
+    // if (region.plant !== 'C') {
+    //     return 0;
+    // }
 
-    let innerSides = 0;
+    const regionBorder = findRegionBorder(region).map(location => nextByDistance(location, {dX: 1, dY: 1}));
+    const grid = Grid.fromLocations(regionBorder);
 
-    smallGrid.forEach((value, location) => {
-        if (!insideBoundary(location, region.locations)) {
-            return;
+    const start = first(regionBorder);
+    const queue = new Queue<[Location, Direction][]>();
+    queue.enqueue([[start, Direction.RIGHT]]);
+
+    const bla = function () {
+        while (!queue.isEmpty()) {
+            const currentPath = queue.dequeue();
+            const [currentLocation, currentDirection] = last(currentPath);
+
+            if (currentPath.length > regionBorder.length) {
+                if (equals(currentLocation, start)) {
+                    return currentPath.slice(1);
+                }
+            }
+
+            // 3 rotations because we don't want to go back
+            let direction = currentDirection;
+            for (let i = 0; i < 4; i++) {
+                let next = grid.nextInDirection(currentLocation, direction);
+
+                if (next !== null && next.value != null && !alreadyVisited(next.location, direction, currentPath)) {
+                    queue.enqueue([...currentPath, [next.location, direction]]);
+                }
+
+                direction = rotateClockwise(direction);
+            }
         }
 
-        if (value === region.plant) {
-            return;
-        }
+        throw new Error('It should not happen');
+    }
 
-        const hole = findAllSameValueAdjacentCells(location, smallGrid, directions);
-        const holeSides = numberOfOuterSides({plant: '.', locations: hole.map(step => step.location)});
-
-        innerSides += holeSides;
-    })
-
-    return outerSides + innerSides;
-}
-
-function numberOfOuterSides(region : Region) : number {
-    const start = nextByDistance(first(sort(region.locations)), {dX: -1, dY: -1});
-    let sides = 1;
-    let direction = Direction.RIGHT;
-
-    let current = start;
-    let nextDirection = null;
-    const outerBoundaryPath = new Set<string>();
-
-    do {
-        [current, nextDirection] = findNextCell(current, direction, region, outerBoundaryPath);
-        outerBoundaryPath.add(locationToString(current));
-
-        if (direction !== nextDirection) {
-            direction = nextDirection;
+    let sides = 0;
+    let currentDirection = null;
+    for (const [_, direction] of bla()) {
+        if (currentDirection !== direction) {
+            currentDirection = direction;
             sides++;
         }
-    } while (current.x !== start.x || current.y !== start.y);
+    }
 
     return sides;
-    // return [sides, Array.from(boundaryPath).map(Location.fromString)];
 }
 
-function findNextCell(
-    location: Location,
-    direction: Direction,
-    region: Region,
-    visited: Set<string>
-) : [Location, Direction] {
-    for (let i = 0; i < 4; i++) {
-        let next = nextInDirection(location, direction);
+function findRegionBorder(region: Region) : Location[] {
+    // set of locations as string to have a simple check for has() method
+    const regionLocations = new Set(region.locations.map(locationToString));
 
-        if (!isAdjacentTo(next, region)) {
-            direction = rotateClockwise(direction);
-            continue;
-        }
+    // to filter out duplicates
+    const regionBorder = new Set(region.locations.flatMap(
+        location => nextInDirections(location, Direction.all())
+            .filter(location => !regionLocations.has(locationToString(location)))
+    ).map(locationToString));
 
-        if (visited.has(locationToString(next))) {
-            direction = rotateClockwise(direction);
-            continue;
-        }
-
-        return [next, direction];
-    }
-
-    throw new Error('No next cell found');
+    return Array.from(regionBorder).map(Location.fromString).sort((a, b) => a.y - b.y || a.x - b.x);
 }
 
-function isAdjacentTo(location: Location, region: Region) : boolean {
-    for (let regionLocation of region.locations) {
-        if (equals(location, regionLocation)) {
-            return false;
-        }
-    }
-
-    for (let regionLocation of region.locations) {
-        if (isAdjacent(location, regionLocation)) {
-            return true;
-        }
-    }
-
-    return false;
+function alreadyVisited(location: Location, direction: Direction, path: [Location, Direction][]) : boolean {
+    return path.some(other => equals(location, other[0]) && direction === other[1])
 }
+
+const toString = (location: Location, direction: Direction) => `${locationToString(location)}-${directionToString(direction)}`;

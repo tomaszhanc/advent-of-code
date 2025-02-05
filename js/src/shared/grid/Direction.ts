@@ -13,6 +13,9 @@ export namespace Direction {
     export function allOrthogonal() : Direction[] {
         return [Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT];
     }
+    export function all() : Direction[] {
+        return [Direction.UP_LEFT, Direction.UP, Direction.UP_RIGHT, Direction.RIGHT, Direction.DOWN_RIGHT, Direction.DOWN, Direction.DOWN_LEFT, Direction.LEFT];
+    }
 }
 
 export function rotateClockwise(direction : Direction) : Direction {

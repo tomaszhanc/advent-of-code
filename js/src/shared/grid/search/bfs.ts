@@ -1,5 +1,5 @@
 import {equals, Location, locationToString} from "../Position.js";
-import {lastItem} from "../../utils/collection.utils.js";
+import {last} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Queue} from "../../struct/Queue.js";
 
@@ -37,7 +37,7 @@ export function* bfs(
 
     while (!queue.isEmpty()) {
         const path = queue.dequeue();
-        const step = lastItem(path);
+        const step = last(path);
         const neighbors = getNeighbors(step, grid)
             .filter(neighbor => !isAlreadyInPath(neighbor, path))
             .filter(neighbor => shouldVisit(neighbor, visited));

@@ -9,6 +9,10 @@ export function insideBoundary(location: Location, boundary: Location[]) {
         }
     }
 
+    if (yLocations.length === 0) {
+        return false;
+    }
+
     const xMin = Math.min(...yLocations.map(location => location.x));
     const xMaX = Math.max(...yLocations.map(location => location.x));
 

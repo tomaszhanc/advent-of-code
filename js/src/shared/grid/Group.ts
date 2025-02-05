@@ -25,7 +25,7 @@ export function groupByValue(grid: Grid): Group[] {
 /**
  * Groups adjacent cells with the same value.
  */
-export function* groupByRegions(grid: Grid): Generator<Group> {
+export function* splitByConnectedComponents(grid: Grid): Generator<Group> {
     const visited = new Set<string>();
 
     for (const [location, value] of grid.cells.entries()) {

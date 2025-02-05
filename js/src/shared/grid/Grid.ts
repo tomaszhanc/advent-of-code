@@ -35,6 +35,16 @@ export class Grid {
         return new Grid(cells, width, rows.length);
     }
 
+    public static fromLocations(locations: Location[], value: string = '.'): Grid {
+        return Grid.create(new Map(locations.map(location => {
+            if (location.x < 0 || location.y < 0) {
+                throw new Error(`Location out of bounds: ${location.x}, ${location.y}`);
+            }
+
+            return [location, value];
+        })));
+    }
+
     public static create(cells: Map<Location|string, string>, width: number | null = null, height: number | null = null): Grid {
         const gridCells = new Map<string, string>();
         let maxWidth = 0;

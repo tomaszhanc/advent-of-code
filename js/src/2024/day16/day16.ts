@@ -2,7 +2,7 @@ import {Grid, isWall} from "../../shared/grid/Grid";
 import {equals, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction, rotateClockwise, rotateCounterclockwise} from "../../shared/grid/Direction";
 import {PriorityQueue} from "../../shared/struct/PriorityQueue";
-import {lastItem} from "../../shared/utils/collection.utils";
+import {last} from "../../shared/utils/collection.utils";
 
 export function part1(input: string): number {
     const maze = Grid.fromString(input);
@@ -45,7 +45,7 @@ function findAllBestPathsToEscapeTheMaze(maze: Grid) : ReindeerPath[] {
 
     while (!queue.isEmpty()) {
         const currentPath = queue.dequeue();
-        const currentPosition = lastItem(currentPath.path);
+        const currentPosition = last(currentPath.path);
         visited.add(toString(currentPosition));
 
         if (equals(currentPosition.location, end)) {

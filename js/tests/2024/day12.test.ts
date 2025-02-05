@@ -64,27 +64,24 @@ describe('AoC 2024, Day 12, Part 1', () => {
 
 describe('AoC 2024, Day 12, Part 2', () => {
     it('checks the example #1', () => {
-    expect(part2(input1)).toBe(80)
-  })
+        expect(part2(input1)).toBe(80)
+    })
 
-  // it('calculates price of the fence for the garden #2 with discount', () => {
-  //   expect(calculatePriceOfFenceWithDiscount(input2)).toBe(436)
-  // })
+    it('calculates price of the fence for the garden #2 with discount', () => {
+        expect(part2(input2)).toBe(436)
+    })
 
-  // FIXME: This test is failing - EEEEE - it creates a square as the boundary without those entries in the middle in the shape of an E (where the Xs are)."
-  // it('calculates price of the fence for the garden #4 with discount', () => {
-  //   expect(calculatePriceOfFenceWithDiscount(input4)).toBe(236)
-  // })
-  //
-  // // FIXME: This test is failing
-  // it('calculates price of the fence for the garden #5 with discount', () => {
-  //   expect(calculatePriceOfFenceWithDiscount(input5)).toBe(368)
-  // })
-  //
-  // // FIXME: This test is failing
-  // it('calculates price of the fence for the garden #3 with discount', () => {
-  //   expect(calculatePriceOfFenceWithDiscount(input3)).toBe(1206)
-  // })
+    it('calculates price of the fence for the garden #4 with discount', () => {
+        expect(part2(input4)).toBe(236)
+    })
+
+    it('calculates price of the fence for the garden #5 with discount', () => {
+        expect(part2(input5)).toBe(368)
+    })
+
+    it('calculates price of the fence for the garden #3 with discount', () => {
+        expect(part2(input3)).toBe(1206)
+    })
 
     it('checks the input', () => {
         expect(part2(input)).toBe(-1)

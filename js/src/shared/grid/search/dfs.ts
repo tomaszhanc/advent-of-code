@@ -1,6 +1,6 @@
 import {Stack} from "../../struct/Stack.js";
 import {equals, Location, locationToString} from "../Position.js";
-import {lastItem} from "../../utils/collection.utils.js";
+import {last} from "../../utils/collection.utils.js";
 import {Cell, Grid} from "../Grid.js";
 import {Direction} from "../Direction.js";
 
@@ -82,7 +82,7 @@ export function* dfs(
 
     while (!stack.isEmpty()) {
         const path = stack.pop();
-        const step = lastItem(path);
+        const step = last(path);
         const neighbors = getNeighbors(step, grid)
             .filter(neighbor => !isAlreadyInPath(neighbor, path))
             .filter(neighbor => shouldVisit(neighbor, visited));

@@ -2,7 +2,7 @@ import {Direction} from "../../shared/grid/Direction.js";
 import {Grid} from "../../shared/grid/Grid.js";
 import {alreadyVisited, equals, Location} from "../../shared/grid/Position.js";
 import {Queue} from "../../shared/struct/Queue.js";
-import {lastItem} from "../../shared/utils/collection.utils.js";
+import {last} from "../../shared/utils/collection.utils.js";
 import {asKey} from "../../shared/utils/utils.js";
 
 const numericKeypad = Grid.fromArray([
@@ -149,7 +149,7 @@ function findAllShortestPaths(startKey: string, endKey: string, keypad: Grid) : 
 
     while (!queue.isEmpty()) {
         const [currentPath, currentMoves] = queue.dequeue();
-        const current = lastItem(currentPath);
+        const current = last(currentPath);
 
         if (equals(current, end)) {
             paths.push([...currentMoves, 'A'].join(''));

@@ -6,7 +6,7 @@ export function first<T>(array: T[]) : T {
     return array[0];
 }
 
-export function lastItem<T>(iterable: Iterable<T>) : T {
+export function last<T>(iterable: Iterable<T>) : T {
     const array = Array.from(iterable);
     return array[array.length - 1];
 }

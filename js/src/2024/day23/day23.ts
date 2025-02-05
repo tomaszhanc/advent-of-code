@@ -1,6 +1,6 @@
 import {readByLine} from "../../shared/read.input.js";
 import {Stack} from "../../shared/struct/Stack.js";
-import {lastItem} from "../../shared/utils/collection.utils.js";
+import {last} from "../../shared/utils/collection.utils.js";
 
 export function part1(input: string): number {
     return findAllSetsOfThrees(createNetwork(parsePuzzleInput(input))).size;
@@ -57,7 +57,7 @@ function findLanParty(connections: Set<string>) : string[] {
 
         while (!stack.isEmpty()) {
             const currentLan = stack.pop();
-            const lastComputer = lastItem(currentLan);
+            const lastComputer = last(currentLan);
 
             if (currentLan.length > max.length) {
                 max = currentLan;

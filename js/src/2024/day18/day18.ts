@@ -3,7 +3,7 @@ import {readByLine} from "../../shared/read.input";
 import {equals, Location, locationToString} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction";
 import {Queue} from "../../shared/struct/Queue";
-import {lastItem} from "../../shared/utils/collection.utils";
+import {last} from "../../shared/utils/collection.utils";
 
 export function part1(input: string, memorySize: number, simulationSize : number): number {
     const listOfBytes = parsePuzzleInput(input);
@@ -46,7 +46,7 @@ function findShortestPath(memorySpace: Grid) : Location[] {
 
     while (!queue.isEmpty()) {
         const currentPath = queue.dequeue();
-        const current = lastItem(currentPath);
+        const current = last(currentPath);
 
         for (let next of memorySpace.nextInDirections(current, Direction.allOrthogonal())) {
             if (equals(next.location, end)) {

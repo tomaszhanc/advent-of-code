@@ -3,7 +3,7 @@ import {readByLine} from "../../shared/read.input.js";
 import {Queue} from "../../shared/struct/Queue.js";
 import {distanceBetween, equals, Location} from "../../shared/grid/Position.js";
 import {Direction} from "../../shared/grid/Direction.js";
-import {lastItem} from "../../shared/utils/collection.utils.js";
+import {last} from "../../shared/utils/collection.utils.js";
 import {Visited} from "../../shared/grid/Visited.js";
 
 export function part1(input: string, cheatSpan: number, saveAtLeast: number): number {
@@ -27,7 +27,7 @@ function getFastestRouteWithoutCheating(start: Location, end: Location, racetrac
 
     while (!queue.isEmpty()) {
         const currentPath = queue.dequeue();
-        const current = lastItem(currentPath);
+        const current = last(currentPath);
 
         if (equals(current, end)) {
             return currentPath;
