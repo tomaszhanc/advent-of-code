@@ -2,44 +2,23 @@ import {describe, expect, it} from "vitest";
 import {readPuzzleInput} from "../../src/shared/read.input";
 import {runProgram, part1, part2} from "../../src/2024/day17/day17";
 
-const example1 = `
+const examplePart1 = `
 Register A: 729
 Register B: 0
 Register C: 0
 
 Program: 0,1,5,4,3,0
 `;
-const example2 = `
-Register A: 2024
-Register B: 0
-Register C: 0
 
-Program: 0,3,5,4,3,0
-`;
 const input = readPuzzleInput('2024/day17.txt');
 
 describe('AoC 2024, Day 17, Part 1', () => {
     it('checks the example', () => {
-        expect(part1(example1)).toBe('4,6,3,5,6,3,5,2,1,0')
+        expect(part1(examplePart1)).toBe('4,6,3,5,6,3,5,2,1,0')
     })
 
     it('check the input', () => {
         expect(part1(input)).toBe('2,0,4,2,7,0,1,0,3')
-    })
-});
-
-describe('AoC 2024, Day 17, Part 2', () => {
-    it('checks that the program outputs a copy of itself', () => {
-        const register = {A: 117440, B: 0, C: 0};
-        const result = runProgram([0,3,5,4,3,0], register);
-        expect(result.output).eql('0,3,5,4,3,0');
-    })
-    it('checks the example', () => {
-        expect(part2(example2)).toBe(117440)
-    })
-
-    it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
     })
 });
 

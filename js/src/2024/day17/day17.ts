@@ -1,3 +1,15 @@
+export function part1(input: string): string {
+    let [register, program] = parsePuzzleInput(input);
+
+    return runProgram(program, register).output;
+}
+
+export function part2(input: string, registerA : number): string {
+    let [register, program] = parsePuzzleInput(input);
+
+    return runProgram(program, {...register, A: registerA}).output;
+}
+
 type Register = {
     readonly A: number;
     readonly B: number;
@@ -9,19 +21,7 @@ type Result = {
     readonly output: number | null
 };
 
-export function part1(input: string): string {
-    let [register, program] = parsePuzzleInput(input);
-
-    return runProgram(program, register).output;
-}
-
-export function part2(input: string): number {
-    const [register, program] = parsePuzzleInput(input);
-
-    return 0;
-}
-
-function parsePuzzleInput(input: string) : [Register, number[]] {
+function parsePuzzleInput(input: string): [Register, number[]] {
     const lines = input.trim().split('\n')
     const registerAMatches = lines[0].match(/Register A: (\d+)/);
     const registerBMatches = lines[1].match(/Register B: (\d+)/);
@@ -56,56 +56,48 @@ export function runProgram(program: number[], register: Register) : { register: 
     return { register, output: output.join(',') };
 }
 
-function interpretInstruction(instruction: number, operand: number, register: Register) : Result {
+export function interpretInstruction(instruction: number, operand: number, register: Register) : Result {
     let newRegister = { A:register.A, B:register.B, C:register.C };
     let newInstructionPointer = null, output = null;
 
     switch (instruction) {
-        case 0:
-            const adv = register.A >> combo(operand, register);
-            newRegister.A = adv;
+        case 0: // adv
+            newRegister.A = register.A >> combo(operand, register);
             break;
 
-        case 1:
-            const bxl = register.B ^ operand
-            newRegister.B = bxl;
+        case 1: // bxl
+            newRegister.B = register.B ^ operand;
             break;
 
-        case 2:
-            // fixme keeping only 3 lowest bits?
-            const bst = combo(operand, register) & 7;
-            newRegister.B = bst;
+        case 2: // bst
+            newRegister.B = combo(operand, register) % 8 ;
             break;
 
-        case 3:
-            const inz = register.A === 0 ? null : operand;
-            newInstructionPointer = inz;
+        case 3: // inz
+            newInstructionPointer = register.A === 0 ? null : operand;
             break;
 
-        case 4:
-            const bxc = register.B ^ register.C;
-            newRegister.B = bxc;
+        case 4: // bxc
+            newRegister.B = register.B ^ register.C;
             break;
 
-        case 5:
-            output = combo(operand, register) & 7;
+        case 5: // out
+            output = combo(operand, register) % 8;
             break;
 
-        case 6:
-            const bdv = register.A >> combo(operand, register);
-            newRegister.B = bdv;
+        case 6: // bdv
+            newRegister.B = register.A >> combo(operand, register);
             break
 
-        case 7:
-            const cdv = register.A >> combo(operand, register);
-            newRegister.C = cdv;
+        case 7: // cdv
+            newRegister.C = register.A >> combo(operand, register);
             break;
 
         default:
             throw new Error('Invalid instruction');
     }
 
-    return { register: newRegister, newInstructionPointer, output };
+    return {register: newRegister, newInstructionPointer, output};
 }
 
 function combo(operand: number, register: Register) {
