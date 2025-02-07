@@ -1,6 +1,6 @@
 import {readPuzzleInput} from "../../src/shared/read.input";
 import {describe, expect, it} from "vitest";
-import {part1, part2} from "../../src/2024/day12/day12";
+import {part1, part2} from "../../src/2024/day12/day12.js";
 
 const input1 = `
 AAAA
@@ -84,6 +84,6 @@ describe('AoC 2024, Day 12, Part 2', () => {
     })
 
     it('checks the input', () => {
-        expect(part2(input)).toBe(-1)
+        expect(part2(input)).toBe(844198)
     })
 });
