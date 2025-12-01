@@ -1,6 +1,16 @@
 import re
 
-from aoc import read_puzzle_input_lines
+def solve_part_1(input: str) -> int:
+    calibration_document = input.split('\n')
+
+    ret = sum(list(map(calibration_value_for_digits, calibration_document)))
+    return ret
+
+def solve_part_2(input: str) -> int:
+    calibration_document = input.split('\n')
+
+    ret = sum(list(map(calibration_value_for_digits_and_spelled_out_digits, calibration_document)))
+    return ret
 
 def calibration_value_for_digits(line: str) -> int:
     line = ''.join([c for c in line if c.isdigit()])
@@ -23,16 +33,8 @@ def calibration_value_for_digits_and_spelled_out_digits(line: str) -> int:
 
     return calibration_value_for_digits(line)
 
-def solve_part_1(calibration_document: list[str]) -> int:
-    ret = sum(list(map(calibration_value_for_digits, calibration_document)))
-    return ret
-
-def solve_part_2(calibration_document: list[str]) -> int:
-    ret = sum(list(map(calibration_value_for_digits_and_spelled_out_digits, calibration_document)))
-    return ret
-
 if __name__ == '__main__':
-    calibration_document = read_puzzle_input_lines(2023, 1)
+    input = ""
 
-    print('Part 1: ', solve_part_1(calibration_document))
-    print('Part 2: ', solve_part_2(calibration_document))
+    print('Part 1: ', solve_part_1(input))
+    print('Part 2: ', solve_part_2(input))
