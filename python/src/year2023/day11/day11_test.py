@@ -1,6 +1,5 @@
 import pytest
-from aoc import read_puzzle_input
-from year2023.day11 import *
+from year2023.day11.day11 import *
 
 @pytest.mark.parametrize("input, expected", [
     (
