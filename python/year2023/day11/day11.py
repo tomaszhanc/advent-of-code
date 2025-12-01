@@ -1,8 +1,7 @@
-import re
 from collections import deque
 from itertools import combinations
 
-from aoc import read_puzzle_input
+from python.aoc import read_puzzle_input
 
 GALAXY = '#'
 

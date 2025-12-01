@@ -1,5 +1,5 @@
 import pytest
-from year2023.day11.day11 import *
+from python.year2023.day11.day11 import *
 
 @pytest.mark.parametrize("input, expected", [
     (
