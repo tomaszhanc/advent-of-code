@@ -42,7 +42,7 @@ def apply_rotation(dial: int, rotation: str) -> int:
     return dial + clicks if direction == "R" else dial - clicks
 
 if __name__ == '__main__':
-    with open(Path(__file__).parent / f"day1.txt") as f: puzzle_input = f.read().strip().splitlines()
+    with open(Path(__file__).parent / f"puzzle_input.txt") as f: puzzle_input = f.read().strip().splitlines()
 
     print(f"Part 1: {solve_part_1(puzzle_input)}")
     print(f"Part 2: {solve_part_2(puzzle_input)}")
