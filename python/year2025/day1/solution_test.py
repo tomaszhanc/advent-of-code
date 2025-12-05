@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from python.year2025.day1.solution import solve_part_1, turn_the_dial, solve_part_2
+from year2025.day1.solution import solve_part_1, turn_the_dial, solve_part_2
 
 with open(Path(__file__).parent / f"puzzle_input.txt") as f: puzzle_input = f.read().strip().splitlines()
 example_input = ["L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"]

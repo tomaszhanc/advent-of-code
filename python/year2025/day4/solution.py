@@ -1,5 +1,5 @@
 from pathlib import Path
-from python.grid import Grid, create_grid, DIRECTIONS
+from grid import Grid, create_grid, DIRECTIONS
 
 ROLL_OF_PAPER = '@'
 EMPTY = '.'

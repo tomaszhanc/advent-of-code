@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from python.year2025.day3.solution import solve_part_1, solve_part_2
+from year2025.day3.solution import solve_part_1, solve_part_2
 
 with open(Path(__file__).parent / f"puzzle_input.txt") as f: puzzle_input = f.read().strip()
 example_input = """987654321111111

@@ -1,5 +1,5 @@
 import pytest
-from python.year2023.day1.day1 import *
+from year2023.day1.day1 import *
 
 @pytest.mark.parametrize("calibration_document,expected_calibration_value", [
     (
