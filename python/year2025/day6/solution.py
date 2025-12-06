@@ -26,7 +26,7 @@ def solve_part_2(puzzle_input: str) -> int:
     numbers_list = []
 
     for number in data:
-        if len(number) > 0:
+        if number:
             numbers_list.append(number)
         else:
             sum += calc(operations.pop(), numbers_list)
